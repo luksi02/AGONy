@@ -13,7 +13,7 @@ class HeroCreateForm(forms.ModelForm):
 
     class Meta:
         model = Hero
-        fields = ['name'] #,'race']
+        fields = ['name']
 
 
 class MonsterCreateForm(forms.ModelForm):
