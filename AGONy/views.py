@@ -118,8 +118,32 @@ class CreateGameForHero(View):
         url = reverse('AGONy_stage_detail', args=(stage.id,))
         return redirect(url)
 
-
-
+class CreateDefaultsInAgony(View):
+    
+    def get(self, request):
+        Hero.objects.create(name='Percy McPerson', race=0)
+        Hero.objects.create(name='Woody Oakson', race=1)
+        Hero.objects.create(name='Shorty MacBeard', race=2)                    
+        Monster.objects.create(name='Goblin', hp=20, attack=2, defence=1, monster_level=0, monster_type=0)
+        Monster.objects.create(name='Orc', hp=40, attack=4, defence=4, monster_level=1, monster_type=0)
+        Monster.objects.create(name='Goblin Wolf Rider', hp=50, attack=7, defence=4, monster_level=2, monster_type=0)
+        Monster.objects.create(name='Troll', hp=80, attack=8, defence=2, monster_level=3, monster_type=0)
+        Monster.objects.create(name='Giant', hp=200, attack=15, defence=5, monster_level=4, monster_type=0)
+        Monster.objects.create(name='Wolf', hp=25, attack=3, defence=0, monster_level=0, monster_type=1)
+        Monster.objects.create(name='Giant Venomous Spider', hp=50, attack=5, defence=2, monster_level=1, monster_type=1)
+        Monster.objects.create(name='Angry Bear', hp=80, attack=7, defence=7, monster_level=2, monster_type=1)
+        Monster.objects.create(name='Fancy Unicorn', hp=100, attack=6, defence=6, monster_level=3, monster_type=1)
+        Monster.objects.create(name='Dragon', hp=150, attack=10, defence=10, monster_level=4, monster_type=1)
+        Monster.objects.create(name='Zombie', hp=40, attack=2, defence=0, monster_level=0, monster_type=2)
+        Monster.objects.create(name='Skeleton', hp=55, attack=3, defence=3, monster_level=1, monster_type=2)
+        Monster.objects.create(name='Skeleton Archer', hp=60, attack=6, defence=6, monster_level=2, monster_type=2)
+        Monster.objects.create(name='Lich', hp=80, attack=15, defence=3, monster_level=3, monster_type=2)
+        Monster.objects.create(name='Vampire', hp=125, attack=6, defence=15, monster_level=4, monster_type=2)
+        
+        
+        
+        
+        
 class UpdatePeopleInAgony():
     """Go on, put them in more AGONy! Do it, they're made up, who cares what happen to them?
 
