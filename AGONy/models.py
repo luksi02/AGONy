@@ -90,6 +90,18 @@ class Event(models.Model):
     name = models.CharField(max_length=50)
     type = models.IntegerField(choices=EVENT_TYPE, default=0)
 
+    
+class Origin(models.Model):
+    
+    ORIGIN_TYPE = [
+        (0, 'General')
+        (1, 'Racial')
+        (2, 'TragicOrgin')
+        ]
+    
+    origin_type = models.IntegerField(choices=ORIGIN_TYPE, default=0)
+    origin_description = models.TextField(blank=True)
+
 
 class Journal(models.Model):
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
