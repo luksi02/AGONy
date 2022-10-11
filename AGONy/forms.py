@@ -5,10 +5,6 @@ from django.core.exceptions import ValidationError
 from rpg.models import Monster, Hero
 
 
-"""class HeroCreateForm(forms.Form):
-    name = forms.CharField(max_length=50)"""
-
-
 class HeroCreateForm(forms.ModelForm):
 
     class Meta:
@@ -24,12 +20,12 @@ class MonsterCreateForm(forms.ModelForm):
 
 def validate_password(value):
     if len(value) < 8:
-        raise ValidationError('Hasło jest za krótkie')
+        raise ValidationError('Password is too short')
 
 
 def check_if_has_number(value):
     if not any(x for x in value if x.isdigit()):
-        raise ValidationError('Hasło musi mieć numer')
+        raise ValidationError('Password need to include a digit')
 
 
 class CreateUserForm(forms.ModelForm):
@@ -49,11 +45,10 @@ class CreateUserForm(forms.ModelForm):
         }
 
     def clean(self):
-        data = super().clean()  # data to bedzie słownik ze wszystkimi polami z formularza
-        # które PRZESZŁY walidacje
+        data = super().clean()
         pass1 = data.get('password1')
         if pass1 is not None and pass1 != data.get('password2'):
-            raise ValidationError('Hasła nie są identyczne')
+            raise ValidationError('Passwords are not the same!')
         return data
 
 
@@ -61,3 +56,4 @@ class LoginForm(forms.Form):
     username = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'username', 'class': 'form-control'}))
     password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'password', 'class': 'form-control'}),
                                required=False)
+

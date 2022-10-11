@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <table class="table">
+        <tr>
+            <th>#</th>
+            <th>name</th>
+            <th>hp</th>
+            <th>attack</th>
+            <th>defence</th>
+            <th></th>
+        </tr>
+        {% for hero in heroes %}
+            <tr class="{% cycle 'table-light' 'table-secondary'%}">
+
+                <td>{{ forloop.counter }}</td>
+                <td>{{ hero.name }}</td>
+                <td>{{ hero.hp }}</td>
+                <td>{{ hero.attack }}</td>
+                <td>{{ hero.defence }}</td>
+                <td><a class="btn btn-info" href="{% url 'create_game_for_hero' hero.id %}">Nowa Gra</a></td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

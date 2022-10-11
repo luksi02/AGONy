@@ -1,0 +1,28 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>AGONy</title>
+    <link href="{% static 'bootstrap-5.2.2-dist/css/bootstrap.css' %}" rel="stylesheet">
+    <link href="{% static 'my_nav_bar.css' %}" rel="stylesheet">
+</head>
+<body id="bg" style="background-image: url('{% static "leslie-nielsen-nothing-to-see-here.gif"  %}'); background-position: center center; background-repeat: no-repeat; background-size: 1200px 1200px">
+
+<div class="topnav">
+    <a class="bg-primary" href="{% url 'AGONy_index' %}"> Landing page </a>
+</div>
+<div class="container">
+    {% block content %}
+        <h1>WORK IN PROGRESS, NOTHING TO SEE HERE</h1>
+
+
+    {% endblock %}
+
+</div>
+<script src="{% static 'bootstrap-5.2.2-dist/js/bootstrap.js' %}"></script>
+</body>
+</html>

@@ -38,6 +38,7 @@ class Hero(models.Model):
     defence = models.IntegerField(default=5)
     backstory = models.TextField(blank=True, default='')
     gold = models.IntegerField(default=0)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     #weapon = models.ForeignKey(Weapon, on_delete=models.CASCADE, null=True)
     #armor = models.ForeignKey(Armor, on_delete=models.CASCADE, null=True)
     #owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
@@ -90,14 +91,16 @@ class Event(models.Model):
     name = models.CharField(max_length=50)
     type = models.IntegerField(choices=EVENT_TYPE, default=0)
 
+
+
     
 class Origin(models.Model):
-    
+
     ORIGIN_TYPE = [
-        (0, 'General')
-        (1, 'Racial')
-        (2, 'TragicOrgin')
-        ]
+        (0, 'General'),
+        (1, 'TragicOrigin'),
+        (2, 'Racial')
+    ]
     
     origin_type = models.IntegerField(choices=ORIGIN_TYPE, default=0)
     origin_description = models.TextField(blank=True)

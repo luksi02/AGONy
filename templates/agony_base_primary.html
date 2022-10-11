@@ -1,0 +1,44 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>AGONy</title>
+    <link href="{% static 'bootstrap-5.2.2-dist/css/bootstrap.css' %}" rel="stylesheet">
+    <link href="{% static 'my_nav_bar.css' %}" rel="stylesheet">
+</head>
+<body>
+
+<div class="topnav">
+    <a class="bg-primary" href="{% url 'AGONy_create_user' %}"> New user</a>
+
+
+    <a class="bg-primary" href="{% url 'AGONy_hero_list' %}">Heroes in AGONy</a>
+
+    <a class="bg-secondary" href="{% url 'AGONy_create_monster' %}">Create Monster</a>
+    <a class="bg-secondary" href="{% url 'AGONy_monster_list' %}">Monsters in AGONy</a>
+
+
+        <a class="bg-primary" href="{% url 'AGONy_create_hero' %}"> Create Hero</a>
+        <a class="bg-primary" href="{% url 'AGONy_create_game' %}">New Journey</a>
+        <a class="bg-primary" href="{% url 'AGONy_my_hero_list' %}">My Heroes</a>
+        <a class="bg-gradient" href="{% url 'AGONy_logout' %}">Logout</a>
+
+        <a class="bg-gradient" href="{% url 'AGONy_login' %}">Login</a>
+
+
+
+</div>
+<div class="container">
+    {% block content %}
+        <h1>AGONy</h1>
+        <h2>(Absurd Generator Of Nonsense Journey)</h2>
+    {% endblock %}
+
+</div>
+<script src="{% static 'bootstrap-5.2.2-dist/js/bootstrap.js' %}"></script>
+</body>
+</html>

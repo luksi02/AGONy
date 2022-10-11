@@ -1,3 +1,5 @@
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect, get_object_or_404, reverse
 from django.urls import reverse_lazy
 from django.views import View
@@ -10,7 +12,7 @@ from django.shortcuts import render
 from django.views.generic import CreateView, ListView, UpdateView
 
 from AGONy.models import Hero, Monster, Stage # Game
-from AGONy.forms import HeroCreateForm, MonsterCreateForm
+from AGONy.forms import HeroCreateForm, MonsterCreateForm, CreateUserForm, LoginForm
 from rpg.models import Game
 
 
@@ -58,7 +60,14 @@ class HeroesInAgonyList(ListView):
     model = Hero
     template_name = 'agony_hero_list.html'
 
-class UpdateHeroInAgony(UpdateView):
+
+class MyHeroesInAgonyList(LoginRequiredMixin, ListView):
+
+    model = Hero
+    template_name = 'agony_hero_list.html'
+
+
+class UpdateHeroInAgony(LoginRequiredMixin, UpdateView):
 
     model = Hero
     form_class = HeroCreateForm
@@ -88,7 +97,7 @@ class UpdateHeroInAgony(UpdateView):
         """
 
 
-class CreateMonsterInAgony(CreateView):
+class CreateMonsterInAgony(LoginRequiredMixin, CreateView):
 
     model = Monster
     fields = "__all__"
@@ -100,7 +109,7 @@ class MonstersInAgonyList(ListView):
     model = Monster
     template_name = 'agony_monster_list.html'
 
-class UpdateMonsterInAgony(UpdateView):
+class UpdateMonsterInAgony(LoginRequiredMixin, UpdateView):
 
     model = Monster
     form_class = MonsterCreateForm
@@ -108,41 +117,104 @@ class UpdateMonsterInAgony(UpdateView):
     success_url = reverse_lazy('AGONy_monster_list')
 
 
-class CreateGameForHero(View):
-
-    def get(self, request, id_hero):
-        hero = Hero.objects.get(pk=id_hero)  # pobranie bochatera o id id_hero
-        #game = Game.objects.create(hero=hero, level=1)
-        stage = Stage.objects.create(level=2) #tu wywalilem game=game
-        #stage = Stage.objects.create(game=game, next_stage=stage)
-        url = reverse('AGONy_stage_detail', args=(stage.id,))
-        return redirect(url)
-
 class CreateDefaultsInAgony(View):
     
     def get(self, request):
+
+        # A view to create some defaults in game!
         Hero.objects.create(name='Percy McPerson', race=0)
         Hero.objects.create(name='Woody Oakson', race=1)
-        Hero.objects.create(name='Shorty MacBeard', race=2)                    
+        Hero.objects.create(name='Shorty MacBeard', race=2)
+
+        # human-like monsters
         Monster.objects.create(name='Goblin', hp=20, attack=2, defence=1, monster_level=0, monster_type=0)
         Monster.objects.create(name='Orc', hp=40, attack=4, defence=4, monster_level=1, monster_type=0)
         Monster.objects.create(name='Goblin Wolf Rider', hp=50, attack=7, defence=4, monster_level=2, monster_type=0)
         Monster.objects.create(name='Troll', hp=80, attack=8, defence=2, monster_level=3, monster_type=0)
         Monster.objects.create(name='Giant', hp=200, attack=15, defence=5, monster_level=4, monster_type=0)
+
+        # wild-wild-life monsters
         Monster.objects.create(name='Wolf', hp=25, attack=3, defence=0, monster_level=0, monster_type=1)
         Monster.objects.create(name='Giant Venomous Spider', hp=50, attack=5, defence=2, monster_level=1, monster_type=1)
         Monster.objects.create(name='Angry Bear', hp=80, attack=7, defence=7, monster_level=2, monster_type=1)
         Monster.objects.create(name='Fancy Unicorn', hp=100, attack=6, defence=6, monster_level=3, monster_type=1)
         Monster.objects.create(name='Dragon', hp=150, attack=10, defence=10, monster_level=4, monster_type=1)
+
+        # undead monsters
         Monster.objects.create(name='Zombie', hp=40, attack=2, defence=0, monster_level=0, monster_type=2)
         Monster.objects.create(name='Skeleton', hp=55, attack=3, defence=3, monster_level=1, monster_type=2)
         Monster.objects.create(name='Skeleton Archer', hp=60, attack=6, defence=6, monster_level=2, monster_type=2)
         Monster.objects.create(name='Lich', hp=80, attack=15, defence=3, monster_level=3, monster_type=2)
         Monster.objects.create(name='Vampire', hp=125, attack=6, defence=15, monster_level=4, monster_type=2)
-        
-        
-        
-        
+
+        """
+        General?
+        1. Tired of mundane life, felt call for adventure
+        2. Want to get rich fast, or die trying
+        3. Got lured to adventure by songs of riches and glory
+        4. Broke the law, it's desperate try to clear name
+        """
+
+        return redirect('AGONy_index')
+
+
+class CreateUserView(View):
+
+    def get(self, request):
+        form = CreateUserForm()
+        return render(request, 'agony_form.html', {'form': form})
+
+    def post(self, request):
+        form = CreateUserForm(request.POST)
+
+        if form.is_valid():
+            user = form.save(
+                commit=False)
+
+            password = form.cleaned_data['password1']
+            user.set_password(password)
+            user.save()
+            return redirect('AGONy_index')
+        return render(request, 'agony_form.html', {'form': form})
+
+
+class LoginView(View):
+
+    def get(self, request):
+        form = LoginForm()
+        return render(request, 'agony_form.html', {'form': form})
+
+    def post(self, request):
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            us = form.cleaned_data['username']
+            pd = form.cleaned_data['password']
+            user = authenticate(username=us, password=pd)
+            if user is None:
+                return render(request, 'agony_form.html', {'form': form, 'message': "Invalid data!"})
+            else:
+                login(request, user)
+                url = request.GET.get('next', 'AGONy_index')
+                return redirect(url)
+        return render(request, 'agony_form.html', {'form': form, 'message': "Invalid data!"})
+
+
+class LogoutView(View):
+
+    def get(self, request):
+        logout(request)
+        return redirect('AGONy_index')
+
+
+class CreateGameForHero(View): #WIP
+
+    def get(self, request, id_hero):
+        hero = Hero.objects.get(id=id_hero)  # pobranie bochatera o id id_hero
+        #game = Game.objects.create(hero=hero, level=1)
+        stage = Stage.objects.create(level=2) #tu wywalilem game=game
+        #stage = Stage.objects.create(game=game, next_stage=stage)
+        url = reverse('AGONy_stage_detail', args=(stage.id,))
+        return redirect(url)
         
 class UpdatePeopleInAgony():
     """Go on, put them in more AGONy! Do it, they're made up, who cares what happen to them?
@@ -165,14 +237,5 @@ class EndAGONy():
 class CreateTragicOrigin():
     """why not, tell us what happend in your hero past so he felt call for adventure!"""
 
-    """
-    General?
-    1. Tired of mundane life, felt call for adventure
-    2. Want to get rich fast, or die trying
-    3. Got lured to adventure by songs of riches and glory
-    4. Broke the law, it's desperate try to clear name
-    
-    
-    """
 
 

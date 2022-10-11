@@ -1,0 +1,31 @@
+{% extends 'agony_base.html' %}
+{% block content %}
+
+    <table class="table">
+        <tr>
+            <th>#</th>
+            <th>name</th>
+            <th>hp</th>
+            <th>attack</th>
+            <th>defence</th>
+            <th>monster level</th>
+            <th>monster type</th>
+            <th>carried gold</th>
+            <th></th>
+        </tr>
+        {% for monster in object_list %}
+            <tr class="{% cycle 'table-light' 'table-secondary'%}">
+
+                <td>{{ forloop.counter }}</td>
+                <td><a href="{% url 'AGONy_update_monster' monster.id %}">{{ monster.name }}</a></td>
+                <td>{{ monster.hp }}</td>
+                <td>{{ monster.attack }}</td>
+                <td>{{ monster.defence }}</td>
+                <td>{{ monster.monster_level }}</td>
+                <td>{{ monster.monster_type }}</td>
+                <td>{{ monster.monsters_gold }}</td>
+
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
