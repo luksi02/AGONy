@@ -86,14 +86,14 @@ class Event(models.Model):
     EVENT_TYPE = [
         (0, 'Monster Encounter'),
         (1, 'Loot Encounter'),
-        (2, 'Trap Encounter')
+        (2, 'Trap Encounter'),
+        (3, 'Empty Encounter') #beautiful views and so on.
     ]
+    
     name = models.CharField(max_length=50)
     type = models.IntegerField(choices=EVENT_TYPE, default=0)
-
-
-
     
+
 class Origin(models.Model):
 
     ORIGIN_TYPE = [
