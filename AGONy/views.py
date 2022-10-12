@@ -58,6 +58,27 @@ class CreateHeroInAgony(CreateView):
     fields = ['name', 'race']
     template_name = 'agony_form.html'
     success_url = reverse_lazy('AGONy_hero_list')
+    
+    """
+    def get(self, request):
+        form = HeroCreateForm()
+        return render(request, 'agony_form.html', {'form': form})
+
+    def post(self, request):
+        
+        form = HeroCreateForm(request.POST)
+
+        if form.is_valid():
+            name = form.cleaned_data['name']
+            Hero.objects.create(name=name) #, owner=request.user)
+            return redirect('AGONy_index')
+        return render(request, 'agony_form.html', {'form': form})
+
+        if form.is_valid():
+            form.save()
+            return redirect('AGONy_index')
+        return render(request, 'agony_form.html', {'form': form})
+        """
 
 class HeroesInAgonyList(ListView):
     
@@ -92,28 +113,19 @@ class UpdateHeroInAgony(LoginRequiredMixin, UpdateView):
     form_class = HeroCreateForm
     template_name = 'agony_form.html'
     success_url = reverse_lazy('AGONy_hero_list')
-
+    
+    
+class EndHeroAgony():
     """
-    def get(self, request):
-        form = HeroCreateForm()
-        return render(request, 'agony_form.html', {'form': form})
-
-    def post(self, request):
-        
-        form = HeroCreateForm(request.POST)
-
-        if form.is_valid():
-            name = form.cleaned_data['name']
-            Hero.objects.create(name=name) #, owner=request.user)
-            return redirect('AGONy_index')
-        return render(request, 'agony_form.html', {'form': form})
-
-        if form.is_valid():
-            form.save()
-            return redirect('AGONy_index')
-        return render(request, 'agony_form.html', {'form': form})
-        """
-
+    hmm, I think I won't let player to delete heroes, only kill them. Their journey must be
+    kept for future generations! And for my fun, of course. But mostly, future generations"""
+    
+    message = """
+    So, you decided to take easy way out of adventure for your Hero..., that's one way to do that. Not best, but who am I to judge?
+    """
+    
+    def get(self):
+        pass
 
 class CreateMonsterInAgony(LoginRequiredMixin, CreateView):
     
@@ -149,6 +161,65 @@ class UpdateMonsterInAgony(LoginRequiredMixin, UpdateView):
     template_name = 'agony_form.html'
     success_url = reverse_lazy('AGONy_monster_list')
 
+    
+class CreateOriginOfAgony():
+        
+    message = """
+    Why not, tell us what happend in your hero past so he felt call for adventure!
+    """    
+
+    model = Origin
+    fields = "__all__"
+    template_name = 'agony_form.html'
+    success_url = reverse_lazy('AGONy_index')
+
+class OriginsOfAgonyList(ListView):
+    
+    message = """
+    """    
+
+    model = Origin
+    template_name = 'agony_monster_list.html'
+
+class UpdateOriginOfAgony(LoginRequiredMixin, UpdateView):
+
+    message = """
+    """    
+    
+    model = Origin
+    form_class = OriginCreateForm
+    template_name = 'agony_form.html'
+    success_url = reverse_lazy('AGONy_monster_list')
+    
+    
+class CreateEventInAgony():
+        
+    message = """
+    """    
+
+    model = Event
+    fields = "__all__"
+    template_name = 'agony_form.html'
+    success_url = reverse_lazy('AGONy_index')
+
+class EventsInAgonyList(ListView):
+    
+    message = """
+    """    
+
+    model = Origin
+    template_name = 'agony_monster_list.html'
+
+class UpdateEventInAgony(LoginRequiredMixin, UpdateView):
+
+    message = """
+    """    
+    
+    model = Event
+    form_class = EventCreateForm
+    template_name = 'agony_form.html'
+    success_url = reverse_lazy('AGONy_monster_list')
+    
 
 class CreateDefaultsInAgony(View):
 
@@ -191,23 +262,20 @@ class CreateDefaultsInAgony(View):
         Origin.objects.create(origin_type=0, origin_description="Broke the law, it's desperate try to clear name")
         
         # origins - tragic
-        Origin.objects.create(origin_type=0, origin_description="Tired of mundane life, felt call for adventure")
-        Origin.objects.create(origin_type=0, origin_description="Tired of mundane life, felt call for adventure")
-        Origin.objects.create(origin_type=0, origin_description="Tired of mundane life, felt call for adventure")
+        Origin.objects.create(origin_type=0, origin_description="Got his family murdered, now on a quest to avenge them!")
+        Origin.objects.create(origin_type=0, origin_description="Murdered a lot of people, now running away from law enforcement!")
+        Origin.objects.create(origin_type=0, origin_description="Got set up in criminal activity, it's a way to repent")
         
         # default user creation
         User.objects.create(username='abc', password1='12345678', password2='12345678')
         User.objects.create(username='xyz', password1='12345678', password2='12345678')
         
-        
-        """
-        General?
-        1. Tired of mundane life, felt call for adventure
-        2. Want to get rich fast, or die trying
-        3. Got lured to adventure by songs of riches and glory
-        4. Broke the law, it's desperate try to clear name
-        """
-
+        # event
+        Event.objects.create(type=0, name="Your Hero encountered Monster, now stand and fight it!")
+        Event.objects.create(type=1, name="Ooh, shiney! You found something!")
+        Event.objects.create(type=2, name="Crap, it's a trap!")
+        Event.objects.create(type=3, name="Wonderful views, aren't they? So beautiful landscape!")
+       
         return redirect('AGONy_index')
 
 
@@ -298,18 +366,3 @@ class StageDetailView(LoginRequiredMixin, View):
             stage.save()
             
         return render(request, 'stage_detail.html', {'stage': stage})
-
-class EndAGONy():
-    """So, you decided to take easy way out of adventure...
-
-    hmm, I think I won't let player to delete heroes, only kill them. Their journey must be
-    kept for future generations! And for my fun, of course. But mostly, future generations"""
-
-    def get(self):
-        pass
-
-class CreateTragicOrigin():
-    """why not, tell us what happend in your hero past so he felt call for adventure!"""
-
-
-
