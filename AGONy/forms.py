@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 
+from AGONy.models import Event, Origin
 from rpg.models import Monster, Hero
 
 
@@ -15,6 +16,18 @@ class HeroCreateForm(forms.ModelForm):
 class MonsterCreateForm(forms.ModelForm):
     class Meta:
         model = Monster
+        fields = '__all__'
+
+
+class EventCreateForm(forms.ModelForm):
+    class Meta:
+        model = Event
+        fields = '__all__'
+
+
+class OriginCreateForm(forms.ModelForm):
+    class Meta:
+        model = Origin
         fields = '__all__'
 
 
