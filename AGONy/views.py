@@ -183,7 +183,23 @@ class CreateDefaultsInAgony(View):
         Monster.objects.create(name='Skeleton Archer', hp=60, attack=6, defence=6, monster_level=2, monster_type=2)
         Monster.objects.create(name='Lich', hp=80, attack=15, defence=3, monster_level=3, monster_type=2)
         Monster.objects.create(name='Vampire', hp=125, attack=6, defence=15, monster_level=4, monster_type=2)
-
+        
+        # origins - general 
+        Origin.objects.create(origin_type=0, origin_description="Tired of mundane life, felt call for adventure")
+        Origin.objects.create(origin_type=0, origin_description="Want to get rich fast, or die trying")
+        Origin.objects.create(origin_type=0, origin_description="Got lured to adventure by songs of riches and glory")
+        Origin.objects.create(origin_type=0, origin_description="Broke the law, it's desperate try to clear name")
+        
+        # origins - tragic
+        Origin.objects.create(origin_type=0, origin_description="Tired of mundane life, felt call for adventure")
+        Origin.objects.create(origin_type=0, origin_description="Tired of mundane life, felt call for adventure")
+        Origin.objects.create(origin_type=0, origin_description="Tired of mundane life, felt call for adventure")
+        
+        # default user creation
+        User.objects.create(username='abc', password1='12345678', password2='12345678')
+        User.objects.create(username='xyz', password1='12345678', password2='12345678')
+        
+        
         """
         General?
         1. Tired of mundane life, felt call for adventure
