@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block content %}
+    <p>poziom: {{ stage.level }}</p>
+    <table class="table">
+        <tr>
+            <th>hp</th>
+            <th>attack</th>
+            <th>def</th>
+        </tr>
+        <tr>
+            <td> {{ stage.game.hero.hp }}</td>
+            <td>{{ stage.game.hero.attack }}</td>
+            <td>{{ stage.game.hero.defence }}</td>
+        </tr>
+    </table>
+
+    <hr>
+    <a href="{% url 'fight' stage.id %}" class="btn btn-danger">Walcz</a>
+    <table class="table">
+        <tr>
+            <th>name</th>
+            <th>hp</th>
+            <th>attack</th>
+            <th>def</th>
+        </tr>
+
+        {% for aliveMonster in stage.monsters.all %}
+
+
+            <tr>
+                <td> {{ aliveMonster.name }}</td>
+                <td> {{ aliveMonster.current_hp }}</td>
+                <td>{{ aliveMonster.attack }}</td>
+                <td>{{ aliveMonster.defence }}</td>
+                {% if aliveMonster.current_hp > 0 %}
+                    <td><a class='btn btn-danger' href="{% url 'AGONy_index' aliveMonster.id stage.game.hero.id %}">Atakuj</a>
+                    </td>
+                {% endif %}
+            </tr>
+
+        {% endfor %}
+    </table>
+
+    <p>
+        {% if stage.prev.count == 1 %}
+            <a href="{% url 'stage_detail' stage.prev.first.id %}" class="btn bg-primary">poprzednia</a>
+        {% endif %}
+        <a href="{% url 'stage_detail' stage.next_stage.id %}" class="btn bg-primary">następna</a>
+    </p>
+
+
+
+{% endblock %}

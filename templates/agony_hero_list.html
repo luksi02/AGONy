@@ -22,7 +22,7 @@
                 <td>{{ hero.attack }}</td>
                 <td>{{ hero.defence }}</td>
                 <td>{{ hero.gold }}</td>
-                <td><a class="btn btn-info" href="{% url 'AGONy_stage_detail' hero.id %}">New Game</a></td>
+                <td><a class="btn btn-info" href="{% url 'AGONy_create_game_for_hero' hero.id %}">New Game</a></td>
 
             </tr>
         {% endfor %}
