@@ -272,15 +272,32 @@ class LogoutView(View):
         return redirect('AGONy_index')
 
 
-class CreateGameForHero(View): #WIP
+class CreateGameForHero(LoginRequiredMixin, View): #WIP
 
     def get(self, request, id_hero):
-        hero = Hero.objects.get(id=id_hero)  # pobranie bochatera o id id_hero
-        #game = Game.objects.create(hero=hero, level=1)
-        stage = Stage.objects.create(level=2) #tu wywalilem game=game
+        
+        hero = Hero.objects.get(id=id_hero)  
+        stage = Stage.objects.create(level=1) 
         #stage = Stage.objects.create(game=game, next_stage=stage)
         url = reverse('AGONy_stage_detail', args=(stage.id,))
+        
         return redirect(url)
+    
+
+class StageDetailView(LoginRequiredMixin, View):
+
+    def get(self, request, pk):
+        stage = Stage.objects.get(pk=pk)
+        
+        if stage.next_stage is None:
+            stage.next_stage = Stage.objects.create(level=stage.level + 1)
+            
+        if not stage.visited:
+            stage.generate_monster()
+            stage.visited = True
+            stage.save()
+            
+        return render(request, 'stage_detail.html', {'stage': stage})
 
 class EndAGONy():
     """So, you decided to take easy way out of adventure...
