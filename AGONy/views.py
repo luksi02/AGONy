@@ -3,7 +3,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect, get_object_or_404, reverse
 from django.urls import reverse_lazy
 from django.views import View
-# from .models import Recipe, Plan, RecipePlan, Page
 from random import shuffle
 from django.core.paginator import Paginator
 from django.http import HttpResponse
@@ -45,10 +44,15 @@ class AGONyWorkInProgress(View):
         return render(request, 'agony_work_in_progress.html')
 
 class CreateHeroInAgony(CreateView):
-    """create Hero, so he/she can bravely march into oblivion! Yyy, glory and power, of course.
-
+    """
     Backstory created by AI based on few (checkbox?) (or many CausesForAGONy
-    (database with tragic/racial/classical/other orgins)"""
+    (database with tragic/racial/classical/other orgins)
+    """
+    
+    message = """
+    Create Hero, so he/she can bravely march into oblivion! Yyy, glory and power, of course.
+    Anyway, this Hero is going to be yours eyes and ears, so be serious about your creation!
+    """
 
     model = Hero
     fields = ['name', 'race']
@@ -56,24 +60,38 @@ class CreateHeroInAgony(CreateView):
     success_url = reverse_lazy('AGONy_hero_list')
 
 class HeroesInAgonyList(ListView):
+    
+    message = """
+    List of bold, ambitious Heroes awaiting for your command to march into oblivion! Yyy. yes, yes, glory and power, yes.
+    """
 
     model = Hero
     template_name = 'agony_hero_list.html'
 
 
 class MyHeroesInAgonyList(LoginRequiredMixin, ListView):
-
+    
+    message = """
+    List of bold, ambitious Heroes awaiting for your command to march into oblivion! Yyy. yes, yes, glory and power, yes.
+    """
+    
     model = Hero
     template_name = 'agony_hero_list.html'
 
 
 class UpdateHeroInAgony(LoginRequiredMixin, UpdateView):
-
+    """
+    For now, I think only option to modify will be wielding/changing equipped another armor/weapon
+    """
+    
+    message = """
+    Go on, put your Hero in more AGONy! Do it today, don't wait for tomorrow!. They're made up, who cares what happen to them?
+    """
+    
     model = Hero
     form_class = HeroCreateForm
     template_name = 'agony_form.html'
     success_url = reverse_lazy('AGONy_hero_list')
-
 
     """
     def get(self, request):
@@ -98,6 +116,12 @@ class UpdateHeroInAgony(LoginRequiredMixin, UpdateView):
 
 
 class CreateMonsterInAgony(LoginRequiredMixin, CreateView):
+    
+    message = """
+    Create Hero, so he/she can bravely march into oblivion! Yyy, create a monster for your Hero
+    to fight with, so your Hero can find his glory and power!
+    Anyway, just create that monster!
+    """    
 
     model = Monster
     fields = "__all__"
@@ -105,12 +129,21 @@ class CreateMonsterInAgony(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy('AGONy_index')
 
 class MonstersInAgonyList(ListView):
+    
+    message = """
+    Let's see what wonderful creatures await us! Wait, why did it bite my leg off? 
+    Is this blood? Get a cleric, quick!
+    """    
 
     model = Monster
     template_name = 'agony_monster_list.html'
 
 class UpdateMonsterInAgony(LoginRequiredMixin, UpdateView):
 
+    message = """
+    Let's add a horn, or two, maybe chainsaw or some tentacles to this monster!
+    """    
+    
     model = Monster
     form_class = MonsterCreateForm
     template_name = 'agony_form.html'
@@ -118,6 +151,10 @@ class UpdateMonsterInAgony(LoginRequiredMixin, UpdateView):
 
 
 class CreateDefaultsInAgony(View):
+
+    message = """
+    Let's just create some defaults for you to play already, who wants to go through boring creating the world?
+    """    
     
     def get(self, request):
 
@@ -159,6 +196,10 @@ class CreateDefaultsInAgony(View):
 
 
 class CreateUserView(View):
+    
+    message = """
+    Create User - then you can play, maybe even leave a comment what to improve in my game? Be sure to subscribe!
+    """    
 
     def get(self, request):
         form = CreateUserForm()
@@ -179,6 +220,10 @@ class CreateUserView(View):
 
 
 class LoginView(View):
+    
+    message = """
+    Login your user, play & comment. Have a nice day! 
+    """    
 
     def get(self, request):
         form = LoginForm()
@@ -200,6 +245,11 @@ class LoginView(View):
 
 
 class LogoutView(View):
+    
+    message = """
+    See you later, alligator!
+    (prompt: you should answer: after while crocodile!)
+    """    
 
     def get(self, request):
         logout(request)
@@ -215,15 +265,6 @@ class CreateGameForHero(View): #WIP
         #stage = Stage.objects.create(game=game, next_stage=stage)
         url = reverse('AGONy_stage_detail', args=(stage.id,))
         return redirect(url)
-        
-class UpdatePeopleInAgony():
-    """Go on, put them in more AGONy! Do it, they're made up, who cares what happen to them?
-
-    For now, I think only option to modify will be wielding/changing equipped another armor/weapon
-    """
-
-    def get(self):
-        pass
 
 class EndAGONy():
     """So, you decided to take easy way out of adventure...
