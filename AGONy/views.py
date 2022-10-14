@@ -11,9 +11,9 @@ import openai, os
 from django.shortcuts import render
 from django.views.generic import CreateView, ListView, UpdateView
 
-from AGONy.models import Hero, Monster, Stage, Event, Origin  # Game
+from AGONy.models import Hero, Monster, Stage, Event, Origin, Game
 from AGONy.forms import HeroCreateForm, MonsterCreateForm, CreateUserForm, LoginForm, OriginCreateForm, EventCreateForm
-from rpg.models import Game
+
 
 
 # Create your views here.
@@ -264,8 +264,8 @@ class CreateDefaultsInAgony(View):
         Origin.objects.create(origin_type=0, origin_description="Got set up in criminal activity, it's a way to repent")
 
         # default user creation
-        User.objects.create(username='abc', password1='12345678', password2='12345678')
-        User.objects.create(username='xyz', password1='12345678', password2='12345678')
+        #User.objects.create(username='abc', password1='12345678', password2='12345678')
+        #User.objects.create(username='xyz', password1='12345678', password2='12345678')
 
         # event
         Event.objects.create(type=0, name="Your Hero encountered Monster, now stand and fight it!")
@@ -338,8 +338,9 @@ class CreateGameForHero(LoginRequiredMixin, View):  # WIP
 
     def get(self, request, id_hero):
         hero = Hero.objects.get(pk=id_hero)
-        stage = Stage.objects.create(level=1)
-        stage = Stage.objects.create(next_stage=stage)
+        #game = Game.objects.create(hero=hero)
+        stage = Stage.objects.create(level=1) #game=game,
+        #stage = Stage.objects.create(next_stage=stage)
         #url = reverse('AGONy_stage_detail', args=(stage.id,))
         url = reverse('AGONy_index')
 

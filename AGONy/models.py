@@ -135,13 +135,18 @@ class AliveMonster(models.Model):
         return self.monster_class.name
 
 
-class Stage(models.Model):
+class Game(models.Model):
     hero = models.ForeignKey(Hero, on_delete=models.CASCADE)
-    #hero = models.ForeignKey(Hero, on_delete=models.SET_NULL, default=0)
+
+
+class Stage(models.Model):
+    #game = models.ForeignKey(Hero, on_delete=models.CASCADE)
+
+    hero = models.ForeignKey(Hero, on_delete=models.CASCADE)
     level = models.IntegerField(default=1)
     monsters = models.ManyToManyField(AliveMonster, through='AliveMonsterInStage')
     visited = models.BooleanField(default=False)
-    next_stage = models.ForeignKey("Stage", on_delete=models.SET_NULL, null=True, related_name='prev')
+    #next_stage = models.ForeignKey("Stage", on_delete=models.SET_NULL, null=True, related_name='prev')
 
     def generate_monster(self):
         monster_list = Monster.objects.all()
@@ -157,3 +162,5 @@ class AliveMonsterInStage(models.Model):
     monster = models.ForeignKey(AliveMonster, on_delete=models.CASCADE)
     stage = models.ForeignKey(Stage, on_delete=models.CASCADE)
     # journey = models.ForeignKey(Journey, on_delete=models.CASCADE)
+
+
