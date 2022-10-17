@@ -74,24 +74,6 @@ class Monster(models.Model):
         return f"{self.name}"
 
 
-"""class Journey(models.Model):
-    hero = models.ForeignKey(Hero, on_delete=models.CASCADE)
-    level = models.IntegerField()
-    monsters = models.ManyToManyField('AliveMonster', through='AliveMonsterInStage')"""
-
-
-class Event(models.Model):
-    EVENT_TYPE = [
-        (0, 'Monster Encounter'),
-        (1, 'Loot Encounter'),
-        (2, 'Trap Encounter'),
-        (3, 'Empty Encounter')  # beautiful views and so on.
-    ]
-
-    name = models.CharField(max_length=50)
-    type = models.IntegerField(choices=EVENT_TYPE, default=0)
-
-
 class Origin(models.Model):
     ORIGIN_TYPE = [
         (0, 'General'),
@@ -102,18 +84,60 @@ class Origin(models.Model):
     origin_type = models.IntegerField(choices=ORIGIN_TYPE, default=0)
     origin_description = models.TextField(blank=True)
 
+class Event(models.Model):
+    EVENT_TYPE = [
+        (0, 'Monster Encounter'),
+        (1, 'Loot Encounter'), # gold/items
+        (2, 'Trap Encounter'), #damage
+        (3, 'Empty Encounter')  # beautiful views and so on.
+    ]
 
-class Journal(models.Model):
+    name = models.CharField(max_length=200)
+    type = models.IntegerField(choices=EVENT_TYPE, default=0)
+
+
+class CurrentEvent(models.Model):
+    current_event = models.ForeignKey(Event, on_delete=models.CASCADE)
+
+    @property
+    def name(self):
+        return self.current_event.name
+
+    @property
+    def type(self):
+        return self.current_event.type
+
+
+class Journey(models.Model):
+    hero = models.ForeignKey(Hero, on_delete=models.CASCADE)
+    day = models.IntegerField()
+    day_visited = models.BooleanField(default=False)
+    event = models.ManyToManyField(CurrentEvent, through='CurrentEventInJourney')
+    #next_day = models.ForeignKey("Journey", on_delete=models.SET_NULL, null=True, related_name='prev')
+
+    def generate_event(self):
+        event_list = Event.objects.all()
+        ce = choice(event_list)
+        current_event_ = CurrentEvent.objects.create(current_event=ce)
+        CurrentEventInJourney.objects.create(journey=self, event=current_event_)
+
+"""
+monster_list = Monster.objects.all()
+            mc = choice(monster_list)
+            am = AliveMonster.objects.create(monster_class=mc, current_hp=mc.hp + extra_hp)
+            AliveMonsterInStage.objects.create(stage=self, monster=am)"""
+
+
+
+class CurrentEventInJourney(models.Model):
+    event = models.ForeignKey(CurrentEvent, on_delete=models.CASCADE)
+    journey = models.ForeignKey(Journey, on_delete=models.CASCADE)
+
+
+"""class Journal(models.Model):
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
     event_description = models.TextField(blank=True)
-    alive = models.BooleanField(default=True)
-
-
-"""class Game(models.Model):
-    hero = models.ForeignKey(Hero, on_delete=models.CASCADE)
-    level = models.IntegerField()
-    monsters = models.ManyToManyField('AliveMonster', through='AliveMonsterInStage')"""
-
+    alive = models.BooleanField(default=True)"""
 
 class AliveMonster(models.Model):
     monster_class = models.ForeignKey(Monster, on_delete=models.CASCADE)
@@ -121,6 +145,10 @@ class AliveMonster(models.Model):
 
     # current_attack = models.IntegerField(null=True)
     # current_defence = models.IntegerField(null=True)
+
+    @property
+    def monsters_gold(self):
+        return self.monster_class.monsters_gold
 
     @property
     def attack(self):
@@ -135,25 +163,24 @@ class AliveMonster(models.Model):
         return self.monster_class.name
 
 
-class Game(models.Model):
-    hero = models.ForeignKey(Hero, on_delete=models.CASCADE)
+"""class Game(models.Model):
+    hero = models.ForeignKey(Hero, on_delete=models.CASCADE)"""
 
 
 class Stage(models.Model):
-    #game = models.ForeignKey(Hero, on_delete=models.CASCADE)
 
     hero = models.ForeignKey(Hero, on_delete=models.CASCADE)
     level = models.IntegerField(default=1)
     monsters = models.ManyToManyField(AliveMonster, through='AliveMonsterInStage')
     visited = models.BooleanField(default=False)
-    #next_stage = models.ForeignKey("Stage", on_delete=models.SET_NULL, null=True, related_name='prev')
+    next_stage = models.ForeignKey("Stage", on_delete=models.SET_NULL, null=True, related_name='prev')
 
     def generate_monster(self):
         monster_list = Monster.objects.all()
-        amount = randint(0, 3)
+        amount = randint(1, 3)
         for _ in range(amount):
             mc = choice(monster_list)
-            extra_hp = randint(0, 10)
+            extra_hp = randint(-5, 5)
             am = AliveMonster.objects.create(monster_class=mc, current_hp=mc.hp + extra_hp)
             AliveMonsterInStage.objects.create(stage=self, monster=am)
 

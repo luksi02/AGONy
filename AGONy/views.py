@@ -11,21 +11,22 @@ import openai, os
 from django.shortcuts import render
 from django.views.generic import CreateView, ListView, UpdateView
 
-from AGONy.models import Hero, Monster, Stage, Event, Origin, Game
+from AGONy.models import Hero, Monster, Stage, Event, Origin #, Game
 from AGONy.forms import HeroCreateForm, MonsterCreateForm, CreateUserForm, LoginForm, OriginCreateForm, EventCreateForm
 
 
 
 # Create your views here.
 def agony(request):
-    openai.api_key = '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'  # os.getenv("OPENAI_API_KEY")
-    # OPEN_API_KEY = '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'
+    openai.api_key = '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'  # os.getenv("OPENAI_API_KEY")
+    OPEN_API_KEY = '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'
+    absurd = """when they entered cave, the dragon was masturbating using goblin midget in smurf costume as a toy"""
     query_text = """a prayer to a machinegod: From the moment I understood the weakness of my flesh, it disgusted me.
     I craved the strength and certainty of steel. I aspired to the purity of the blessed machine.
 Your kind cling to your flesh as if it will not decay and fail you. One day the crude biomass you call a temple will wither and you will beg my kind to save you.
 But I am already saved. For the Machine is Immortal."""
     query_text1 = "Origin story of a dwarf that lived under dungeon stronhold in shadowy Blue Mountains"
-    query_response = openai.Completion.create(engine="davinci-instruct-beta", prompt=query_text, temperature=0,
+    query_response = openai.Completion.create(engine="davinci-instruct-beta", prompt=absurd, temperature=0,
                                               max_tokens=500, top_p=1, frequency_penalty=0, presence_penalty=0)
     print(query_response.choices[0].text.split('.'))
     return HttpResponse(query_response.choices[0].text.split('.'))
@@ -270,7 +271,7 @@ class CreateDefaultsInAgony(View):
         # event
         Event.objects.create(type=0, name="Your Hero encountered Monster, now stand and fight it!")
         Event.objects.create(type=1, name="Ooh, shiney! You found something!")
-        Event.objects.create(type=2, name="Crap, it's a trap!")
+        Event.objects.create(type=2, name="Oh crap, it's a trap!")
         Event.objects.create(type=3, name="Wonderful views, aren't they? So beautiful landscape!")
 
         return redirect('AGONy_index')
@@ -332,33 +333,3 @@ class LogoutView(View):
     def get(self, request):
         logout(request)
         return redirect('AGONy_index')
-
-
-class CreateGameForHero(LoginRequiredMixin, View):  # WIP
-
-    def get(self, request, id_hero):
-        hero = Hero.objects.get(pk=id_hero)
-        #game = Game.objects.create(hero=hero)
-        stage = Stage.objects.create(level=1) #game=game,
-        #stage = Stage.objects.create(next_stage=stage)
-        #url = reverse('AGONy_stage_detail', args=(stage.id,))
-        url = reverse('AGONy_index')
-
-        return redirect(url)
-
-
-class StageDetailView(LoginRequiredMixin, View):
-
-    def get(self, request, pk):
-
-        stage = get_object_or_404(Stage, pk=pk)
-
-        if stage.next_stage is None:
-            stage.next_stage = Stage.objects.create(level=stage.level + 1)
-
-        if not stage.visited:
-            stage.generate_monster()
-            stage.visited = True
-            stage.save()
-
-        return render(request, 'agony_stage_detail.html', {'stage': stage})
