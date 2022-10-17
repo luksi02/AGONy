@@ -7,31 +7,38 @@
     </div>
     <table class="table">
         <tr>
-            <th>name</th>
-            <th>hp</th>
-            <th>attack</th>
-            <th>def</th>
+            <th>Hero's name</th>
+            <th>HP</th>
+            <th>Attack</th>
+            <th>Defence</th>
+            <th>Gold</th>
         </tr>
         <tr>
             <td>{{ journey.hero.name }}</td>
             <td>{{ journey.hero.hp }}</td>
             <td>{{ journey.hero.attack }}</td>
             <td>{{ journey.hero.defence }}</td>
+            <td>{{ journey.hero.gold }}</td>
         </tr>
     </table>
 
     <hr>
 
     <table class="table">
-        <tr>
-            <th>{{ journey.event }}</th>
-            <th>{{ journey.event.id }}</th>
-            <th>{{ journey.currenteventinjourney }}</th>
-            <th>{{ journey.currentevent.type }}</th>
-            <th>{{ journey.currentevent.name }}</th>
-            <th>{{ journey.event.type }}</th>
-            <th>{{ journey.event.name }}</th>
-        </tr>
+
+    {% for currentEvent in journey.event.all %}
+
+            <tr>
+                <td>{{ currentEvent.event_name }}</td>
+
+                {% if currentEvent.event_type is 0 %}
+                    <td><a class='btn btn-danger' href="{% url 'AGONy_create_game_for_hero' journey.hero.id %}">Fight with Monster!</a></td>
+                    <td><a class='btn btn-danger' href="{% url 'AGONy_index' %}">Oh shit, run away!</a></td>
+                {% endif %}
+
+            </tr>
+
+        {% endfor %}
 
 
     </table>

@@ -92,20 +92,20 @@ class Event(models.Model):
         (3, 'Empty Encounter')  # beautiful views and so on.
     ]
 
-    name = models.CharField(max_length=200)
-    type = models.IntegerField(choices=EVENT_TYPE, default=0)
+    event_name = models.CharField(max_length=200)
+    event_type = models.IntegerField(choices=EVENT_TYPE, default=0)
 
 
 class CurrentEvent(models.Model):
     current_event = models.ForeignKey(Event, on_delete=models.CASCADE)
 
     @property
-    def name(self):
-        return self.current_event.name
+    def event_name(self):
+        return self.current_event.event_name
 
     @property
-    def type(self):
-        return self.current_event.type
+    def event_type(self):
+        return self.current_event.event_type
 
 
 class Journey(models.Model):
@@ -113,7 +113,7 @@ class Journey(models.Model):
     day = models.IntegerField()
     day_visited = models.BooleanField(default=False)
     event = models.ManyToManyField(CurrentEvent, through='CurrentEventInJourney')
-    #next_day = models.ForeignKey("Journey", on_delete=models.SET_NULL, null=True, related_name='prev')
+    next_day = models.ForeignKey("Journey", on_delete=models.SET_NULL, null=True, related_name='prev')
 
     def generate_event(self):
         event_list = Event.objects.all()

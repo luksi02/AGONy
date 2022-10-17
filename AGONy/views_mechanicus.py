@@ -4,12 +4,13 @@ from django.contrib.auth.models import User
 from django.shortcuts import render, redirect, get_object_or_404, reverse
 from django.urls import reverse_lazy
 from django.views import View
-from random import shuffle, choice
+from random import shuffle, choice, randint
 from django.core.paginator import Paginator
 from django.http import HttpResponse
 import openai, os
 from django.shortcuts import render
 from django.views.generic import CreateView, ListView, UpdateView
+from transformers import pipeline
 
 from AGONy.models import Hero, Monster, Stage, Event, Origin, AliveMonster, Journey #Game,
 from AGONy.forms import HeroCreateForm, MonsterCreateForm, CreateUserForm, LoginForm, OriginCreateForm, EventCreateForm
@@ -28,6 +29,16 @@ But I am already saved. For the Machine is Immortal."""
                                               max_tokens=500, top_p=1, frequency_penalty=0, presence_penalty=0)
     print(query_response.choices[0].text.split('.'))
     return HttpResponse(query_response.choices[0].text.split('.'))
+
+
+def agony2(request):
+
+    absurd = "when they entered cave, the dragon was masturbating using goblin midget in smurf costume as a toy"
+
+    query_text1 = "Origin story of a dwarf that lived under dungeon stronhold in shadowy Blue Mountains"
+    generator = pipeline('text-generation', model='EleutherAI/gpt-neo-2.7B')
+    generated_text = generator(absurd, do_sample=True, min_length=300)
+    return HttpResponse(generated_text)
 
 
 class CreateGameForHero(LoginRequiredMixin, View):
@@ -65,8 +76,8 @@ class CreateJourneyForHero(LoginRequiredMixin, View):
     def get(self, request, id_hero):
         hero = Hero.objects.get(pk=id_hero)
         journey = Journey.objects.create(hero=hero, day=1)
-        #journey_next_day = Stage.objects.create(hero=hero, next_day=journey)
-        url = reverse('AGONy_journey_detail', args=(journey.id,))
+        #journey_next_day = journey.objects.create(hero=hero, next_day=journey)
+        url = reverse('AGONy_journey_detail', args=(journey.id, ))
         return redirect(url)
 
 
@@ -78,15 +89,21 @@ class JourneyDetailView(LoginRequiredMixin, View):
 
         journey = get_object_or_404(Journey, pk=pk)
 
-        #if journey.next_stage is None:
-        #    stage.next_stage = Stage.objects.create(level=stage.level + 1)
+        if journey.next_day is None:
+            journey.next_day = Journey.objects.create(hero=journey.hero, day=journey.day + 1)
 
         if not journey.day_visited:
             journey.generate_event()
+            if journey.event.event_type == 2:
+                journey.hero.hp = journey.hero.hp - randint(5,10)
+            if journey.event.event_type == 1:
+                journey.hero.hp = journey.hero.gold + randint(5,10)
             journey.day_visited = True
             journey.save()
 
         return render(request, 'agony_journey_detail.html', {'journey': journey, 'context': context})
+
+
 """class FightView(LoginRequiredMixin, View):
     def get(self, request, stage_id):
         stage = Stage.objects.get(pk=stage_id)
