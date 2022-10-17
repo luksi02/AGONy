@@ -22,8 +22,12 @@
                 <td>{{ hero.attack }}</td>
                 <td>{{ hero.defence }}</td>
                 <td>{{ hero.gold }}</td>
-                <td><a class="btn btn-info" href="{% url 'AGONy_create_game_for_hero' hero.id %}">New Game</a></td>
-
+                {% if hero.hp > 0 %}
+                    <td><a class="btn btn-outline-primary" href="{% url 'AGONy_create_journey_for_hero' hero.id %}">New Journey</a></td>
+                    <td><a class="btn btn-outline-primary" href="{% url 'AGONy_create_game_for_hero' hero.id %}">New Fight</a></td>
+                {% else %}
+                    <td><button class="btn btn-outline-danger">DEAD!</button></td>
+                {% endif %}
             </tr>
         {% endfor %}
     </table>

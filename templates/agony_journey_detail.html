@@ -1,0 +1,42 @@
+{% extends 'agony_base.html' %}
+{% block content %}
+
+    <div>
+        {{ context }}
+
+    </div>
+    <table class="table">
+        <tr>
+            <th>name</th>
+            <th>hp</th>
+            <th>attack</th>
+            <th>def</th>
+        </tr>
+        <tr>
+            <td>{{ journey.hero.name }}</td>
+            <td>{{ journey.hero.hp }}</td>
+            <td>{{ journey.hero.attack }}</td>
+            <td>{{ journey.hero.defence }}</td>
+        </tr>
+    </table>
+
+    <hr>
+
+    <table class="table">
+        <tr>
+            <th>{{ journey.event }}</th>
+            <th>{{ journey.event.id }}</th>
+            <th>{{ journey.currenteventinjourney }}</th>
+            <th>{{ journey.currentevent.type }}</th>
+            <th>{{ journey.currentevent.name }}</th>
+            <th>{{ journey.event.type }}</th>
+            <th>{{ journey.event.name }}</th>
+        </tr>
+
+
+    </table>
+
+
+
+
+{% endblock %}

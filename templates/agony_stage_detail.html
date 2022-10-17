@@ -1,6 +1,10 @@
-{% extends 'base.html' %}
+{% extends 'agony_base.html' %}
 {% block content %}
     <p>poziom: {{ stage.level }}</p>
+    <div>
+        {{ context }}
+
+    </div>
     <table class="table">
         <tr>
             <th>hp</th>
@@ -8,9 +12,9 @@
             <th>def</th>
         </tr>
         <tr>
-            <td> {{ stage.game.hero.hp }}</td>
-            <td>{{ stage.game.hero.attack }}</td>
-            <td>{{ stage.game.hero.defence }}</td>
+            <td> {{ stage.hero.hp }}</td>
+            <td>{{ stage.hero.attack }}</td>
+            <td>{{ stage.hero.defence }}</td>
         </tr>
     </table>
 
@@ -33,7 +37,7 @@
                 <td>{{ aliveMonster.attack }}</td>
                 <td>{{ aliveMonster.defence }}</td>
                 {% if aliveMonster.current_hp > 0 %}
-                    <td><a class='btn btn-danger' href="{% url 'AGONy_index' aliveMonster.id stage.game.hero.id %}">Atakuj</a>
+                    <td><a class='btn btn-danger' href="{% url 'AGONy_attack_monster' aliveMonster.id stage.hero.id %}">WIP Attack WIP</a>
                     </td>
                 {% endif %}
             </tr>
