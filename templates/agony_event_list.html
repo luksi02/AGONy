@@ -1,0 +1,25 @@
+{% extends 'agony_base.html' %}
+{% block content %}
+
+    <table class="table">
+        <tr>
+            <th>#</th>
+            <th>Event description</th>
+            <th>Type</th>
+
+            <th></th>
+        </tr>
+        {% for event in object_list %}
+            <tr class="{% cycle 'table-light' 'table-secondary'%}">
+
+                <td>{{ forloop.counter }}</td>
+                <td><a href="{% url 'AGONy_update_event' event.id %}">{{ event.id }}</a></td>
+                <td>{{ event.event_type }}</td>
+                <td>{{ event.event_name }}</td>
+                <td>{{ event.name }}</td>
+                <td>{{ event.type }}</td>
+
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

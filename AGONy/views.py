@@ -164,11 +164,9 @@ class UpdateMonsterInAgony(LoginRequiredMixin, UpdateView):
     template_name = 'agony_form.html'
     success_url = reverse_lazy('AGONy_monster_list')
 
-
+"""
 class CreateOriginOfAgony():
-    message = """
-    Why not, tell us what happened in your hero past so he felt call for adventure!
-    """
+    message = "Why not, tell us what happened in your hero past so he felt call for adventure!"
 
     model = Origin
     fields = "__all__"
@@ -177,24 +175,22 @@ class CreateOriginOfAgony():
 
 
 class OriginsOfAgonyList(ListView):
-    message = """
-    """
+    message = ""
 
     model = Origin
     template_name = 'agony_monster_list.html'
 
 
 class UpdateOriginOfAgony(LoginRequiredMixin, UpdateView):
-    message = """
-    """
+    message = ""
 
     model = Origin
     form_class = OriginCreateForm
     template_name = 'agony_form.html'
     success_url = reverse_lazy('AGONy_monster_list')
+"""
 
-
-class CreateEventInAgony():
+class CreateEventInAgony(LoginRequiredMixin, CreateView):
     message = """
     """
 
@@ -204,12 +200,12 @@ class CreateEventInAgony():
     success_url = reverse_lazy('AGONy_index')
 
 
-class EventsInAgonyList(ListView):
+class EventsInAgonyList(LoginRequiredMixin, ListView):
     message = """
     """
 
     model = Origin
-    template_name = 'agony_monster_list.html'
+    template_name = 'agony_event_list.html'
 
 
 class UpdateEventInAgony(LoginRequiredMixin, UpdateView):
@@ -219,7 +215,7 @@ class UpdateEventInAgony(LoginRequiredMixin, UpdateView):
     model = Event
     form_class = EventCreateForm
     template_name = 'agony_form.html'
-    success_url = reverse_lazy('AGONy_monster_list')
+    success_url = reverse_lazy('AGONy_event_list')
 
 
 class CreateDefaultsInAgony(View):

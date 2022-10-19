@@ -19,12 +19,14 @@
     {% if user.is_authenticated %}
     <a class="bg-secondary" href="{% url 'AGONy_create_monster' %}">Create Monster</a>
     <a class="bg-secondary" href="{% url 'AGONy_monster_list' %}">Monsters in AGONy</a>
+    <a class="bg-secondary" href="{% url 'AGONy_create_event' %}">Create Event</a>
+    <a class="bg-secondary" href="{% url 'AGONy_event_list' %}">Events in AGONy</a>
     {% endif %}
     {% if user.is_authenticated %}
         <a class="bg-danger" href="{% url 'AGONy_create_hero' %}"> Create Hero</a>
         <a class="bg-danger" href="{% url 'AGONy_my_hero_list' %}">My Heroes</a>
         <a class="bg-danger" href="{% url 'AGONy_create_defaults' %}">Create Defaults</a>
-        <a class="bg-danger" href="{% url 'AGONy_WIP' %}">New Journey - WIP </a>
+        <a class="bg-danger" href="{% url 'AGONy_WIP' %}"> WIP </a>
         <a class="bg-warning" href="{% url 'AGONy_logout' %}">Logout</a>
     {% else %}
         <a class="bg-warning" href="{% url 'AGONy_login' %}">Login</a>
