@@ -121,18 +121,10 @@ class Journey(models.Model):
         current_event_ = CurrentEvent.objects.create(current_event=ce)
         CurrentEventInJourney.objects.create(journey=self, event=current_event_)
 
-"""
-monster_list = Monster.objects.all()
-            mc = choice(monster_list)
-            am = AliveMonster.objects.create(monster_class=mc, current_hp=mc.hp + extra_hp)
-            AliveMonsterInStage.objects.create(stage=self, monster=am)"""
-
-
 
 class CurrentEventInJourney(models.Model):
     event = models.ForeignKey(CurrentEvent, on_delete=models.CASCADE)
     journey = models.ForeignKey(Journey, on_delete=models.CASCADE)
-
 
 """class Journal(models.Model):
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
@@ -163,10 +155,6 @@ class AliveMonster(models.Model):
         return self.monster_class.name
 
 
-"""class Game(models.Model):
-    hero = models.ForeignKey(Hero, on_delete=models.CASCADE)"""
-
-
 class Stage(models.Model):
 
     hero = models.ForeignKey(Hero, on_delete=models.CASCADE)
@@ -177,7 +165,7 @@ class Stage(models.Model):
 
     def generate_monster(self):
         monster_list = Monster.objects.all()
-        amount = randint(1, 3)
+        amount = randint(1, 1) #for now only one monster to defeat
         for _ in range(amount):
             mc = choice(monster_list)
             extra_hp = randint(-5, 5)
@@ -188,6 +176,3 @@ class Stage(models.Model):
 class AliveMonsterInStage(models.Model):
     monster = models.ForeignKey(AliveMonster, on_delete=models.CASCADE)
     stage = models.ForeignKey(Stage, on_delete=models.CASCADE)
-    # journey = models.ForeignKey(Journey, on_delete=models.CASCADE)
-
-

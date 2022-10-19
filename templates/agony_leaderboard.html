@@ -4,28 +4,24 @@
     <table class="table">
         <tr>
             <th>#</th>
-            <th>name</th>
-            <th>race</th>
-            <th>hp</th>
-            <th>attack</th>
-            <th>defence</th>
-            <th>gold</th>
+            <th>Name</th>
+            <th>Race</th>
+            <th>HP</th>
+            <th>Gold</th>
             <th></th>
         </tr>
         {% for hero in object_list %}
             <tr class="{% cycle 'table-light' 'table-secondary'%}">
 
                 <td>{{ forloop.counter }}</td>
-                <td><a href="{% url 'AGONy_update_hero' hero.id %}">{{ hero.name }}</a></td>
+                <td>{{ hero.name }}</td>
                 <td>{{ hero.race }}</td>
                 <td>{{ hero.hp }}</td>
-                <td>{{ hero.attack }}</td>
-                <td>{{ hero.defence }}</td>
                 <td>{{ hero.gold }}</td>
                 {% if hero.hp > 0 %}
-                    <td><a class="btn btn-outline-primary" href="{% url 'AGONy_create_journey_for_hero' hero.id %}">New Journey</a></td>
+                    <td><p>ALIVE</p></td>
                 {% else %}
-                    <td><button class="btn btn-outline-danger">DEAD!</button></td>
+                    <td><p>DEAD!</p></td>
                 {% endif %}
             </tr>
         {% endfor %}

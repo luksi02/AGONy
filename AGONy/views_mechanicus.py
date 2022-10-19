@@ -74,11 +74,16 @@ class StageDetailView(LoginRequiredMixin, View):
 class CreateJourneyForHero(LoginRequiredMixin, View):
 
     def get(self, request, id_hero):
-        hero = Hero.objects.get(pk=id_hero)
-        journey = Journey.objects.create(hero=hero, day=1)
-        #journey_next_day = journey.objects.create(hero=hero, next_day=journey)
-        url = reverse('AGONy_journey_detail', args=(journey.id, ))
-        return redirect(url)
+        if Journey.objects.get(pk=id_hero) is None:
+            hero = Hero.objects.get(pk=id_hero)
+            journey = Journey.objects.create(hero=hero, day=1)
+            #journey_next_day = journey.objects.create(hero=hero, next_day=journey)
+            url = reverse('AGONy_journey_detail', args=(journey.id, ))
+            return redirect(url)
+        else:
+            url = reverse('AGONy_return_to_journey', args=(id_hero,))
+            return redirect(url)
+
 
 
 class JourneyDetailView(LoginRequiredMixin, View):
@@ -94,38 +99,15 @@ class JourneyDetailView(LoginRequiredMixin, View):
 
         if not journey.day_visited:
             journey.generate_event()
-            if journey.event.event_type == 2:
+
+            """if journey.event.event_type == 2:
                 journey.hero.hp = journey.hero.hp - randint(5,10)
             if journey.event.event_type == 1:
-                journey.hero.hp = journey.hero.gold + randint(5,10)
+                journey.hero.hp = journey.hero.gold + randint(5,10)"""
             journey.day_visited = True
             journey.save()
 
         return render(request, 'agony_journey_detail.html', {'journey': journey, 'context': context})
-
-
-"""class FightView(LoginRequiredMixin, View):
-    def get(self, request, stage_id):
-        stage = Stage.objects.get(pk=stage_id)
-        monsters = stage.monsters.filter(current_hp__gt=0)
-        hero = stage.game.hero
-        if monsters.count() > 0:
-            target = choice(monsters)
-            dm = hero.attack - target.defence
-            if dm <= 0:
-                dm = 1
-            target.current_hp -= dm
-            target.save()
-            monster_dmg = 0
-            for monster in monsters:
-                dm = monster.attack - hero.defence
-                if dm <= 0:
-                    dm = 1
-                monster_dmg += dm
-            hero.hp -= dm
-            hero.save()
-        url = reverse('AGONy_stage_detail', args=(stage_id,))
-        return redirect(url)"""
 
 
 class AttackMonsterView(View):
@@ -149,4 +131,51 @@ class AttackMonsterView(View):
         stage = monster.stage_set.first()
         return redirect('AGONy_stage_detail', stage.id)
 
+class FoundSomething(View):
 
+    def get(self, request, pk):
+        journey = Journey.objects.get(pk=pk)
+        hero = journey.hero
+        added_gold = randint(1, 5)
+        hero.gold += added_gold
+        hero.save()
+        #next_day_id = journey.id()
+        url = reverse('AGONy_journey_detail', args=(journey.id, ))
+        return redirect(url)
+
+
+class OhCrapItsATrap(View):
+
+    def get(self, request, pk):
+        journey = Journey.objects.get(pk=pk)
+        hero = journey.hero
+        trap_damage = randint(1, 10)
+        hero.hp -= trap_damage
+        hero.save()
+        #next_day_id = journey.id()
+        url = reverse('AGONy_journey_detail', args=(journey.id, ))
+        return redirect(url)
+
+
+class RunAway(View):
+
+    def get(self, request, pk):
+        journey = Journey.objects.get(pk=pk)
+        hero = journey.hero
+        running_chances = randint(0,3)
+        if running_chances > 1:
+            url = reverse('AGONy_journey_detail', args=(journey.id,))
+            return redirect(url)
+        unsuccesful_run_damage = randint(1, 10)
+        hero.hp -= unsuccesful_run_damage
+        hero.save()
+        # next_day_id = journey.id()
+        url = reverse('AGONy_create_game_for_hero', args=(journey.hero.id,))
+        return redirect(url)
+
+class ReturnToJourney(View):
+
+    def get(self, request, pk):
+        return_to_journey = Journey.objects.get(hero_id=pk, day_visited=False)
+        url = reverse('AGONy_journey_detail', args=(return_to_journey.id,))
+        return redirect(url)

@@ -12,6 +12,7 @@
             <th>Attack</th>
             <th>Defence</th>
             <th>Gold</th>
+            <th>Day in Journey</th>
         </tr>
         <tr>
             <td>{{ journey.hero.name }}</td>
@@ -19,6 +20,7 @@
             <td>{{ journey.hero.attack }}</td>
             <td>{{ journey.hero.defence }}</td>
             <td>{{ journey.hero.gold }}</td>
+            <td>{{ journey.day }}</td>
         </tr>
     </table>
 
@@ -33,7 +35,19 @@
 
                 {% if currentEvent.event_type is 0 %}
                     <td><a class='btn btn-danger' href="{% url 'AGONy_create_game_for_hero' journey.hero.id %}">Fight with Monster!</a></td>
-                    <td><a class='btn btn-danger' href="{% url 'AGONy_index' %}">Oh shit, run away!</a></td>
+                    <td><a class='btn btn-danger' href="{% url 'AGONy_run_away' journey.next_day.id %}">Oh shit, run away!</a></td>
+                {% endif %}
+
+                {% if currentEvent.event_type is 1 %}
+                    <td><a class='btn btn-danger' href="{% url 'AGONy_found_something' journey.next_day.id %}">Take it!</a></td>
+                {% endif %}
+
+                {% if currentEvent.event_type is 2 %}
+                    <td><a class='btn btn-danger' href="{% url 'AGONy_trap' journey.next_day.id %}">Get free and move along</a></td>
+                {% endif %}
+
+                {% if currentEvent.event_type is 3 %}
+                    <td><a class='btn btn-danger' href="{% url 'AGONy_journey_detail' journey.next_day.id %}">Venture forth!</a></td>
                 {% endif %}
 
             </tr>

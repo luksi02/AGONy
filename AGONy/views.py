@@ -36,7 +36,8 @@ class AGONyIndexView(View):
     """landing page, perhaps large incoming, flaming text 'AGONy: Adventure Generator Of Nonsense journey' """
 
     def get(self, request):
-        return render(request, 'agony_base.html')
+        message = "Welcome adventurer, begin jour journey!"
+        return render(request, 'agony_base.html', {'message' : message})
 
 
 class AGONyWorkInProgress(View):
@@ -81,13 +82,16 @@ class CreateHeroInAgony(CreateView):
         """
 
 
-class HeroesInAgonyList(ListView):
-    message = """
-    List of bold, ambitious Heroes awaiting for your command to march into oblivion! Yyy. yes, yes, glory and power, yes.
-    """
+class Leaderboard(View):   #Leaderboard
 
-    model = Hero
-    template_name = 'agony_hero_list.html'
+    def get(self, request):
+
+        message = """
+        List of bold, ambitious Heroes that took up the quest for power and glory!
+        """
+
+        object_list = Hero.objects.order_by('-gold')
+        return render(request, 'agony_leaderboard.html', {'object_list' : object_list, 'message' : message})
 
 
 class MyHeroesInAgonyList(LoginRequiredMixin, ListView):
@@ -163,7 +167,7 @@ class UpdateMonsterInAgony(LoginRequiredMixin, UpdateView):
 
 class CreateOriginOfAgony():
     message = """
-    Why not, tell us what happend in your hero past so he felt call for adventure!
+    Why not, tell us what happened in your hero past so he felt call for adventure!
     """
 
     model = Origin
@@ -219,37 +223,38 @@ class UpdateEventInAgony(LoginRequiredMixin, UpdateView):
 
 
 class CreateDefaultsInAgony(View):
-    message = """
-    Let's just create some defaults for you to play already, who wants to go through boring creating the world?
-    """
 
     def get(self, request):
+
+        message = """
+            Let's just create some defaults for you to play already, who wants to go through boring creating the world?
+            """
         # A view to create some defaults in game!
         Hero.objects.create(name='Percy McPerson', race=0)
         Hero.objects.create(name='Woody Oakson', race=1)
         Hero.objects.create(name='Shorty MacBeard', race=2)
 
         # human-like monsters
-        Monster.objects.create(name='Goblin', hp=20, attack=2, defence=1, monster_level=0, monster_type=0)
-        Monster.objects.create(name='Orc', hp=40, attack=4, defence=4, monster_level=1, monster_type=0)
-        Monster.objects.create(name='Goblin Wolf Rider', hp=50, attack=7, defence=4, monster_level=2, monster_type=0)
-        Monster.objects.create(name='Troll', hp=80, attack=8, defence=2, monster_level=3, monster_type=0)
-        Monster.objects.create(name='Giant', hp=200, attack=15, defence=5, monster_level=4, monster_type=0)
+        Monster.objects.create(name='Goblin', hp=20, attack=2, defence=0, monster_level=0, monster_type=0)
+        Monster.objects.create(name='Orc', hp=40, attack=3, defence=1, monster_level=1, monster_type=0)
+        #Monster.objects.create(name='Goblin Wolf Rider', hp=50, attack=7, defence=4, monster_level=2, monster_type=0)
+        #Monster.objects.create(name='Troll', hp=80, attack=8, defence=2, monster_level=3, monster_type=0)
+        #Monster.objects.create(name='Giant', hp=200, attack=15, defence=5, monster_level=4, monster_type=0)
 
         # wild-wild-life monsters
         Monster.objects.create(name='Wolf', hp=25, attack=3, defence=0, monster_level=0, monster_type=1)
-        Monster.objects.create(name='Giant Venomous Spider', hp=50, attack=5, defence=2, monster_level=1,
+        Monster.objects.create(name='Giant Venomous Spider', hp=50, attack=3, defence=0, monster_level=1,
                                monster_type=1)
-        Monster.objects.create(name='Angry Bear', hp=80, attack=7, defence=7, monster_level=2, monster_type=1)
-        Monster.objects.create(name='Fancy Unicorn', hp=100, attack=6, defence=6, monster_level=3, monster_type=1)
-        Monster.objects.create(name='Dragon', hp=150, attack=10, defence=10, monster_level=4, monster_type=1)
+        #Monster.objects.create(name='Angry Bear', hp=80, attack=5, defence=1, monster_level=2, monster_type=1)
+        #Monster.objects.create(name='Fancy Unicorn', hp=100, attack=5, defence=2, monster_level=3, monster_type=1)
+        #Monster.objects.create(name='Dragon', hp=150, attack=10, defence=3, monster_level=4, monster_type=1)
 
         # undead monsters
         Monster.objects.create(name='Zombie', hp=40, attack=2, defence=0, monster_level=0, monster_type=2)
-        Monster.objects.create(name='Skeleton', hp=55, attack=3, defence=3, monster_level=1, monster_type=2)
-        Monster.objects.create(name='Skeleton Archer', hp=60, attack=6, defence=6, monster_level=2, monster_type=2)
-        Monster.objects.create(name='Lich', hp=80, attack=15, defence=3, monster_level=3, monster_type=2)
-        Monster.objects.create(name='Vampire', hp=125, attack=6, defence=15, monster_level=4, monster_type=2)
+        Monster.objects.create(name='Skeleton', hp=55, attack=3, defence=0, monster_level=1, monster_type=2)
+        #Monster.objects.create(name='Skeleton Archer', hp=60, attack=6, defence=6, monster_level=2, monster_type=2)
+        #Monster.objects.create(name='Lich', hp=80, attack=15, defence=3, monster_level=3, monster_type=2)
+        #Monster.objects.create(name='Vampire', hp=125, attack=6, defence=15, monster_level=4, monster_type=2)
 
         # origins - general
         Origin.objects.create(origin_type=0, origin_description="Tired of mundane life, felt call for adventure")
@@ -269,24 +274,27 @@ class CreateDefaultsInAgony(View):
         #User.objects.create(username='xyz', password1='12345678', password2='12345678')
 
         # event
-        Event.objects.create(type=0, name="Your Hero encountered Monster, now stand and fight it!")
-        Event.objects.create(type=1, name="Ooh, shiney! You found something!")
-        Event.objects.create(type=2, name="Oh crap, it's a trap!")
-        Event.objects.create(type=3, name="Wonderful views, aren't they? So beautiful landscape!")
+        Event.objects.create(event_type=0, event_name="Your Hero encountered Monster, now stand and fight it!")
+        Event.objects.create(event_type=1, event_name="Ooh, shiney! You found something!")
+        Event.objects.create(event_type=2, event_name="Oh crap, it's a trap!")
+        Event.objects.create(event_type=3, event_name="Wonderful views, aren't they? So beautiful landscape!")
 
-        return redirect('AGONy_index')
+        return redirect('AGONy_index', {'message': message})
 
 
 class CreateUserView(View):
-    message = """
-    Create User - then you can play, maybe even leave a comment what to improve in my game? Be sure to subscribe!
-    """
 
     def get(self, request):
+
+        message = """
+            Create User - then you can play, maybe even leave a comment what to improve in my game? Be sure to subscribe!
+            """
+
         form = CreateUserForm()
-        return render(request, 'agony_form.html', {'form': form})
+        return render(request, 'agony_form.html', {'form': form, 'message' : message})
 
     def post(self, request):
+
         form = CreateUserForm(request.POST)
 
         if form.is_valid():
@@ -296,6 +304,11 @@ class CreateUserView(View):
             password = form.cleaned_data['password1']
             user.set_password(password)
             user.save()
+
+            message = """
+                        User created, now go and have some fun!
+                        """
+
             return redirect('AGONy_index')
         return render(request, 'agony_form.html', {'form': form})
 

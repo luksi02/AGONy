@@ -29,16 +29,15 @@
         </tr>
 
         {% for aliveMonster in stage.monsters.all %}
-
-
             <tr>
                 <td> {{ aliveMonster.name }}</td>
                 <td> {{ aliveMonster.current_hp }}</td>
                 <td>{{ aliveMonster.attack }}</td>
                 <td>{{ aliveMonster.defence }}</td>
                 {% if aliveMonster.current_hp > 0 %}
-                    <td><a class='btn btn-danger' href="{% url 'AGONy_attack_monster' aliveMonster.id stage.hero.id %}">WIP Attack WIP</a>
-                    </td>
+                    <td><a class='btn btn-danger' href="{% url 'AGONy_attack_monster' aliveMonster.id stage.hero.id %}">Attack!</a></td>
+                    {% else %}
+                    <td><a class='btn btn-danger' href="{% url 'AGONy_return_to_journey' stage.hero.id %}">Return to journey!</a></td>
                 {% endif %}
             </tr>
 
