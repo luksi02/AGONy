@@ -11,6 +11,12 @@ def heroes():
         lst.append(Hero.objects.create(name=x))
     return lst
 
+
+@pytest.fixture
+def hero():
+    return Hero.objects.create(name='Hero McBrave')
+
+
 @pytest.fixture
 def monsters():
     lst = []
@@ -18,9 +24,6 @@ def monsters():
         lst.append(Monster.objects.create(name=x))
     return lst
 
-@pytest.fixture
-def hero():
-    return Hero.objects.create(name='Hero McBrave')
 
 @pytest.fixture
 def monster():
@@ -33,10 +36,26 @@ def monster():
                                   description='blablabla',
                                   monsters_gold=10)
 
+
+@pytest.fixture
+def monster2():
+    return Monster.objects.create(name='AngryBird')
+
+
+
+@pytest.fixture
+def events():
+    lst = []
+    for x in range(10):
+        lst.append(Event.objects.create(event_name=x))
+    return lst
+
+
 @pytest.fixture
 def event():
     return Event.objects.create(event_name='Dragonborn comes')
 
+
 @pytest.fixture
 def user():
-    return User.objects.create(username='user_looser')
+    return User.objects.create(username='user_looser', password='12345678')
