@@ -1,7 +1,9 @@
 import pytest
 from django.contrib.auth.models import User
 
-from AGONy.models import Hero, Monster, Event
+#from django.contrib.auth.models import User
+
+from AGONy.models import Hero, Monster, Event, Stage, Journey, AliveMonster
 
 
 @pytest.fixture
@@ -16,6 +18,15 @@ def heroes():
 def hero():
     return Hero.objects.create(name='Hero McBrave')
 
+
+@pytest.fixture
+def stage(hero):
+    return Stage.objects.create(hero=hero)
+
+
+@pytest.fixture
+def journey(hero):
+    return Journey.objects.create(hero=hero)
 
 @pytest.fixture
 def monsters():
@@ -41,7 +52,9 @@ def monster():
 def monster2():
     return Monster.objects.create(name='AngryBird')
 
-
+@pytest.fixture
+def alivemonster(stage, monster):
+    return AliveMonster.objects.create(monster=monster, stage=stage)
 
 @pytest.fixture
 def events():

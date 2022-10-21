@@ -3,7 +3,7 @@ from django.test import Client
 from django.urls import reverse
 
 from AGONy.forms import HeroCreateForm, MonsterCreateForm, EventCreateForm, CreateUserForm, LoginForm
-from AGONy.models import Hero, Monster, Event
+from AGONy.models import Hero, Monster, Event, Stage, Journey
 from django.contrib.auth.models import User
 
 #1_1_AGONyIndexView
@@ -29,8 +29,6 @@ def test_create_hero_get_not_logged(client):
     url = reverse('AGONy_create_hero')
     response = client.get(url)
     assert response.status_code == 200
-    url_redirect = reverse('AGONy_login')    #redirect bo nie zalogowany
-    assert response.url.startswith(url_redirect)
 
 
 #3_2_CreateHeroInAgony
@@ -40,8 +38,7 @@ def test_create_hero_get_logged_in(client, user):
     client.force_login(user)
     response = client.get(url)
     assert response.status_code == 200
-    #url_redirect = reverse('AGONy_login')
-    #assert response.url.startswith(url_redirect)
+
 
 #3_3_CreateHeroInAgony
 @pytest.mark.django_db
@@ -343,8 +340,8 @@ def test_logout_view_get(user):
 #18_1_CreateStageForHero
 @pytest.mark.django_db
 def test_create_stage_get_not_logged(client, hero):
-    url = reverse('AGONy_create_game_for_hero')
-    response = client.get(url, hero.id)
+    url = reverse('AGONy_create_game_for_hero', args=(hero.id, ))
+    response = client.get(url)
     assert response.status_code == 302
     url_redirect = reverse('AGONy_login')    #redirect bo nie zalogowany
     assert response.url.startswith(url_redirect)
@@ -353,16 +350,17 @@ def test_create_stage_get_not_logged(client, hero):
 #18_2_CreateStageForHero
 @pytest.mark.django_db
 def test_create_stage_get_logged_in(client, user, hero):
-    url = reverse('AGONy_create_game_for_hero')
+    url = reverse('AGONy_create_game_for_hero', args=(hero.id, ))
     client.force_login(user)
-    response = client.get(url, hero.id)
-    assert response.status_code == 200
+    response = client.get(url)
+    assert response.status_code == 302
+    assert Stage.objects.get(hero=hero)
 
 
 #18_3_CreateStage
 @pytest.mark.django_db
 def test_create_stage_post_logged_in(client, user, hero, monster):
-    url = reverse('AGONy_create_game_for_hero')
+    url = reverse('AGONy_create_game_for_hero', args=(hero.id, ))
     client.force_login(user)
     data = {
         'hero': hero.id
@@ -373,16 +371,119 @@ def test_create_stage_post_logged_in(client, user, hero, monster):
     assert Stage.objects.get(hero=data['hero'])
 
 
-# 18_3_StageDetailView
+# 19_3_StageDetailView
 @pytest.mark.django_db
 def test_stage_detail_view_get(client, user, hero, monster):
-    url = reverse('AGONy_stage_detail')
+    url = reverse('AGONy_stage_detail', args=(hero.id, ))
     client.force_login(user)
-    data = {
-        'hero': hero.id
 
-    }
-    response = client.post(url, data)
+    response = client.post(url)
     assert response.status_code == 200
     #assert Stage.objects.get(hero=data['hero'])
 
+
+#20_1_CreateJourneyForHero
+@pytest.mark.django_db
+def test_create_journey_get_not_logged(client, hero):
+    url = reverse('AGONy_create_journey_for_hero', args=(hero.id, ))
+    response = client.get(url)
+    assert response.status_code == 302
+    url_redirect = reverse('AGONy_login')    #redirect bo nie zalogowany
+    assert response.url.startswith(url_redirect)
+
+
+
+#20_2_CreateStageForHero
+@pytest.mark.django_db
+def test_create_journey_get_logged_in(client, user, hero):
+    url = reverse('AGONy_create_journey_for_hero', args=(hero.id, ))
+    client.force_login(user)
+    response = client.get(url)
+    assert response.status_code == 302
+
+
+#20_3_CreateStage
+@pytest.mark.django_db
+def test_create_journey_post_logged_in(client, user, hero, monster):
+    url = reverse('AGONy_create_journey_for_hero', args=(hero.id, ))
+    client.force_login(user)
+    data = {
+        'hero': hero.id
+    }
+    response = client.post(url, data)
+    assert response.status_code == 200
+    assert Journey.objects.get(hero=data['hero'])
+
+
+#21_1_JourneyDetailView
+@pytest.mark.django_db
+def test_journey_detail_view_get(client, user, journey):
+    url = reverse('AGONy_journey_detail', args=(journey.id, ))
+    client.force_login(user)
+    response = client.post(url)
+    assert response.status_code == 200
+    assert Journey.objects.get(day_visited=False)
+
+
+#22_1_AttackMonsterView
+@pytest.mark.django_db
+def test_attack_monster_get(client, user, hero, monster):
+    url = reverse('AGONy_attack_monster', args=(monster.id, hero.id))
+    hero = Hero.objects.get(id=hero.id)
+    hero_hp = hero.hp
+    client.force_login(user)
+    response = client.get(url)
+    assert response.status_code == 302
+    hero_new = Hero.objects.get(id=hero.id)
+    hero_hp_new = hero_new.hp
+    assert hero_hp_new < hero_hp
+
+
+#23_1_FoundSomethingView
+@pytest.mark.django_db
+def test_found_something_get(client, user, journey, hero):
+    url = reverse('AGONy_found_something', args=(journey.id, ))
+    hero = Hero.objects.get(id=journey.hero.id)
+    hero_gold = hero.gold
+    client.force_login(user)
+    response = client.get(url)
+    assert response.status_code == 302
+    hero_new = Hero.objects.get(id=journey.hero.id)
+    hero_gold_new = hero_new.gold
+    assert hero_gold_new > hero_gold
+
+
+#24_1_TrapView
+@pytest.mark.django_db
+def test_trap_view_get(client, user, journey):
+    url = reverse('AGONy_trap', args=(journey.id, ))
+    hero = Hero.objects.get(id=journey.hero.id)
+    hero_hp = hero.hp
+    client.force_login(user)
+    response = client.get(url)
+    assert response.status_code == 302
+    hero_new = Hero.objects.get(id=journey.hero.id)
+    hero_hp_new = hero_new.hp
+    assert hero_hp_new < hero_hp
+
+
+#25_1_RunAwayView
+@pytest.mark.django_db
+def test_run_away_view_get(client, user, journey):
+    url = reverse('AGONy_run_away', args=(journey.id, ))
+    client.force_login(user)
+    response = client.post(url)
+    assert response.status_code == 302
+    assert Journey.objects.get(day_visited=False)
+
+
+#26_1_ReturnToJourney
+@pytest.mark.django_db
+def test_return_to_journey_view_get(client, user, journey):
+    url = reverse('AGONy_return_to_journey', args=(journey.id, ))
+    journey = Journey.objects.get(id=journey.id)
+    client.force_login(user)
+    response = client.post(url)
+    assert response.status_code == 302
+    visited_journey = Journey.objects.get(id=journey.id)
+    assert visited_journey.day_visited == True

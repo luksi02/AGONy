@@ -33,7 +33,7 @@ class Hero(models.Model):
     race = models.IntegerField(choices=RACE, default=0)
     hp = models.IntegerField(default=100)
     attack = models.IntegerField(default=5)
-    defence = models.IntegerField(default=5)
+    defence = models.IntegerField(default=0)
     backstory = models.TextField(blank=True, default='')
     gold = models.IntegerField(default=0)
     owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True)

@@ -23,12 +23,12 @@ from AGONy.views import (AGONyIndexView, AGONyWorkInProgress, CreateHeroInAgony,
                          CreateMonsterInAgony, Leaderboard, UpdateHeroInAgony, MonstersInAgonyList,
                          UpdateMonsterInAgony, CreateDefaultsInAgony,
                          CreateUserView, LoginView, LogoutView, MyHeroesInAgonyList, CreateEventInAgony,
-                         EventsInAgonyList, UpdateEventInAgony, CreateGameForHero
+                         EventsInAgonyList, UpdateEventInAgony
                          )
 
 from AGONy.views_mechanicus import (StageDetailView, agony,
                                     AttackMonsterView, CreateJourneyForHero, JourneyDetailView, agony2, FoundSomething,
-                                    OhCrapItsATrap, RunAway, ReturnToJourney)
+                                    OhCrapItsATrap, RunAway, ReturnToJourney, CreateGameForHero)
 
 urlpatterns = [
 

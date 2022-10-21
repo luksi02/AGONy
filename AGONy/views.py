@@ -209,6 +209,7 @@ class CreateDefaultsInAgony(View):
         """message =
             Let's just create some defaults for you to play already, who wants to go through boring creating the world?
             """
+
         # A view to create some defaults in game!
         Hero.objects.create(name='Percy McPerson', race=0)
         Hero.objects.create(name='Woody Oakson', race=1)
@@ -326,12 +327,3 @@ class LogoutView(View):
     def get(self, request):
         logout(request)
         return redirect('AGONy_index')
-
-class CreateGameForHero(LoginRequiredMixin, View):
-
-    def get(self, request, id_hero):
-        hero = Hero.objects.get(pk=id_hero)
-        stage = Stage.objects.create(hero=hero, level=1)
-        stage = Stage.objects.create(hero=hero, next_stage=stage)
-        url = reverse('AGONy_stage_detail', args=(stage.id,))
-        return redirect(url)
