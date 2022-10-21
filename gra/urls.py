@@ -16,9 +16,6 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-import rpg.views
-
-
 from AGONy.views import (AGONyIndexView, AGONyWorkInProgress, CreateHeroInAgony,
                          CreateMonsterInAgony, Leaderboard, UpdateHeroInAgony, MonstersInAgonyList,
                          UpdateMonsterInAgony, CreateDefaultsInAgony,
@@ -89,27 +86,5 @@ urlpatterns = [
     # AGONy login/auth
     path('AGONy_login/', LoginView.as_view(), name='AGONy_login'),
     path('AGONy_logout/', LogoutView.as_view(), name='AGONy_logout'),
-
-    #gra_rpg
-    path('admin/', admin.site.urls),
-    path('rpg/', rpg.views.IndexView.as_view(), name='index'),
-    path('create_hero/', rpg.views.CreateHeroView.as_view(), name='create_hero'),
-    path('create_monster/', rpg.views.AddMonsterView.as_view(), name='create_monster'),
-    path('all_heroes/', rpg.views.HeroListView.as_view(), name='hero_list'),
-    path('my_heroes/', rpg.views.MyHeroListView.as_view(), name='my_hero_list'),
-    path('all_monsters/', rpg.views.MonsterListView.as_view(), name='monster_list'),
-    path('create_user/', rpg.views.CreateUserView.as_view(), name='create_user'),
-    path('create_game/', rpg.views.CreateGameView.as_view(), name='create_game'),
-    path('create_game/<int:id_hero>/', rpg.views.CreateGameForHero.as_view(), name='create_game_for_hero'),
-    path('detail_game/<int:pk>/', rpg.views.GameDetailView.as_view(), name='game_detail'),
-    path('detail_stage/<int:pk>/', rpg.views.StageDetailView.as_view(), name='stage_detail'),
-    path('fight/<int:stage_id>/', rpg.views.FightView.as_view(), name='fight'),
-    path('attack_monster/<int:monster_id>/<int:hero_id>/', rpg.views.AttackMonsterView.as_view(), name='attack_monster'),
-
-    #login/auth
-    path('login/', rpg.views.LoginView.as_view(), name='login'),
-    path('logout/', rpg.views.LogoutView.as_view(), name='logout'),
-
-
 
 ]
