@@ -23,7 +23,7 @@
                 <td>{{ hero.defence }}</td>
                 <td>{{ hero.gold }}</td>
                 {% if hero.hp > 0 %}
-                    <td><a class="btn btn-outline-primary" href="{% url 'AGONy_create_journey_for_hero' hero.id %}">New Journey</a></td>
+                    <td><a class="btn btn-outline-primary" href="{% url 'AGONy_create_journey_for_hero' hero.id %}">To Journey!</a></td>
                 {% else %}
                     <td><button class="btn btn-outline-danger">DEAD!</button></td>
                 {% endif %}

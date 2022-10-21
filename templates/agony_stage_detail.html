@@ -1,11 +1,11 @@
 {% extends 'agony_base.html' %}
 {% block content %}
-    <p>poziom: {{ stage.level }}</p>
+
     <div>
         {{ context }}
 
     </div>
-    <table class="table">
+    <table class="table" style="color:darkgoldenrod">
         <tr>
             <th>hp</th>
             <th>attack</th>
@@ -19,8 +19,8 @@
     </table>
 
     <hr>
-    <a href="{% url 'fight' stage.id %}" class="btn btn-danger">Walcz</a>
-    <table class="table">
+
+    <table class="table" style="color:darkred">
         <tr>
             <th>name</th>
             <th>hp</th>
@@ -34,22 +34,22 @@
                 <td> {{ aliveMonster.current_hp }}</td>
                 <td>{{ aliveMonster.attack }}</td>
                 <td>{{ aliveMonster.defence }}</td>
-                {% if aliveMonster.current_hp > 0 %}
+
+                {% if stage.hero.hp < 1 %}
+                    <td>YOUR HERO DIED!</td>
+                {% else %}
+                    {% if aliveMonster.current_hp > 0 %}
                     <td><a class='btn btn-danger' href="{% url 'AGONy_attack_monster' aliveMonster.id stage.hero.id %}">Attack!</a></td>
-                    {% else %}
+                    {% endif %}
+                    {% if aliveMonster.current_hp < 1 %}
                     <td><a class='btn btn-danger' href="{% url 'AGONy_return_to_journey' stage.hero.id %}">Return to journey!</a></td>
+                    {% endif %}
                 {% endif %}
             </tr>
 
         {% endfor %}
     </table>
 
-    <p>
-        {% if stage.prev.count == 1 %}
-            <a href="{% url 'stage_detail' stage.prev.first.id %}" class="btn bg-primary">poprzednia</a>
-        {% endif %}
-        <a href="{% url 'stage_detail' stage.next_stage.id %}" class="btn bg-primary">następna</a>
-    </p>
 
 
 

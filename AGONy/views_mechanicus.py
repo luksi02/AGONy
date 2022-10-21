@@ -1,6 +1,7 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
+from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render, redirect, get_object_or_404, reverse
 from django.urls import reverse_lazy
 from django.views import View
@@ -19,11 +20,8 @@ from AGONy.forms import HeroCreateForm, MonsterCreateForm, CreateUserForm, Login
 def agony(request):
     openai.api_key = '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'  # os.getenv("OPENAI_API_KEY")
     OPEN_API_KEY = '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'
-    absurd = """when they entered cave, the dragon was masturbating using goblin midget in smurf costume as a toy"""
-    query_text = """a prayer to a machinegod: From the moment I understood the weakness of my flesh, it disgusted me.
-    I craved the strength and certainty of steel. I aspired to the purity of the blessed machine.
-Your kind cling to your flesh as if it will not decay and fail you. One day the crude biomass you call a temple will wither and you will beg my kind to save you.
-But I am already saved. For the Machine is Immortal."""
+    absurd = "when they entered cave, the dragon was eating goblin midget in smurf costume"
+    query_text = "a prayer to a machinegod: From the moment I understood"
     query_text1 = "Origin story of a dwarf that lived under dungeon stronhold in shadowy Blue Mountains"
     query_response = openai.Completion.create(engine="davinci-instruct-beta", prompt=absurd, temperature=0,
                                               max_tokens=500, top_p=1, frequency_penalty=0, presence_penalty=0)
@@ -46,7 +44,7 @@ class CreateGameForHero(LoginRequiredMixin, View):
     def get(self, request, id_hero):
         hero = Hero.objects.get(pk=id_hero)
         stage = Stage.objects.create(hero=hero, level=1)
-        stage = Stage.objects.create(hero=hero, next_stage=stage)
+        #stage = Stage.objects.create(hero=hero, next_stage=stage)
         url = reverse('AGONy_stage_detail', args=(stage.id,))
         return redirect(url)
 
@@ -60,8 +58,8 @@ class StageDetailView(LoginRequiredMixin, View):
 
         stage = get_object_or_404(Stage, pk=pk)
 
-        if stage.next_stage is None:
-            stage.next_stage = Stage.objects.create(level=stage.level + 1)
+        """if stage.next_stage is None:
+            stage.next_stage = Stage.objects.create(level=stage.level + 1)"""
 
         if not stage.visited:
             stage.generate_monster()
@@ -74,7 +72,34 @@ class StageDetailView(LoginRequiredMixin, View):
 class CreateJourneyForHero(LoginRequiredMixin, View):
 
     def get(self, request, id_hero):
-        if Journey.objects.get(pk=id_hero) is None:
+        if len(Event.objects.all()) ==0:
+            return HttpResponse("Create Event first!")
+        if len(Monster.objects.all()) == 0:
+            return HttpResponse("Create Monsters first!")
+        try:
+            Journey.objects.get(hero=id_hero, day_visited=False)
+            url = reverse('AGONy_return_to_journey', args=(id_hero,))
+            return redirect(url)
+        except ObjectDoesNotExist:
+            hero = Hero.objects.get(pk=id_hero)
+            journey = Journey.objects.create(hero=hero, day=1)
+            # journey_next_day = journey.objects.create(hero=hero, next_day=journey)
+            url = reverse('AGONy_journey_detail', args=(journey.id,))
+            return redirect(url)
+
+        """else:
+            Journey.objects.get(pk=id_hero)
+            url = reverse('AGONy_return_to_journey', args=(id_hero,))
+            return redirect(url)
+
+        except ObjectDoesNotExist:
+            
+            
+        else:
+            url = reverse('AGONy_return_to_journey', args=(id_hero,))
+            return redirect(url)
+
+            if Journey.objects.get(pk=id_hero) is None:
             hero = Hero.objects.get(pk=id_hero)
             journey = Journey.objects.create(hero=hero, day=1)
             #journey_next_day = journey.objects.create(hero=hero, next_day=journey)
@@ -82,7 +107,9 @@ class CreateJourneyForHero(LoginRequiredMixin, View):
             return redirect(url)
         else:
             url = reverse('AGONy_return_to_journey', args=(id_hero,))
-            return redirect(url)
+            return redirect(url)"""
+
+
 
 
 

@@ -5,7 +5,7 @@
         {{ context }}
 
     </div>
-    <table class="table">
+    <table class="table" style="color:darkgoldenrod">
         <tr>
             <th>Hero's name</th>
             <th>HP</th>
@@ -26,7 +26,7 @@
 
     <hr>
 
-    <table class="table">
+    <table class="table" style="color:darkblue">
 
     {% for currentEvent in journey.event.all %}
 
@@ -35,7 +35,7 @@
 
                 {% if currentEvent.event_type is 0 %}
                     <td><a class='btn btn-danger' href="{% url 'AGONy_create_game_for_hero' journey.hero.id %}">Fight with Monster!</a></td>
-                    <td><a class='btn btn-danger' href="{% url 'AGONy_run_away' journey.next_day.id %}">Oh shit, run away!</a></td>
+                    <td><a class='btn btn-warning' href="{% url 'AGONy_run_away' journey.next_day.id %}">Oh shit, run away!</a></td>
                 {% endif %}
 
                 {% if currentEvent.event_type is 1 %}

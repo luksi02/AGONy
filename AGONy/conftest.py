@@ -21,12 +21,12 @@ def hero():
 
 @pytest.fixture
 def stage(hero):
-    return Stage.objects.create(hero=hero)
+    return Stage.objects.create(hero=hero, level=1)
 
 
 @pytest.fixture
 def journey(hero):
-    return Journey.objects.create(hero=hero)
+    return Journey.objects.create(hero=hero, day=1)
 
 @pytest.fixture
 def monsters():
@@ -56,8 +56,28 @@ def monster2():
 def alivemonster(stage, monster):
     return AliveMonster.objects.create(monster=monster, stage=stage)
 
+
+@pytest.fixture
+def alivemonster1(monsters):
+    return AliveMonster.objects.create(monster_class=monsters[0], current_hp=10)
+
+@pytest.fixture
+def alivemonsters(monsters):
+    lst = []
+    for x in range(10):
+        lst.append(AliveMonster.objects.create(monster_class=monsters[0], current_hp=10))
+    return lst
+
+
 @pytest.fixture
 def events():
+    lst = []
+    for x in range(10):
+        lst.append(Event.objects.create(event_name=x))
+    return lst
+
+@pytest.fixture
+def event_list():
     lst = []
     for x in range(10):
         lst.append(Event.objects.create(event_name=x))

@@ -13,11 +13,8 @@
             <tr class="{% cycle 'table-light' 'table-secondary'%}">
 
                 <td>{{ forloop.counter }}</td>
-                <td><a href="{% url 'AGONy_update_event' event.id %}">{{ event.id }}</a></td>
+                <td><a href="{% url 'AGONy_update_event' event.id %}">{{ event.event_name }}</a></td>
                 <td>{{ event.event_type }}</td>
-                <td>{{ event.event_name }}</td>
-                <td>{{ event.name }}</td>
-                <td>{{ event.type }}</td>
 
             </tr>
         {% endfor %}

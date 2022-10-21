@@ -161,7 +161,7 @@ class Stage(models.Model):
     level = models.IntegerField(default=1)
     monsters = models.ManyToManyField(AliveMonster, through='AliveMonsterInStage')
     visited = models.BooleanField(default=False)
-    next_stage = models.ForeignKey("Stage", on_delete=models.SET_NULL, null=True, related_name='prev')
+    #next_stage = models.ForeignKey("Stage", on_delete=models.SET_NULL, null=True, related_name='prev')
 
     def generate_monster(self):
         monster_list = Monster.objects.all()

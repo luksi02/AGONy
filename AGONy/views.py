@@ -99,7 +99,7 @@ class UpdateHeroInAgony(LoginRequiredMixin, UpdateView):
     model = Hero
     form_class = HeroCreateForm
     template_name = 'agony_form.html'
-    success_url = reverse_lazy('AGONy_hero_list')
+    success_url = reverse_lazy('AGONy_my_hero_list')
 
 
 class EndHeroAgony(View):
@@ -128,7 +128,7 @@ class CreateMonsterInAgony(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy('AGONy_index')
 
 
-class MonstersInAgonyList(ListView):
+class MonstersInAgonyList(LoginRequiredMixin, ListView):
     message = """
     Let's see what wonderful creatures await us! Wait, why did it bite my leg off? 
     Is this blood? Get a cleric, quick!
@@ -188,7 +188,7 @@ class EventsInAgonyList(LoginRequiredMixin, ListView):
     message = """
     """
 
-    model = Origin
+    model = Event
     template_name = 'agony_event_list.html'
 
 
