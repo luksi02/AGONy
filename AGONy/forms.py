@@ -2,8 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 
-from AGONy.models import Event, Origin
-from rpg.models import Monster, Hero
+from AGONy.models import Event, Origin, Hero, Monster, Stage, Journey
 
 
 class HeroCreateForm(forms.ModelForm):
