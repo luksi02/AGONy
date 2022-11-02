@@ -126,10 +126,6 @@ class CurrentEventInJourney(models.Model):
     event = models.ForeignKey(CurrentEvent, on_delete=models.CASCADE)
     journey = models.ForeignKey(Journey, on_delete=models.CASCADE)
 
-"""class Journal(models.Model):
-    event = models.ForeignKey(Event, on_delete=models.CASCADE)
-    event_description = models.TextField(blank=True)
-    alive = models.BooleanField(default=True)"""
 
 class AliveMonster(models.Model):
     monster_class = models.ForeignKey(Monster, on_delete=models.CASCADE)
@@ -176,3 +172,10 @@ class Stage(models.Model):
 class AliveMonsterInStage(models.Model):
     monster = models.ForeignKey(AliveMonster, on_delete=models.CASCADE)
     stage = models.ForeignKey(Stage, on_delete=models.CASCADE)
+    
+    
+class Journal(models.Model):
+    day_number = models.IntegerField(default=0)
+    day_event = models.ForeignKey(Journey, on_delete=models.CASCADE)
+    day_event_fight = models.ForeignKey(Stage, on_delete=models.CASCADE)
+    
