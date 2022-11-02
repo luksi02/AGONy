@@ -206,3 +206,12 @@ class ReturnToJourney(View):
         return_to_journey = Journey.objects.get(hero_id=pk, day_visited=False)
         url = reverse('AGONy_journey_detail', args=(return_to_journey.id,))
         return redirect(url)
+    
+class NewEntryInJournal(View):
+    
+    def get(self, request, pk):
+        journey = Journey.objects.get(pk=pk)
+        hero = journey.hero   # check this!
+        day_event_description = f'On day {journey.day} hero {journey.hero.name} got into {journey.event_name}.' # maybe later add what was the effect. Or not.
+        #maybe put it in every event, as function? It's probalby the best idea.
+        
