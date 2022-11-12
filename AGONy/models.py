@@ -3,24 +3,6 @@ from random import randint, choice
 from django.db import models
 from django.contrib.auth.models import User
 
-"""
-RACE = [
-    (0, "Human"),
-    (1, "Elf"),
-    (2, "Dwarf"),
-]
-CREATURE_TYPE = [
-    (0, "Human"),
-    (1, "Wildlife"),
-    (2, "Undead"),
-]
-class HeroRace(models.Model):
-    race = models.IntegerField(choices=RACE, default=0)
-
-class MonsterType(models.Model):
-    monster_type = models.IntegerField(choices=CREATURE_TYPE, default=0)
-"""
-
 
 class Hero(models.Model):
     RACE = [
@@ -179,3 +161,10 @@ class Journal(models.Model):
     day_event = models.ForeignKey(Journey, on_delete=models.CASCADE)
     day_event_fight = models.ForeignKey(Stage, on_delete=models.CASCADE)
     day_description = models.TextField(max_length=500, default=blank)
+    
+    def add_journal_entry(self):
+        pass #method for the journal? Hmm
+    
+
+class Comment(models.Model):
+    comment = models.TextField(max_length = 1000)
