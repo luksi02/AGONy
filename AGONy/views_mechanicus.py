@@ -212,6 +212,6 @@ class NewEntryInJournal(View):
     def get(self, request, pk):
         journey = Journey.objects.get(pk=pk)
         hero = journey.hero   # check this!
-        day_event_description = f'On day {journey.day} hero {journey.hero.name} got into {journey.event_name}.' # maybe later add what was the effect. Or not.
+        day_event_description = f'My dearest diary, on {journey.day} day I, the mighty {journey.hero.name} got into {journey.event_name}. It was a great day!' # maybe later add what was the effect. Or not.
         #maybe put it in every event, as function? It's probalby the best idea.
         
