@@ -148,9 +148,10 @@ class UpdateMonsterInAgony(LoginRequiredMixin, UpdateView):
     template_name = 'agony_form.html'
     success_url = reverse_lazy('AGONy_monster_list')
 
-"""
+
 class CreateOriginOfAgony():
-    message = "Why not, tell us what happened in your hero past so he felt call for adventure!"
+    message = """Life is suffering, sooner or later everyone faces some kind of tragedy, so why not, 
+    tell us what happened in your hero past so he felt call for adventure!"""
 
     model = Origin
     fields = "__all__"
@@ -159,12 +160,12 @@ class CreateOriginOfAgony():
 
 
 class OriginsOfAgonyList(ListView):
-    message = ""
+    message = "So many people, so many tragedies, so many heroes!"
 
     model = Origin
     template_name = 'agony_monster_list.html'
 
-
+"""     #hmm, not 
 class UpdateOriginOfAgony(LoginRequiredMixin, UpdateView):
     message = ""
 
