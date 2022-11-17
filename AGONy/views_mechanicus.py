@@ -11,7 +11,7 @@ from django.http import HttpResponse
 import openai, os
 from django.shortcuts import render
 from django.views.generic import CreateView, ListView, UpdateView
-from transformers import pipeline
+#from transformers import pipeline
 
 from AGONy.models import Hero, Monster, Stage, Event, Origin, AliveMonster, Journey #Game,
 from AGONy.forms import HeroCreateForm, MonsterCreateForm, CreateUserForm, LoginForm, OriginCreateForm, EventCreateForm

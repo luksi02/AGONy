@@ -20,7 +20,7 @@ from AGONy.views import (AGONyIndexView, AGONyWorkInProgress, CreateHeroInAgony,
                          CreateMonsterInAgony, Leaderboard, UpdateHeroInAgony, MonstersInAgonyList,
                          UpdateMonsterInAgony, CreateDefaultsInAgony,
                          CreateUserView, LoginView, LogoutView, MyHeroesInAgonyList, CreateEventInAgony,
-                         EventsInAgonyList, UpdateEventInAgony
+                         EventsInAgonyList, UpdateEventInAgony, ContactView, CreateCommentView, CommentListView
                          )
 
 from AGONy.views_mechanicus import (StageDetailView, agony,
@@ -34,7 +34,10 @@ urlpatterns = [
     path('', AGONyIndexView.as_view(), name='AGONy_index'),
     path('wip/', AGONyWorkInProgress.as_view(), name='AGONy_WIP'),
     path('AGONy_all_heroes/', Leaderboard.as_view(), name='AGONy_hero_list'), #Leaderboard
-    #path('AGONy_contact/', HeroesInAgonyList.as_view(), name='AGONy_contact'), #Contact
+    path('AGONy_contact/', ContactView.as_view(), name='AGONy_contact'), #Contact
+
+    path('AGONy_create_comment/', CreateCommentView.as_view(), name='AGONy_create_comment'), #Comment
+    path('AGONy_all_comments/', CommentListView.as_view(), name='AGONy_comment_list'), #Comment
 
     # complaints_for_superuser
 

@@ -160,7 +160,7 @@ class Journal(models.Model):
     day_number = models.IntegerField(default=0)
     day_event = models.ForeignKey(Journey, on_delete=models.CASCADE)
     day_event_fight = models.ForeignKey(Stage, on_delete=models.CASCADE)
-    day_description = models.TextField(max_length=500, default=blank)
+    day_description = models.TextField(max_length=500, blank=True)
     
     def add_journal_entry(self):
         pass #method for the journal? Hmm
