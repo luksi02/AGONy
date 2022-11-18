@@ -18,9 +18,9 @@ from AGONy.forms import HeroCreateForm, MonsterCreateForm, CreateUserForm, Login
 
 
 def agony(request):
-    openai.api_key = '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'  # os.getenv("OPENAI_API_KEY")
-    OPEN_API_KEY = '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'
-    absurd = "when they entered cave, the dragon was eating goblin midget in smurf costume"
+    openai.api_key = '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'  # os.getenv("OPENAI_API_KEY")
+    OPEN_API_KEY = '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'
+    absurd = "when they entered cave, the dragon was masturbating using goblin midget in smurf costume as a toy"
     query_text = "a prayer to a machinegod: From the moment I understood"
     query_text1 = "Origin story of a dwarf that lived under dungeon stronhold in shadowy Blue Mountains"
     query_response = openai.Completion.create(engine="davinci-instruct-beta", prompt=absurd, temperature=0,

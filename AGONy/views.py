@@ -18,8 +18,8 @@ from AGONy.forms import HeroCreateForm, MonsterCreateForm, CreateUserForm, Login
 
 # Create your views here.
 def agony(request):
-    openai.api_key = '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'  # os.getenv("OPENAI_API_KEY")
-    OPEN_API_KEY = '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'
+    openai.api_key = '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'  # os.getenv("OPENAI_API_KEY")
+    OPEN_API_KEY = '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'
     absurd = """when they entered cave, the dragon was masturbating using goblin midget in smurf costume as a toy"""
     query_text = """a prayer to a machinegod: From the moment I understood the weakness of my flesh, it disgusted me.
     I craved the strength and certainty of steel. I aspired to the purity of the blessed machine.
@@ -169,7 +169,7 @@ class OriginsOfAgonyList(ListView):
     message = "So many people, so many tragedies, so many heroes!"
 
     model = Origin
-    template_name = 'agony_monster_list.html'
+    template_name = 'agony_origin_list.html'
 
 
 class CreateCommentView(CreateView):
@@ -187,7 +187,7 @@ class CommentListView(ListView):
     """
 
     model = Comment
-    template_name = 'agony_monster_list.html'
+    template_name = 'agony_comment_list.html'
 
 """     #hmm, not 
 class UpdateOriginOfAgony(LoginRequiredMixin, UpdateView):

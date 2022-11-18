@@ -1,0 +1,22 @@
+{% extends 'agony_base.html' %}
+{% block content %}
+
+    <table class="table">
+        <tr>
+            <th>#</th>
+            <th>Type</th>
+            <th>Description</th>
+
+            <th></th>
+        </tr>
+        {% for origin in object_list %}
+            <tr class="{% cycle 'table-light' 'table-secondary'%}">
+
+                <td>{{ forloop.counter }}</td>
+                <td>{{ origin.origin_type }}</td>
+                <td>{{ origin.origin_description }}</td>
+
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
