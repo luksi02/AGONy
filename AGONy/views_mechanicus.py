@@ -18,13 +18,15 @@ from AGONy.forms import HeroCreateForm, MonsterCreateForm, CreateUserForm, Login
 
 
 def agony(request):
-    openai.api_key = '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'  # os.getenv("OPENAI_API_KEY")
-    OPEN_API_KEY = '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'
-    absurd = "when they entered cave, the dragon was masturbating using goblin midget in smurf costume as a toy"
+    openai.api_key = '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'  # os.getenv("OPENAI_API_KEY")
+    OPEN_API_KEY = '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'
+    absurd = """What a beautiful day! Something happens, let's see what: Brave hero journeys into unknown. 
+    Then the magic happens. Hero encounters a big, angry dragon"""
+        #"when they entered cave, the dragon was masturbating using goblin midget in smurf costume as a toy"
     query_text = "a prayer to a machinegod: From the moment I understood"
     query_text1 = "Origin story of a dwarf that lived under dungeon stronhold in shadowy Blue Mountains"
     query_response = openai.Completion.create(engine="davinci-instruct-beta", prompt=absurd, temperature=0,
-                                              max_tokens=500, top_p=1, frequency_penalty=0, presence_penalty=0)
+                                              max_tokens=100, top_p=1, frequency_penalty=0, presence_penalty=0)
     print(query_response.choices[0].text.split('.'))
     return HttpResponse(query_response.choices[0].text.split('.'))
 
@@ -37,6 +39,20 @@ def agony2(request):
     generator = pipeline('text-generation', model='EleutherAI/gpt-neo-2.7B')
     generated_text = generator(absurd, do_sample=True, min_length=300)
     return HttpResponse(generated_text)
+
+
+def agony3(request, input_text):
+    openai.api_key = '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'  # os.getenv("OPENAI_API_KEY")
+
+    query_response = openai.Completion.create(engine="davinci-instruct-beta", prompt=input_text, temperature=0,
+                                              max_tokens=100, top_p=1, frequency_penalty=0, presence_penalty=0)
+
+    print(query_response.choices[0].text.split('.'))
+
+    input_text = "Origin story of a dwarf that lived under dungeon stronhold in shadowy Blue Mountains"
+
+    answer = query_response.choices[0].text.split('.')
+    return answer
 
 
 class CreateGameForHero(LoginRequiredMixin, View):
@@ -117,7 +133,6 @@ class JourneyDetailView(LoginRequiredMixin, View):
 
     def get(self, request, pk):
 
-        context = """What a beautiful day! Something happens, let's see what:"""
 
         journey = get_object_or_404(Journey, pk=pk)
 
@@ -133,6 +148,14 @@ class JourneyDetailView(LoginRequiredMixin, View):
                 journey.hero.hp = journey.hero.gold + randint(5,10)"""
             journey.day_visited = True
             journey.save()
+
+        previous_context = """What a beautiful day! Something happens, let's see what:"""
+
+        input_text = previous_context + "brave hero journeys into unknown. Then the magic happens. Hero encounters a big, angry dragon"
+
+        context = agony3(request, input_text) # + journey.event.event_name)
+
+
 
         return render(request, 'agony_journey_detail.html', {'journey': journey, 'context': context})
 

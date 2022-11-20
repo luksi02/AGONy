@@ -16,21 +16,6 @@ from AGONy.forms import HeroCreateForm, MonsterCreateForm, CreateUserForm, Login
 
 
 
-# Create your views here.
-def agony(request):
-    openai.api_key = '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'  # os.getenv("OPENAI_API_KEY")
-    OPEN_API_KEY = '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'
-    absurd = """when they entered cave, the dragon was masturbating using goblin midget in smurf costume as a toy"""
-    query_text = """a prayer to a machinegod: From the moment I understood the weakness of my flesh, it disgusted me.
-    I craved the strength and certainty of steel. I aspired to the purity of the blessed machine.
-Your kind cling to your flesh as if it will not decay and fail you. One day the crude biomass you call a temple will wither and you will beg my kind to save you.
-But I am already saved. For the Machine is Immortal."""
-    query_text1 = "Origin story of a dwarf that lived under dungeon stronhold in shadowy Blue Mountains"
-    query_response = openai.Completion.create(engine="davinci-instruct-beta", prompt=absurd, temperature=0,
-                                              max_tokens=500, top_p=1, frequency_penalty=0, presence_penalty=0)
-    print(query_response.choices[0].text.split('.'))
-    return HttpResponse(query_response.choices[0].text.split('.'))
-
 
 class AGONyIndexView(View):
     """landing page, perhaps large incoming, flaming text 'AGONy: Adventure Generator Of Nonsense journey' """
