@@ -244,25 +244,46 @@ class CreateDefaultsInAgony(View):
         Hero.objects.create(name='Shorty MacBeard', race=2)
 
         # human-like monsters
-        Monster.objects.create(name='Goblin', hp=20, attack=2, defence=0, monster_level=0, monster_type=0)
-        Monster.objects.create(name='Orc', hp=40, attack=3, defence=1, monster_level=1, monster_type=0)
+        Monster.objects.create(name='Goblin', hp=20, attack=2, defence=0, monster_level=0, monster_type=0, 
+                               description="""Little, nasty green creature, filled with hate and hunger - looks like it wants to be its next meal!""")
+        
+        Monster.objects.create(name='Orc', hp=40, attack=3, defence=1, monster_level=1, monster_type=0, 
+                               description="""Big, angry green creature that finds you very attractive... as a food, 
+                               and you guessed it - it means you should be afraid!""")
+        
         #Monster.objects.create(name='Goblin Wolf Rider', hp=50, attack=7, defence=4, monster_level=2, monster_type=0)
         #Monster.objects.create(name='Troll', hp=80, attack=8, defence=2, monster_level=3, monster_type=0)
         #Monster.objects.create(name='Giant', hp=200, attack=15, defence=5, monster_level=4, monster_type=0)
 
         # wild-wild-life monsters
-        Monster.objects.create(name='Wolf', hp=25, attack=3, defence=0, monster_level=0, monster_type=1)
+        Monster.objects.create(name='Wolf', hp=25, attack=3, defence=0, monster_level=0, monster_type=1, description="""Ever heard tales and stories why you 
+                                should not walk into the woods? You guessed it - here comes 
+                                the wolf and it counts you'll be a fancy snack!""")
+        
         Monster.objects.create(name='Giant Venomous Spider', hp=50, attack=3, defence=0, monster_level=1,
-                               monster_type=1)
+                               monster_type=1, description="""Itsy bitsy giant venomous spider - Oh, I'm so cute: I have eight long furry legs, 
+                               eight terryfing eyes set on you, and you guessed it! I want some cuddels and cover you in webs and then eat! Come to papa!""")
+        
         #Monster.objects.create(name='Angry Bear', hp=80, attack=5, defence=1, monster_level=2, monster_type=1)
         #Monster.objects.create(name='Fancy Unicorn', hp=100, attack=5, defence=2, monster_level=3, monster_type=1)
-        Monster.objects.create(name='Dragon', hp=150, attack=10, defence=3, monster_level=4, monster_type=1)
+        
+        Monster.objects.create(name='Dragon', hp=150, attack=10, defence=3, monster_level=4, monster_type=1, 
+                               description="""Mystic and poud creature, but (there's always a but!) has a nasty habit - it hoards anything gold-like and shiny!
+                               (it wants a new addition to it's collection, and you guessed it - it wants you and your shines!""")
 
         # undead monsters
-        Monster.objects.create(name='Zombie', hp=40, attack=2, defence=0, monster_level=0, monster_type=2)
-        Monster.objects.create(name='Skeleton', hp=55, attack=3, defence=0, monster_level=1, monster_type=2)
+        Monster.objects.create(name='Zombie', hp=40, attack=2, defence=0, monster_level=0, monster_type=2, 
+                               description="""Clumsy, stinking, brainless... those damn zombies! Ugh, one just dropped its liver. DISGUSTANG! Well, brainless for now - it wants your brainzzz! Now protect it or 
+                               becomen another brainless, wiggly, rotting walking corpse!""")
+
+        Monster.objects.create(name='Skeleton', hp=55, attack=3, defence=0, monster_level=1, monster_type=2, 
+                               description="""There's something there! Something white and full of calcium. Hey, why those bones hover in air? 
+                               Hey, why those skull turned into my direction? Oh hell no, why it moves towards me? Shouldn't it behave nicely and just stay dead?""")
+        
         #Monster.objects.create(name='Skeleton Archer', hp=60, attack=6, defence=6, monster_level=2, monster_type=2)
+        
         #Monster.objects.create(name='Lich', hp=80, attack=15, defence=3, monster_level=3, monster_type=2)
+        
         #Monster.objects.create(name='Vampire', hp=125, attack=6, defence=5, monster_level=4, monster_type=2)
 
         # origins - general
@@ -274,8 +295,10 @@ class CreateDefaultsInAgony(View):
         # origins - tragic
         Origin.objects.create(origin_type=0,
                               origin_description="Got his family murdered, now on a quest to avenge them!")
+        
         Origin.objects.create(origin_type=0,
                               origin_description="Murdered a lot of people, now running away from law enforcement!")
+        
         Origin.objects.create(origin_type=0, origin_description="Got set up in criminal activity, it's a way to repent")
 
         # default user creation
@@ -283,10 +306,18 @@ class CreateDefaultsInAgony(View):
         #User.objects.create(username='xyz', password1='12345678', password2='12345678')
 
         # event
-        Event.objects.create(event_type=0, event_name="Your Hero encountered Monster, now stand and fight it!")
-        Event.objects.create(event_type=1, event_name="Ooh, shiney! You found something!")
-        Event.objects.create(event_type=2, event_name="Oh crap, it's a trap!")
-        Event.objects.create(event_type=3, event_name="Wonderful views, aren't they? So beautiful landscape!")
+        Event.objects.create(event_type=0, event_name="""Your Hero encountered Monster, now stand and fight it! 
+                             Or try to run, just to live another day! No judgement here, world is hard enough even without fighting monsters!""")
+        
+        Event.objects.create(event_type=1, event_name="""Ooh, shiney! You found something! Seems like after all it was worth to walk 
+                            and put yourself in all this danger. Now let's see what you found!""")
+        
+        Event.objects.create(event_type=2, event_name="""Oh crap, it's a trap! Of course when did you find it out? Just when you stepped
+                            into that trap and sprung it! Damn, it must have hurt! How are you holding up? Still have all limbs?""")
+        
+        Event.objects.create(event_type=3, event_name="""Wonderful views, aren't they? So beautiful landscape! 
+                            You take a while to just enjoy this peaceful moment, after all saving the world (or conquering it, or 
+                            anything else you doing, can wait a little moment)""")
 
         return redirect('AGONy_index')  #, {'message': message})
 
