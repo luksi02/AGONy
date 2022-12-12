@@ -243,17 +243,22 @@ class CreateDefaultsInAgony(View):
         Hero.objects.create(name='Woody Oakson', race=1)
         Hero.objects.create(name='Shorty MacBeard', race=2)
 
-        # human-like monsters
+        # human-like monsters, but not exactly - orcs and stuff
         Monster.objects.create(name='Goblin', hp=20, attack=2, defence=0, monster_level=0, monster_type=0, 
                                description="""Little, nasty green creature, filled with hate and hunger - looks like it wants to be its next meal!""")
         
         Monster.objects.create(name='Orc', hp=40, attack=3, defence=1, monster_level=1, monster_type=0, 
                                description="""Big, angry green creature that finds you very attractive... as a food, 
-                               and you guessed it - it means you should be afraid!""")
-        
+                               and you guessed it - it means you should be afraid!""")        
+             
         #Monster.objects.create(name='Goblin Wolf Rider', hp=50, attack=7, defence=4, monster_level=2, monster_type=0)
         #Monster.objects.create(name='Troll', hp=80, attack=8, defence=2, monster_level=3, monster_type=0)
         #Monster.objects.create(name='Giant', hp=200, attack=15, defence=5, monster_level=4, monster_type=0)
+        
+        #humans - but nasty ones        
+        Monster.objects.create(name='Bandit', hp=40, attack=3, defence=1, monster_level=1, monster_type=0, 
+                               description="""ever heard saying: dont talk to strangers? Well, one od them just approached you, and seems like he 
+                               wants to befriend you - why elese would he shout "Your money or your life!"?""")
 
         # wild-wild-life monsters
         Monster.objects.create(name='Wolf', hp=25, attack=3, defence=0, monster_level=0, monster_type=1, description="""Ever heard tales and stories why you 
@@ -264,7 +269,9 @@ class CreateDefaultsInAgony(View):
                                monster_type=1, description="""Itsy bitsy giant venomous spider - Oh, I'm so cute: I have eight long furry legs, 
                                eight terryfing eyes set on you, and you guessed it! I want some cuddels and cover you in webs and then eat! Come to papa!""")
         
-        #Monster.objects.create(name='Angry Bear', hp=80, attack=5, defence=1, monster_level=2, monster_type=1)
+        Monster.objects.create(name='Angry Bird-Bear', hp=80, attack=5, defence=1, monster_level=2, monster_type=1, description="""Have you ever heard of angry bird? Probably. Heard of angry bear? 
+        Probably. Heard of Bird-Bear? Never? Well, some kind of psycho-druid created this abonomination, and now it's up to you to face IT. And get rid of IT. For everyone!""")
+        
         #Monster.objects.create(name='Fancy Unicorn', hp=100, attack=5, defence=2, monster_level=3, monster_type=1)
         
         Monster.objects.create(name='Dragon', hp=150, attack=10, defence=3, monster_level=4, monster_type=1, 
@@ -280,7 +287,8 @@ class CreateDefaultsInAgony(View):
                                description="""There's something there! Something white and full of calcium. Hey, why those bones hover in air? 
                                Hey, why those skull turned into my direction? Oh hell no, why it moves towards me? Shouldn't it behave nicely and just stay dead?""")
         
-        #Monster.objects.create(name='Skeleton Archer', hp=60, attack=6, defence=6, monster_level=2, monster_type=2)
+        Monster.objects.create(name='Vegenful Spirit', hp=60, attack=6, defence=6, monster_level=2, monster_type=2, description="""some spirits stay on earth even after death - mostly because their life 
+        was ended by murder or other foul action. Now you encountered one. Not a pleasant spirit this one is, oh no.""")
         
         #Monster.objects.create(name='Lich', hp=80, attack=15, defence=3, monster_level=3, monster_type=2)
         
@@ -305,19 +313,38 @@ class CreateDefaultsInAgony(View):
         #User.objects.create(username='abc', password1='12345678', password2='12345678')
         #User.objects.create(username='xyz', password1='12345678', password2='12345678')
 
-        # event
+        #0 - escape-able monster encounter
         Event.objects.create(event_type=0, event_name="""Your Hero encountered Monster, now stand and fight it! 
                              Or try to run, just to live another day! No judgement here, world is hard enough even without fighting monsters!""")
         
+        #1 - loot encounter
         Event.objects.create(event_type=1, event_name="""Ooh, shiney! You found something! Seems like after all it was worth to walk 
                             and put yourself in all this danger. Now let's see what you found!""")
         
+        #2 - trap
         Event.objects.create(event_type=2, event_name="""Oh crap, it's a trap! Of course when did you find it out? Just when you stepped
                             into that trap and sprung it! Damn, it must have hurt! How are you holding up? Still have all limbs?""")
         
+        #3 - empty encounter
         Event.objects.create(event_type=3, event_name="""Wonderful views, aren't they? So beautiful landscape! 
                             You take a while to just enjoy this peaceful moment, after all saving the world (or conquering it, or 
                             anything else you doing, can wait a little moment)""")
+        
+        #2 - Trap
+        Event.objects.create(event_type=2, event_name="""watch your step! While watching beautiful bird you fell into a cave, a dark, dark cave. 
+        Youre lucky you didnt break your legs. Anyway, escaping cave took a lot od time.""")
+        
+        #4 - Ambush-fight
+        Event.objects.create(event_type=4, event_name="""While  wandering through plains you felt watched - 
+        but it's too late to do anything else but fight! Draw your weapon!""")
+        
+        #5 - Visitable crypt - undead monsters
+        Event.objects.create(event_type=5, event_name="""wandering through Forest you notice more and more dead trees. Then, you 
+        notice why - you stumble upon an old and grim crypt - do you dare to enter IT?""")        
+       
+        #6 - Healing encounter
+        Event.objects.create(event_type=6, event_name="""Amidst nowhere, you found a beautiful, blossoming oasis. You 
+        take a well-deserved sip of crystal-clear water and at instant feel refreshed and more vigorous.""")
 
         return redirect('AGONy_index')  #, {'message': message})
 
