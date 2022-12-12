@@ -13,7 +13,7 @@ from django.shortcuts import render
 from django.views.generic import CreateView, ListView, UpdateView
 #from transformers import pipeline
 
-from AGONy.models import Hero, Monster, Stage, Event, Origin, AliveMonster, Journey #Game,
+from AGONy.models import Hero, Monster, Stage, Event, Origin, AliveMonster, Journey, CurrentEvent #Game,
 from AGONy.forms import HeroCreateForm, MonsterCreateForm, CreateUserForm, LoginForm, OriginCreateForm, EventCreateForm
 
 
@@ -42,7 +42,7 @@ def agony2(request):
 
 
 def agony3(request, input_text):
-    openai.api_key = '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'  # os.getenv("OPENAI_API_KEY")
+    openai.api_key = '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'  # os.getenv("OPENAI_API_KEY")
 
     query_response = openai.Completion.create(engine="davinci-instruct-beta", prompt=input_text, temperature=0,
                                               max_tokens=100, top_p=1, frequency_penalty=0, presence_penalty=0)
@@ -108,8 +108,7 @@ class CreateJourneyForHero(LoginRequiredMixin, View):
             url = reverse('AGONy_return_to_journey', args=(id_hero,))
             return redirect(url)
 
-        except ObjectDoesNotExist:
-            
+        except ObjectDoesNotExist:           
             
         else:
             url = reverse('AGONy_return_to_journey', args=(id_hero,))
@@ -124,9 +123,6 @@ class CreateJourneyForHero(LoginRequiredMixin, View):
         else:
             url = reverse('AGONy_return_to_journey', args=(id_hero,))
             return redirect(url)"""
-
-
-
 
 
 class JourneyDetailView(LoginRequiredMixin, View):
@@ -149,13 +145,13 @@ class JourneyDetailView(LoginRequiredMixin, View):
             journey.day_visited = True
             journey.save()
 
-        previous_context = """What a beautiful day! Something happens, let's see what:"""
+        event = CurrentEvent.objects.latest('id')
 
-        input_text = previous_context + "brave hero journeys into unknown. Then the magic happens. Hero encounters a big, angry dragon"
+        print(event.event_name)
+
+        input_text = f"What a beautiful day! Something happens, let's see what: brave hero {journey.hero.name} journeys into unknown. Then the magic happens. {event.event_name}"""
 
         context = agony3(request, input_text) # + journey.event.event_name)
-
-
 
         return render(request, 'agony_journey_detail.html', {'journey': journey, 'context': context})
 
