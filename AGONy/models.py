@@ -71,7 +71,10 @@ class Event(models.Model):
         (0, 'Monster Encounter'),
         (1, 'Loot Encounter'), # gold/items
         (2, 'Trap Encounter'), #damage
-        (3, 'Empty Encounter')  # beautiful views and so on.
+        (3, 'Empty Encounter'),  # beautiful views and so on.
+        (4, 'Ambush - fight'), #fight with creature with no option of running away
+        (5, 'Visitable place'), #visitable place - crypt/monster lair with high possiblity of hi-level creature and hi-end loot
+        (6, 'Healing Encounter') #ust like a trap encounter - but beneficial        
     ]
 
     event_name = models.CharField(max_length=200)
