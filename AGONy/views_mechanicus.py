@@ -42,7 +42,7 @@ def agony2(request):
 
 
 def agony3(request, input_text):
-    openai.api_key = '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'  # os.getenv("OPENAI_API_KEY")
+    openai.api_key = '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'  # os.getenv("OPENAI_API_KEY")
 
     query_response = openai.Completion.create(engine="davinci-instruct-beta", prompt=input_text, temperature=0,
                                               max_tokens=100, top_p=1, frequency_penalty=0, presence_penalty=0)
@@ -150,8 +150,9 @@ class JourneyDetailView(LoginRequiredMixin, View):
         print(event.event_name)
 
         input_text = f"What a beautiful day! Something happens, let's see what: brave hero {journey.hero.name} journeys into unknown. Then the magic happens. {event.event_name}"""
+        input_text2 = f"write absurd, fantasy story as journal entry given this description: My dearest diary! It is {journey.day}th day of my quest to earn fame and glory! New day comes. New challenges. Hope I, the {journey.hero.name}, am ready for what comes next and I'm ready for these adventures! Maybe one day I will be remembered as a legend? Let's find out!. Meanwhile, today's adventure: {event.event_name}"""
 
-        context = agony3(request, input_text) # + journey.event.event_name)
+        context = agony3(request, input_text2) # + journey.event.event_name)
 
         return render(request, 'agony_journey_detail.html', {'journey': journey, 'context': context})
 
