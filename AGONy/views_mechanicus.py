@@ -42,10 +42,10 @@ def agony2(request):
 
 
 def agony3(request, input_text):
-    openai.api_key = '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'  # os.getenv("OPENAI_API_KEY")
+    openai.api_key = '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'  # os.getenv("OPENAI_API_KEY")
 
-    query_response = openai.Completion.create(engine="davinci-instruct-beta", prompt=input_text, temperature=0,
-                                              max_tokens=100, top_p=1, frequency_penalty=0, presence_penalty=0)
+    query_response = openai.Completion.create(engine="davinci-instruct-beta", prompt=input_text, temperature=0.8,
+                                              max_tokens=200, top_p=1, frequency_penalty=0, presence_penalty=0)
 
     print(query_response.choices[0].text.split('.'))
 
@@ -69,7 +69,7 @@ class StageDetailView(LoginRequiredMixin, View):
 
     def get(self, request, pk):
 
-        context = """There's something in the distance, is it a bird?
+        context2 = """There's something in the distance, is it a bird?
          Is it a plane? Oh shit, it's a monster, an angry monster!"""
 
         stage = get_object_or_404(Stage, pk=pk)
@@ -82,7 +82,26 @@ class StageDetailView(LoginRequiredMixin, View):
             stage.visited = True
             stage.save()
 
+        monster = AliveMonster.objects.latest('id')
+
+        print(monster.name)
+
+        input_text2 = f"There's something in the distance, is it a bird? Is it a plane? Oh shit, it's a monster, an angry monster! It's {monster.name}, described as {monster.description}"
+
+        context = agony3(request, input_text2)  # + journey.event.event_name)
+
         return render(request, 'agony_stage_detail.html', {'stage': stage, 'context': context})
+
+
+"""['\n\nHonestly, I knew that I would have to do some work someday to earn my fame, but I never
+ imagined how hard it would be', ' Today I met my first Monster', ' But not just any monster: 
+ it was an evil pig', " I don't know how it got here but I had the perfect plan, I would outsmart it by
+  using my cat, the purrfect weapon to take out a pig", ' I reached into my inventory, whipped out my 
+  cat, and it knocked the pig into the nearest tree', ' Success!\n\nThe pig just barely got 
+  up and looked at me', ' "Must be nice to have a cat for a weapon, eh? You\'ll see who\'s better 
+  in a fight with a mustache like mine', '"\n\nThe pig charged at me and I opened the inventory 
+  again and got out the boomerang to attack', ' The boomerang hit the pig in the face and 
+  knocked it over', ' I was so excited that I screamed and ran up to grab'] """
 
 
 class CreateJourneyForHero(LoginRequiredMixin, View):

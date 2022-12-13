@@ -135,6 +135,10 @@ class AliveMonster(models.Model):
     def name(self):
         return self.monster_class.name
 
+    @property
+    def description(self):
+        return self.monster_class.description
+
 
 class Stage(models.Model):
 
