@@ -13,7 +13,7 @@ from django.shortcuts import render
 from django.views.generic import CreateView, ListView, UpdateView
 #from transformers import pipeline
 
-from AGONy.models import Hero, Monster, Stage, Event, Origin, AliveMonster, Journey, CurrentEvent #Game,
+from AGONy.models import Hero, Monster, Stage, Event, Origin, AliveMonster, Journey, CurrentEvent, JourneyEntry, FightEntry #Game,
 from AGONy.forms import HeroCreateForm, MonsterCreateForm, CreateUserForm, LoginForm, OriginCreateForm, EventCreateForm
 
 
@@ -172,6 +172,10 @@ class JourneyDetailView(LoginRequiredMixin, View):
         input_text2 = f"write absurd, fantasy story as journal entry given this description: My dearest diary! It is {journey.day}th day of my quest to earn fame and glory! New day comes. New challenges. Hope I, the {journey.hero.name}, am ready for what comes next and I'm ready for these adventures! Maybe one day I will be remembered as a legend? Let's find out!. Meanwhile, today's adventure: {event.event_name}"""
 
         context = agony3(request, input_text2) # + journey.event.event_name)
+
+        JourneyEntry.objects.create(hero=journey.hero.name, day=journey.day,
+                                    event_type=event_type.event.event_type, day_description_original=input_text2,
+                                    day_description_by_AI=context)
 
         return render(request, 'agony_journey_detail.html', {'journey': journey, 'context': context})
 

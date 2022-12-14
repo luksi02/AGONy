@@ -175,3 +175,18 @@ class Journal(models.Model):
 
 class Comment(models.Model):
     comment = models.TextField(max_length = 1000)
+
+
+class JourneyEntry(models.Model):
+    hero = models.CharField(max_length=100)
+    day = models.IntegerField()
+    event_type = models.CharField(max_length=100)
+    day_description_original = models.TextField(max_length=1000, blank=True)
+    day_description_by_AI = models.TextField(max_length=100, blank=True)
+
+
+class FightEntry(models.Model):
+    hero = models.CharField(max_length=100)
+    monster = models.CharField(max_length=100)
+    fight_description_original = models.TextField(max_length=1000, blank=True)
+    fight_description_by_AI = models.TextField(max_length=100, blank=True)
