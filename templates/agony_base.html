@@ -48,13 +48,20 @@
     <p> {{ message }} </p>
 
     {% block content %}
-        <h1>AGONy</h1>
+        <h1 id="text-input">AGONy</h1>
+
         <h2>(Absurd Generator Of Nonsense Journey)</h2>
-        <p ></p>
+
+        <div class="btn btn-outline-primary">Click me! Please!</div>
+
+        <div id="text-input" contenteditable="true" onblur="this.focus()" autofocus>AGONy, but editable?</div>
+
     {% endblock %}
 
 </div>
 
 <script src="{% static 'bootstrap-5.2.2-dist/js/bootstrap.js' %}"></script>
+<script type="module" src="{% static 'js/04_eyes.js' %}"></script>
+<script src="{% static 'js/js_main.js' %}"></script>
 </body>
 </html>
