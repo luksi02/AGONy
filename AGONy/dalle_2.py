@@ -1,6 +1,7 @@
 import openai
 import urllib.request
 from datetime import datetime
+from openai_apikey import OPENAI_API_KEY
 
 def dalle2(prompt):
     openai.api_key = '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'

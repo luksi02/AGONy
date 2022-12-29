@@ -1,9 +1,10 @@
 import openai
+from openai_apikey import OPENAI_API_KEY
 
 def agony3(input_text):
     for i in range(1, 21):
 
-        openai.api_key = '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'  # os.getenv("OPENAI_API_KEY")
+        openai.api_key = OPENAI_API_KEY  # os.getenv("OPENAI_API_KEY")
 
         query_response = openai.Completion.create(engine="davinci-instruct-beta", prompt=input_text, temperature=0.8,
                                               max_tokens=200, top_p=1, frequency_penalty=0, presence_penalty=0)
