@@ -1,4 +1,5 @@
 from random import randint, choice
+from PIL import Image
 
 from django.db import models
 from django.contrib.auth.models import User
@@ -190,3 +191,11 @@ class FightEntry(models.Model):
     monster = models.CharField(max_length=100)
     fight_description_original = models.TextField(max_length=1000, blank=True)
     fight_description_by_AI = models.TextField(max_length=100, blank=True)
+
+
+class MonsterImage(models.Model):
+    monster_image = models.ImageField(upload_to='monster_images/uploaded')
+
+
+class MonsterAIDescription(models.Model):
+    monster_AI_description = models.TextField(max_length=500, blank=True)
