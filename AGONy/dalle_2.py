@@ -91,4 +91,13 @@ prompt = AGONy_monster_spirit
 dalle2_in_loop(10)
 
 
+"""
+Andrew, One-eyed war-experienced Octopus - an octopi war veteran, tired of life, combatant and commander in Sixth Deep Sea war, now retired, and what now? You just came to spoil his rest, get to arms! Prepare for squishy hugs and chokes!
 
+Trinity, the demon-pig. You know pigs, dont you? Funny animals full of delicious bacon. Not this one. This one is full of hate and considers you its delicious bacon. Run or prepare to be eaten alive!
+
+Beholder - I spy with my little eye, actually with my every eye, and my spying tells me you are quite a snack, come closer so I can take a little bite, you look like a tasty tasty snack! So tasty!
+
+Jack, the Yellow-Magnetic-Star - in the beginning there was not much, but Jack was already theere. Immortal, just like alkohol. Cuts swiftly through air like a leszczyna, seems like you are his next target. Remember, you the motyka, Jack - the sun.
+
+Bitsy the Courageous - Volcanic Ladybug - ahh, ladybugs, such a peaceful, adorable creatures! Well, not this one - this one spits fiare and lava, and wants you to be it's next takeaway food! Yikes!"""
