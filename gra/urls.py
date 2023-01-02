@@ -16,6 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from django.conf import settings
+from django.views.static import serve
+from django.conf.urls.static import static
+
 from AGONy.views import (AGONyIndexView, AGONyWorkInProgress, CreateHeroInAgony,
                          CreateMonsterInAgony, Leaderboard, UpdateHeroInAgony, MonstersInAgonyList,
                          UpdateMonsterInAgony, CreateDefaultsInAgony,
@@ -93,4 +97,11 @@ urlpatterns = [
     path('AGONy_login/', LoginView.as_view(), name='AGONy_login'),
     path('AGONy_logout/', LogoutView.as_view(), name='AGONy_logout'),
 
-]
+] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
+
+"""if settings.DEBUG:
+    urlpatterns += [
+        path(r'^media/(?P<path>.*)$', serve, {
+            'document_root': settings.MEDIA_ROOT,
+        }),
+    ]"""
