@@ -9,7 +9,7 @@
     {% endif %}
     <div class="card w-25">
         <div class="card-body">
-            <form method="post" class="form ">
+            <form method="post" class="form" >
                 {% csrf_token %}
                 {{ form.as_p }}
                 <input type="submit">

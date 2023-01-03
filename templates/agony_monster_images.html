@@ -14,7 +14,10 @@
 
                 <td>{{ forloop.counter }}</td>
                 <td>{{ monster.id }}</td>
-                <td>{{ monster.monster_image }}</td>
+                {% if monster.monster_image %}
+                <td>{{ monster.monster_image.url }}</td>
+                <td><img src="{{ monster.monster_image.url }}"</td>
+                {% endif %}
 
             </tr>
         {% endfor %}

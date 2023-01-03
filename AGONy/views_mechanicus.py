@@ -13,7 +13,7 @@ from django.shortcuts import render
 from django.views.generic import CreateView, ListView, UpdateView
 #from transformers import pipeline
 
-from AGONy.models import Hero, Monster, Stage, Event, Origin, AliveMonster, Journey, CurrentEvent, JourneyEntry, FightEntry #Game,
+from AGONy.models import Hero, Monster, Stage, Event, Origin, AliveMonster, Journey, CurrentEvent #, JourneyEntry, FightEntry #Game,
 from AGONy.forms import HeroCreateForm, MonsterCreateForm, CreateUserForm, LoginForm, OriginCreateForm, EventCreateForm
 
 

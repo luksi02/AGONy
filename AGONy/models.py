@@ -163,7 +163,7 @@ class AliveMonsterInStage(models.Model):
     monster = models.ForeignKey(AliveMonster, on_delete=models.CASCADE)
     stage = models.ForeignKey(Stage, on_delete=models.CASCADE)
     
-    
+    """
 class Journal(models.Model):
     day_number = models.IntegerField(default=0)
     day_event = models.ForeignKey(Journey, on_delete=models.CASCADE)
@@ -171,19 +171,19 @@ class Journal(models.Model):
     day_description = models.TextField(max_length=500, blank=True)
     
     def add_journal_entry(self):
-        pass #method for the journal? Hmm
+        pass #method for the journal? Hmm"""
     
 
 class Comment(models.Model):
     comment = models.TextField(max_length = 1000)
 
-
+"""
 class JourneyEntry(models.Model):
     hero = models.CharField(max_length=100)
     day = models.IntegerField()
     event_type = models.CharField(max_length=100)
-    day_description_original = models.TextField(max_length=1000, blank=True)
-    day_description_by_AI = models.TextField(max_length=100, blank=True)
+    #day_description_original = models.TextField(max_length=1000, blank=True)
+    #day_description_by_AI = models.TextField(max_length=100, blank=True)
 
 
 class FightEntry(models.Model):
@@ -191,10 +191,10 @@ class FightEntry(models.Model):
     monster = models.CharField(max_length=100)
     fight_description_original = models.TextField(max_length=1000, blank=True)
     fight_description_by_AI = models.TextField(max_length=100, blank=True)
-
+"""
 
 class MonsterImage(models.Model):
-    monster_image = models.ImageField(upload_to='monster_images/uploaded')
+    monster_image = models.ImageField(upload_to='monster_images/uploaded', null=True, blank=True)
 
 
 class MonsterAIDescription(models.Model):

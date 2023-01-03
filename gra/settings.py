@@ -16,8 +16,10 @@ from django.urls import reverse_lazy
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
 MEDIA_ROOT = Path(BASE_DIR)/'media'
 
+STATIC_URL = "/static/"
 MEDIA_URL = "/media/"
 
 #MEDIA_ROOT = 'home/luksi02/AGONy/AGONy/monsters_images'
