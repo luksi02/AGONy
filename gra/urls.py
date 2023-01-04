@@ -25,7 +25,7 @@ from AGONy.views import (AGONyIndexView, AGONyWorkInProgress, CreateHeroInAgony,
                          UpdateMonsterInAgony, CreateDefaultsInAgony,
                          CreateUserView, LoginView, LogoutView, MyHeroesInAgonyList, CreateEventInAgony,
                          EventsInAgonyList, UpdateEventInAgony, ContactView, CreateCommentView, CommentListView,
-                         CreateOriginOfAgony, OriginsOfAgonyList
+                         CreateOriginOfAgony, OriginsOfAgonyList, CreateMonstersImage, MonsterImageList
                          )
 
 from AGONy.views_mechanicus import (StageDetailView, agony,
@@ -55,11 +55,13 @@ urlpatterns = [
     path('AGONy_create_user/', CreateUserView.as_view(), name='AGONy_create_user'),
     path('AGONy_create_event/', CreateEventInAgony.as_view(), name='AGONy_create_event'),
     path('AGONy_create_origin/', CreateOriginOfAgony.as_view(), name='AGONy_create_origin'),
+    path('AGONy_create_monsters_image/', CreateMonstersImage.as_view(), name='AGONy_create_monsters_image'),
 
     path('AGONy_my_heroes/', MyHeroesInAgonyList.as_view(), name='AGONy_my_hero_list'),
     path('AGONy_all_monsters/', MonstersInAgonyList.as_view(), name='AGONy_monster_list'),
     path('AGONy_all_events/', EventsInAgonyList.as_view(), name='AGONy_event_list'),
     path('AGONy_all_origins/', OriginsOfAgonyList.as_view(), name='AGONy_origin_list'),
+    path('AGONy_monster_image_list/', MonsterImageList.as_view(), name='AGONy_monster_image_list'),
 
     path('AGONy_update_monster/<int:pk>', UpdateMonsterInAgony.as_view(), name='AGONy_update_monster'),
     path('AGONy_update_hero/<int:pk>', UpdateHeroInAgony.as_view(), name='AGONy_update_hero'),

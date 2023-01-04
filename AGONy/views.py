@@ -11,7 +11,7 @@ import openai, os
 from django.shortcuts import render
 from django.views.generic import CreateView, ListView, UpdateView
 
-from AGONy.models import Hero, Monster, Stage, Event, Origin, Comment #, Game
+from AGONy.models import Hero, Monster, Stage, Event, Origin, Comment, MonsterImage #, Game
 from AGONy.forms import HeroCreateForm, MonsterCreateForm, CreateUserForm, LoginForm, OriginCreateForm, EventCreateForm
 
 
@@ -425,3 +425,22 @@ class LogoutView(View):
     def get(self, request):
         logout(request)
         return redirect('AGONy_index')
+
+
+class CreateMonstersImage(LoginRequiredMixin, CreateView):
+    message = """
+    """
+
+    model = MonsterImage
+    fields = "__all__"
+    template_name = 'agony_form.html'
+    success_url = reverse_lazy('AGONy_index')
+
+
+class MonsterImageList(LoginRequiredMixin, ListView):
+    message = """
+    List of bold, ambitious Heroes awaiting for your command to march into oblivion! Yyy. yes, yes, glory and power, yes.
+    """
+
+    model = MonsterImage
+    template_name = 'agony_monster_images.html'
