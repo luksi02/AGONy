@@ -52,6 +52,13 @@ class Monster(models.Model):
     monster_type = models.IntegerField(choices=CREATURE_TYPE, default=0)
     description = models.TextField(blank=True)
     monsters_gold = models.IntegerField(default=randint(5, 10))
+    
+    monster_image= models.ForeignKey(MonsterImage, on_delete=models.CASCADE)
+    monster_AI_description = models..ForeignKey(MonsterAIDescription, on_delete=models.CASCADE)
+
+
+class MonsterAIDescription(models.Model):
+    
 
     def __str__(self):
         return f"{self.name}"
