@@ -29,6 +29,14 @@ class Hero(models.Model):
         return f"{self.name}"
 
 
+class MonsterImage(models.Model):
+    monster_image = models.ImageField(upload_to='monster_images/uploaded', null=True, blank=True)
+
+
+class MonsterAIDescription(models.Model):
+    monster_AI_description = models.TextField(max_length=500, blank=True)
+
+
 class Monster(models.Model):
     CREATURE_TYPE = [
         (0, "Human"),
@@ -53,12 +61,9 @@ class Monster(models.Model):
     description = models.TextField(blank=True)
     monsters_gold = models.IntegerField(default=randint(5, 10))
     
-    monster_image= models.ForeignKey(MonsterImage, on_delete=models.CASCADE)
-    monster_AI_description = models..ForeignKey(MonsterAIDescription, on_delete=models.CASCADE)
+    monster_image = models.ForeignKey(MonsterImage, on_delete=models.CASCADE, blank=True, null=True)
+    monster_AI_description = models.ForeignKey(MonsterAIDescription, on_delete=models.CASCADE, blank=True, null=True)
 
-
-class MonsterAIDescription(models.Model):
-    
 
     def __str__(self):
         return f"{self.name}"
@@ -200,9 +205,3 @@ class FightEntry(models.Model):
     fight_description_by_AI = models.TextField(max_length=100, blank=True)
 """
 
-class MonsterImage(models.Model):
-    monster_image = models.ImageField(upload_to='monster_images/uploaded', null=True, blank=True)
-
-
-class MonsterAIDescription(models.Model):
-    monster_AI_description = models.TextField(max_length=500, blank=True)

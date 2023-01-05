@@ -9,7 +9,7 @@ from django.core.paginator import Paginator
 from django.http import HttpResponse
 import openai, os
 from django.shortcuts import render
-from django.views.generic import CreateView, ListView, UpdateView
+from django.views.generic import CreateView, ListView, UpdateView, DetailView
 
 from AGONy.models import Hero, Monster, Stage, Event, Origin, Comment, MonsterImage #, Game
 from AGONy.forms import HeroCreateForm, MonsterCreateForm, CreateUserForm, LoginForm, OriginCreateForm, EventCreateForm
@@ -138,6 +138,15 @@ class UpdateMonsterInAgony(LoginRequiredMixin, UpdateView):
     form_class = MonsterCreateForm
     template_name = 'agony_form.html'
     success_url = reverse_lazy('AGONy_monster_list')
+
+
+class DetailMonsterInAgony(LoginRequiredMixin, DetailView):
+    message = """
+    """
+
+    model = Monster
+    #form_class = MonsterCreateForm
+    template_name = 'agony_form.html'
 
 
 class CreateOriginOfAgony(CreateView):
