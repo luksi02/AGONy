@@ -61,12 +61,19 @@ class Monster(models.Model):
     description = models.TextField(blank=True)
     monsters_gold = models.IntegerField(default=randint(5, 10))
     
-    monster_image = models.ForeignKey(MonsterImage, on_delete=models.CASCADE, blank=True, null=True)
-    monster_AI_description = models.ForeignKey(MonsterAIDescription, on_delete=models.CASCADE, blank=True, null=True)
+    #monster_image = models.ForeignKey(MonsterImage, on_delete=models.CASCADE, blank=True, null=True)
 
+    monster_monster_image = models.ManyToManyField(MonsterImage, through='MonsterMonsterImage')
+
+    monster_AI_description = models.ForeignKey(MonsterAIDescription, on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
         return f"{self.name}"
+
+
+class MonsterMonsterImage(models.Model):
+    monster = models.ForeignKey(Monster, on_delete=models.CASCADE)
+    monster_image = models.ForeignKey(MonsterImage, on_delete=models.CASCADE)
 
 
 class Origin(models.Model):

@@ -7,6 +7,7 @@
 
     <hr>
     <div>
+    <p>ForeignKey - OneToMany - it worked!</p>
     {{ object.name }}
     <hr>
     <img src="{{ monster.monster_image.url }}" alt="Error!">
@@ -14,6 +15,33 @@
     <img src="{{ monster.monster_image.monster_image.url }}" alt="Error!, but 2">
     <hr>
     {{ object.monster_image.monster_image }}
+
+    <br><hr><br> <p>ManyToMany</p>
+
+    <img src="{{ monster.monster_monster_image.url }}" alt="Error!,but 3!">
+        <hr>
+    <img src="{{ monster.monster_monster_image.monster_image.url }}" alt="Error!, but 4">
+    <hr>
+    <img src="{{ monster.monster_monster_image.url }}" alt="Error!, but 4.1">
+    <hr>
+    {{ object.monster_image.monster_image }}
+
+    <br><hr><br>
+
+    {{ object_list }}
+
+        {% for object in object_list %}
+
+            {{ object }}
+
+    <img src="{{ monster.monster_monster_image.url }}" alt="Error!,but 5!">
+        <hr>
+    <img src="{{ monster.monster_monster_image.monster_image.url }}" alt="Error!, but 6">
+    <hr>
+    {{ object.monster_image.monster_image }}
+
+    {% endfor %}
+
     </div>
     
 {% endblock %}
