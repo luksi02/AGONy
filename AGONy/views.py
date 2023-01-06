@@ -146,7 +146,7 @@ class DetailMonsterInAgony(LoginRequiredMixin, DetailView):
 
     model = Monster
     #form_class = MonsterCreateForm
-    template_name = 'agony_form.html'
+    template_name = 'agony_monster_detail.html'
 
 
 class CreateOriginOfAgony(CreateView):
