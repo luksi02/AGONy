@@ -12,6 +12,7 @@ import openai, os
 from django.shortcuts import render
 from django.views.generic import CreateView, ListView, UpdateView
 #from transformers import pipeline
+from .openai_apikey import OPENAI_API_KEY
 
 from AGONy.models import Hero, Monster, Stage, Event, Origin, AliveMonster, Journey, CurrentEvent #, JourneyEntry, FightEntry #Game,
 from AGONy.forms import HeroCreateForm, MonsterCreateForm, CreateUserForm, LoginForm, OriginCreateForm, EventCreateForm
@@ -42,7 +43,7 @@ def agony2(request):
 
 
 def agony3(request, input_text):
-    openai.api_key = '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'  # os.getenv("OPENAI_API_KEY")
+    openai.api_key = OPENAI_API_KEY  # os.getenv("OPENAI_API_KEY")
 
     query_response = openai.Completion.create(engine="davinci-instruct-beta", prompt=input_text, temperature=0.8,
                                               max_tokens=200, top_p=1, frequency_penalty=0, presence_penalty=0)
@@ -88,7 +89,9 @@ class StageDetailView(LoginRequiredMixin, View):
 
         input_text2 = f"There's something in the distance, is it a bird? Is it a plane? Oh shit, it's a monster, an angry monster! It's {monster.name}, described as {monster.description}"
 
-        context = agony3(request, input_text2)  # + journey.event.event_name)
+        context = monster.description
+
+        #context = agony3(request, input_text2)  # + journey.event.event_name)
 
         return render(request, 'agony_stage_detail.html', {'stage': stage, 'context': context})
 
@@ -173,9 +176,11 @@ class JourneyDetailView(LoginRequiredMixin, View):
 
         context = agony3(request, input_text2) # + journey.event.event_name)
 
-        JourneyEntry.objects.create(hero=journey.hero.name, day=journey.day,
+        #context = event.event_name
+
+        """JourneyEntry.objects.create(hero=journey.hero.name, day=journey.day,
                                     event_type=event_type.event.event_type, day_description_original=input_text2,
-                                    day_description_by_AI=context)
+                                    day_description_by_AI=context)"""
 
         return render(request, 'agony_journey_detail.html', {'journey': journey, 'context': context})
 

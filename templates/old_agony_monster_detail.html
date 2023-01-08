@@ -1,0 +1,72 @@
+{% extends 'agony_base.html' %}
+{% block content %}
+
+    <div>
+        {{ context }}
+    </div>
+
+    <hr>
+    <div>
+    <p>ForeignKey - OneToMany - it worked! But now it is set to work with ManyToManyField</p>
+    {{ object.name }}
+    <hr>
+    <img src="{{ monster.monster_image.url }}" alt="Error!">
+        <hr>
+    <img src="{{ monster.monster_image.monster_image.url }}" alt="Error!, but 2">
+    <hr>
+    {{ object.monster_image.monster_image }}
+
+    <br><hr><br> <p>ManyToMany</p>
+
+    <img src="{{ monster.monster_monster_image.url }}" alt="Error!,but 3!">
+        <hr>
+    <img src="{{ monster.monster_monster_image.monster_image.url }}" alt="Error!, but 4">
+    <hr>
+    <img src="{{ monster.monster_monster_image.url }}" alt="Error!, but 4.1">
+    <hr>
+    {{ object.monster_image.monster_image }}
+
+    <br><hr><br>
+
+    {{ object_list }}
+
+        {% for object in object_list %}
+
+            {{ object }}
+
+    <img src="{{ monster.monster_monster_image.url }}" alt="Error!,but 5!">
+        <hr>
+    <img src="{{ monster.monster_monster_image.monster_image.url }}" alt="Error!, but 6">
+    <hr>
+    {{ object.monster_image.monster_image }}
+
+
+
+    {% endfor %}
+
+     {{ object.name }}
+    {{ object_list }}
+
+    <br>
+    {% for image in monster.monster_image.all %}
+    {{ monster_image.url }}
+    <br>
+    {% endfor %}
+
+    <br> ManyToManyField - Works!
+
+    {{ object.monster_image.all }}
+    {% for image in object.monster_monster_image.all %}
+        {{ image }} mambo_no1 - don't work<hr>
+        {{ image.url }} mambo_no2 - don't work <hr>
+    {{ image.monster_image.url }} mambo_no3 - don't work <hr>
+    {{ image.monster_monster_image.url }} mambo_no4 - don't work <hr>
+        <img src="{{ image.monster_monster_image.url }}" alt="Error!, but mambo_no5"> <hr>
+        <img src="{{ image.monster_image.url }}" alt="Error!, but mambo_no6"> <hr>
+
+    <br>
+    {% endfor %}
+
+    </div>
+    
+{% endblock %}

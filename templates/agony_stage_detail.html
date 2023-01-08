@@ -46,6 +46,13 @@
                     {% endif %}
                 {% endif %}
             </tr>
+            {% for image in aliveMonster.monster_monster_image.all %}
+        {{ image }} Object number  - mambo_no1 <hr>
+    {{ image.monster_image.url }} Url to image - mambo_no3 <hr>
+        <img src="{{ image.monster_image.url }}" alt="Error!, but mambo_no6"> <hr>
+
+    <br>
+    {% endfor %}
 
         {% endfor %}
     </table>
