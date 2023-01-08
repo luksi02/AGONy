@@ -100,4 +100,7 @@ Beholder - I spy with my little eye, actually with my every eye, and my spying t
 
 Jack, the Yellow-Magnetic-Star - in the beginning there was not much, but Jack was already theere. Immortal, just like alkohol. Cuts swiftly through air like a leszczyna, seems like you are his next target. Remember, you the motyka, Jack - the sun.
 
-Bitsy the Courageous - Volcanic Ladybug - ahh, ladybugs, such a peaceful, adorable creatures! Well, not this one - this one spits fiare and lava, and wants you to be it's next takeaway food! Yikes!"""
+Bitsy the Courageous - Volcanic Ladybug - ahh, ladybugs, such a peaceful, adorable creatures! Well, not this one - this one spits fiare and lava, and wants you to be it's next takeaway food! Yikes!
+
+Fnacy Rainbow-Colored Unicorn - A unicorn! What a wonderful walking real wonder! Wait, why does it chew a human body? Wait, why does it suddenly look interested in me? Wait, what? Why it runs towards me licking its tounge? Somebody please help me from this wonder! HELP! HELP!
+"""
