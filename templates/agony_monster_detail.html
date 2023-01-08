@@ -40,6 +40,31 @@
     <hr>
     {{ object.monster_image.monster_image }}
 
+
+
+    {% endfor %}
+
+     {{ object.name }}
+    {{ object_list }}
+
+    <br>
+    {% for image in monster.monster_image.all %}
+    {{ monster_image.url }}
+    <br>
+    {% endfor %}
+
+    <br>
+
+    {{ object.monster_image.all }}
+    {% for image in object.monster_monster_image.all %}
+        {{ image }} mambo_no1 <hr>
+        {{ image.url }} mambo_no2 <hr>
+    {{ image.monster_image.url }} mambo_no3 <hr>
+    {{ image.monster_monster_image.url }} mambo_no4 <hr>
+        <img src="{{ image.monster_monster_image.url }}" alt="Error!, but mambo_no5"> <hr>
+        <img src="{{ image.monster_image.url }}" alt="Error!, but mambo_no6"> <hr>
+
+    <br>
     {% endfor %}
 
     </div>
