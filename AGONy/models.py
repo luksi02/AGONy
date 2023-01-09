@@ -35,6 +35,7 @@ class MonsterImage(models.Model):
 
 class MonsterAIDescription(models.Model):
     monster_AI_description = models.TextField(max_length=500, blank=True)
+    name = models.CharField(max_length=100, blank=True, null=True)
 
 
 class Monster(models.Model):
@@ -158,6 +159,10 @@ class AliveMonster(models.Model):
     @property
     def description(self):
         return self.monster_class.description
+
+    @property
+    def monster_image(self):
+        return self.monster_class.monster_monster_image
 
 
 class Stage(models.Model):

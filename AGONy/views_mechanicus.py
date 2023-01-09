@@ -14,7 +14,8 @@ from django.views.generic import CreateView, ListView, UpdateView
 #from transformers import pipeline
 from .openai_apikey import OPENAI_API_KEY
 
-from AGONy.models import Hero, Monster, Stage, Event, Origin, AliveMonster, Journey, CurrentEvent #, JourneyEntry, FightEntry #Game,
+from AGONy.models import Hero, Monster, Stage, Event, Origin, AliveMonster, Journey, CurrentEvent, \
+    MonsterAIDescription  # , JourneyEntry, FightEntry #Game,
 from AGONy.forms import HeroCreateForm, MonsterCreateForm, CreateUserForm, LoginForm, OriginCreateForm, EventCreateForm
 
 
@@ -174,9 +175,9 @@ class JourneyDetailView(LoginRequiredMixin, View):
         input_text = f"What a beautiful day! Something happens, let's see what: brave hero {journey.hero.name} journeys into unknown. Then the magic happens. {event.event_name}"""
         input_text2 = f"write absurd, fantasy story as journal entry given this description: My dearest diary! It is {journey.day}th day of my quest to earn fame and glory! New day comes. New challenges. Hope I, the {journey.hero.name}, am ready for what comes next and I'm ready for these adventures! Maybe one day I will be remembered as a legend? Let's find out!. Meanwhile, today's adventure: {event.event_name}"""
 
-        context = agony3(request, input_text2) # + journey.event.event_name)
+        #context = agony3(request, input_text2) # + journey.event.event_name)
 
-        #context = event.event_name
+        context = event.event_name
 
         """JourneyEntry.objects.create(hero=journey.hero.name, day=journey.day,
                                     event_type=event_type.event.event_type, day_description_original=input_text2,
@@ -263,3 +264,18 @@ class NewEntryInJournal(View):
         day_event_description = f'My dearest diary, on {journey.day} day I, the mighty {journey.hero.name} got into {journey.event_name}. It was a great day!' # maybe later add what was the effect. Or not.
         #maybe put it in every event, as function? It's probalby the best idea.
         
+
+class CreateMonsterDescriptionByAI(View):
+
+    def get(self, request, pk):
+        monster = Monster.objects.get(pk=pk)
+        for i in range (0,2):
+            print(i)
+
+            text_of_description=f"write an absurd, fantasy and heroic description of horrible monster, named {monster.name} that our brave hero encountered and have to defeat! The monter can be described as: {monster.description}"
+            input_text = text_of_description
+            description_by_AI = agony3(request, text_of_description)
+            MonsterAIDescription.objects.create(name=monster.name, monster_AI_description=description_by_AI)
+        url = reverse('AGONy_index')
+        return redirect(url)
+

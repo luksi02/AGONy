@@ -31,7 +31,8 @@ from AGONy.views import (AGONyIndexView, AGONyWorkInProgress, CreateHeroInAgony,
 
 from AGONy.views_mechanicus import (StageDetailView, agony,
                                     AttackMonsterView, CreateJourneyForHero, JourneyDetailView, agony2, FoundSomething,
-                                    OhCrapItsATrap, RunAway, ReturnToJourney, CreateGameForHero)
+                                    OhCrapItsATrap, RunAway, ReturnToJourney, CreateGameForHero,
+                                    CreateMonsterDescriptionByAI)
 
 urlpatterns = [
 
@@ -57,7 +58,7 @@ urlpatterns = [
     path('AGONy_create_event/', CreateEventInAgony.as_view(), name='AGONy_create_event'),
     path('AGONy_create_origin/', CreateOriginOfAgony.as_view(), name='AGONy_create_origin'),
     path('AGONy_create_monsters_image/', CreateMonstersImage.as_view(), name='AGONy_create_monsters_image'),
-
+    path('AGONy_create_monsters_description/<int:pk>/', CreateMonsterDescriptionByAI.as_view(), name='AGONy_create_monsters_description'),
     path('AGONy_my_heroes/', MyHeroesInAgonyList.as_view(), name='AGONy_my_hero_list'),
     path('AGONy_all_monsters/', MonstersInAgonyList.as_view(), name='AGONy_monster_list'),
     path('AGONy_all_events/', EventsInAgonyList.as_view(), name='AGONy_event_list'),
