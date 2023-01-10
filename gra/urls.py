@@ -32,7 +32,7 @@ from AGONy.views import (AGONyIndexView, AGONyWorkInProgress, CreateHeroInAgony,
 from AGONy.views_mechanicus import (StageDetailView, agony,
                                     AttackMonsterView, CreateJourneyForHero, JourneyDetailView, agony2, FoundSomething,
                                     OhCrapItsATrap, RunAway, ReturnToJourney, CreateGameForHero,
-                                    CreateMonsterDescriptionByAI)
+                                    CreateMonsterDescriptionByAI, CreateMonsterImageByAI)
 
 urlpatterns = [
 
@@ -51,19 +51,26 @@ urlpatterns = [
     #path('AGONy_contact/', HeroesInAgonyList.as_view(), name='AGONy_contact'), #Leaderboard
 
     #agony CRUD
+    #agony creators
     path('AGONy_create_defaults/', CreateDefaultsInAgony.as_view(), name='AGONy_create_defaults'),
     path('AGONY_create_hero/', CreateHeroInAgony.as_view(), name='AGONy_create_hero'),
     path('AGONY_create_monster/', CreateMonsterInAgony.as_view(), name='AGONy_create_monster'),
     path('AGONy_create_user/', CreateUserView.as_view(), name='AGONy_create_user'),
     path('AGONy_create_event/', CreateEventInAgony.as_view(), name='AGONy_create_event'),
     path('AGONy_create_origin/', CreateOriginOfAgony.as_view(), name='AGONy_create_origin'),
-    path('AGONy_create_monsters_image/', CreateMonstersImage.as_view(), name='AGONy_create_monsters_image'),
-    path('AGONy_create_monsters_description/<int:pk>/', CreateMonsterDescriptionByAI.as_view(), name='AGONy_create_monsters_description'),
+
+    #agony lists
     path('AGONy_my_heroes/', MyHeroesInAgonyList.as_view(), name='AGONy_my_hero_list'),
     path('AGONy_all_monsters/', MonstersInAgonyList.as_view(), name='AGONy_monster_list'),
     path('AGONy_all_events/', EventsInAgonyList.as_view(), name='AGONy_event_list'),
     path('AGONy_all_origins/', OriginsOfAgonyList.as_view(), name='AGONy_origin_list'),
     path('AGONy_monster_image_list/', MonsterImageList.as_view(), name='AGONy_monster_image_list'),
+
+    #OpenAI API-Generators
+    path('AGONy_create_monsters_image/', CreateMonstersImage.as_view(), name='AGONy_create_monsters_image'),
+    path('AGONy_create_monsters_image_AI/<int:pk>', CreateMonsterImageByAI.as_view(), name='AGONy_create_monsters_image_AI'),
+    path('AGONy_create_monsters_description/<int:pk>/', CreateMonsterDescriptionByAI.as_view(),
+                       name='AGONy_create_monsters_description'),
 
     path('AGONy_detail_monster/<int:pk>', DetailMonsterInAgony.as_view(), name='AGONy_detail_monster'),
 

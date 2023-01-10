@@ -1,3 +1,6 @@
+import urllib
+from datetime import datetime
+
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
@@ -11,11 +14,13 @@ from django.http import HttpResponse
 import openai, os
 from django.shortcuts import render
 from django.views.generic import CreateView, ListView, UpdateView
+
+from gra.settings import MEDIA_ROOT
 #from transformers import pipeline
 from .openai_apikey import OPENAI_API_KEY
 
 from AGONy.models import Hero, Monster, Stage, Event, Origin, AliveMonster, Journey, CurrentEvent, \
-    MonsterAIDescription  # , JourneyEntry, FightEntry #Game,
+    MonsterAIDescription, MonsterImage  # , JourneyEntry, FightEntry #Game,
 from AGONy.forms import HeroCreateForm, MonsterCreateForm, CreateUserForm, LoginForm, OriginCreateForm, EventCreateForm
 
 
@@ -279,3 +284,26 @@ class CreateMonsterDescriptionByAI(View):
         url = reverse('AGONy_index')
         return redirect(url)
 
+
+class CreateMonsterImageByAI(View):
+
+    def get(self, request, pk):
+        monster = Monster.objects.get(pk=pk)
+        prompt_text = f"fantasy heroic comic-style image of monster named {monster.name}, which can be described as: {monster.description}"
+        for i in range(0, 1):
+            openai.api_key = OPENAI_API_KEY
+            response = openai.Image.create(
+                prompt=prompt_text,
+                n=1,
+                size="1024x1024"
+            )
+            image_url = response['data'][0]['url']
+            print(image_url)
+            now = datetime.now()
+            date_string = now.strftime("%Y_%m_%d_%H_%M_%S")
+            dalle_output_dir = f"/home/luksi02/DALL_E/{monster.name}" + date_string + ".png"
+            #dalle_output_dir = MEDIA_ROOT + f"/monster_images/uploaded/{monster.name}" + date_string + ".png"
+            urllib.request.urlretrieve(image_url, dalle_output_dir)
+            MonsterImage.objects.create(name=monster.name, monster_image=dalle_output_dir)
+        url = reverse('AGONy_index')
+        return redirect(url)

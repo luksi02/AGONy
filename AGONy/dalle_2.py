@@ -4,7 +4,7 @@ from datetime import datetime
 from openai_apikey import OPENAI_API_KEY
 
 def dalle2(prompt):
-    openai.api_key = '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'
+    openai.api_key = OPENAI_API_KEY
     response = openai.Image.create(
 
         prompt=prompt,
@@ -96,13 +96,13 @@ Andrew, One-eyed war-experienced Octopus - an octopi war veteran, tired of life,
 
 Trinity, the demon-pig. You know pigs, dont you? Funny animals full of delicious bacon. Not this one. This one is full of hate and considers you its delicious bacon. Run or prepare to be eaten alive!
 
-Beholder - I spy with my little eye, actually with my every eye, and my spying tells me you are quite a snack, come closer so I can take a little bite, you look like a tasty tasty snack! So tasty!
+Ulrich, the All-Seeing Beholder - I spy with my little eye, actually with my every eye, and my spying tells me you are quite a snack, come closer so I can take a little bite, you look like a tasty tasty snack! So tasty!
 
 Jack, the Yellow-Magnetic-Star - in the beginning there was not much, but Jack was already theere. Immortal, just like alkohol. Cuts swiftly through air like a leszczyna, seems like you are his next target. Remember, you the motyka, Jack - the sun.
 
 Bitsy the Courageous - Volcanic Ladybug - ahh, ladybugs, such a peaceful, adorable creatures! Well, not this one - this one spits fiare and lava, and wants you to be it's next takeaway food! Yikes!
 
-Fnacy Rainbow-Colored Unicorn - A unicorn! What a wonderful walking real wonder! Wait, why does it chew a human body? Wait, why does it suddenly look interested in me? Wait, what? Why it runs towards me licking its tounge? Somebody please help me from this wonder! HELP! HELP!
+Killian, Fancy Rainbow-Colored Unicorn - A unicorn! What a wonderful walking real wonder! Wait, why does it chew a human body? Wait, why does it suddenly look interested in me? Wait, what? Why it runs towards me licking its tounge? Somebody please help me from this wonder! HELP! HELP!
 """
 
 

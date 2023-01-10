@@ -31,11 +31,18 @@ class Hero(models.Model):
 
 class MonsterImage(models.Model):
     monster_image = models.ImageField(upload_to='monster_images/uploaded', null=True, blank=True)
+    name = models.CharField(max_length=100, blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.name}"
 
 
 class MonsterAIDescription(models.Model):
     monster_AI_description = models.TextField(max_length=500, blank=True)
     name = models.CharField(max_length=100, blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.name}"
 
 
 class Monster(models.Model):
@@ -64,7 +71,7 @@ class Monster(models.Model):
     
     #monster_image = models.ForeignKey(MonsterImage, on_delete=models.CASCADE, blank=True, null=True)
 
-    monster_monster_image = models.ManyToManyField(MonsterImage, through='MonsterMonsterImage')
+    monster_monster_image = models.ManyToManyField(MonsterImage, through='MonsterMonsterImage', blank=True, null=True)
 
     monster_AI_description = models.ForeignKey(MonsterAIDescription, on_delete=models.CASCADE, blank=True, null=True)
 
