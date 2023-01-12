@@ -220,6 +220,14 @@ class UpdateEventInAgony(LoginRequiredMixin, UpdateView):
     template_name = 'agony_form.html'
     success_url = reverse_lazy('AGONy_event_list')
 
+class DetailEventInAgony(LoginRequiredMixin, DetailView):
+    message = """
+    """
+
+    model = Event
+    #form_class = MonsterCreateForm
+    template_name = 'agony_event_detail.html'
+
     
 class LeaveAComment(LoginRequiredMixin, CreateView):
     message = """Please, do leave a comment what did you like, did not like or whatever. Much apprecieated anyways!

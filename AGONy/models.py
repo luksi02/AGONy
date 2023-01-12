@@ -70,6 +70,7 @@ class Monster(models.Model):
     monsters_gold = models.IntegerField(default=randint(5, 10))
     
     #monster_image = models.ForeignKey(MonsterImage, on_delete=models.CASCADE, blank=True, null=True)
+    # for now I use ManyToMany field
 
     monster_monster_image = models.ManyToManyField(MonsterImage, through='MonsterMonsterImage', blank=True, null=True)
 
@@ -94,6 +95,22 @@ class Origin(models.Model):
     origin_type = models.IntegerField(choices=ORIGIN_TYPE, default=0)
     origin_description = models.TextField(blank=True)
 
+
+class EventImage(models.Model):
+    event_image = models.ImageField(upload_to='event_images/uploaded', null=True, blank=True)
+    name = models.CharField(max_length=100, blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.name}"
+
+
+class EventAIDescription(models.Model):
+    event_AI_description = models.TextField(max_length=500, blank=True)
+    name = models.CharField(max_length=100, blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.name}"
+
 class Event(models.Model):
     EVENT_TYPE = [
         (0, 'Monster Encounter'),
@@ -108,6 +125,10 @@ class Event(models.Model):
     event_name = models.CharField(max_length=200)
     event_type = models.IntegerField(choices=EVENT_TYPE, default=0)
 
+    event_event_image = models.ManyToManyField(EventImage, through='EventImage', blank=True, null=True)
+
+    event_AI_description = models.ForeignKey(EventAIDescription, on_delete=models.CASCADE, blank=True, null=True)
+
 
 class CurrentEvent(models.Model):
     current_event = models.ForeignKey(Event, on_delete=models.CASCADE)
@@ -119,6 +140,14 @@ class CurrentEvent(models.Model):
     @property
     def event_type(self):
         return self.current_event.event_type
+
+    @property
+    def event_event_image(self):
+        return self.current_event.event_event_image
+
+    @property
+    def event_AI_description(self):
+        return self.current_event.event_AI_description
 
 
 class Journey(models.Model):
