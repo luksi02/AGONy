@@ -304,6 +304,6 @@ class CreateMonsterImageByAI(View):
             dalle_output_dir = f"/home/luksi02/DALL_E/{monster.name}" + date_string + ".png"
             #dalle_output_dir = MEDIA_ROOT + f"/monster_images/uploaded/{monster.name}" + date_string + ".png"
             urllib.request.urlretrieve(image_url, dalle_output_dir)
-            MonsterImage.objects.create(name=monster.name, monster_image=dalle_output_dir)
+            #MonsterImage.objects.create(name=monster.name, monster_image=dalle_output_dir) - this won't work, not yet anyway at least
         url = reverse('AGONy_index')
         return redirect(url)

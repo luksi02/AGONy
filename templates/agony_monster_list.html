@@ -17,13 +17,18 @@
             <tr class="{% cycle 'table-light' 'table-secondary'%}">
 
                 <td>{{ forloop.counter }}</td>
-                <td><a href="{% url 'AGONy_update_monster' monster.id %}">{{ monster.name }}</a></td>
+                <td><a href="{% url 'AGONy_detail_monster' monster.id %}">{{ monster.name }}</a></td>
                 <td>{{ monster.hp }}</td>
                 <td>{{ monster.attack }}</td>
                 <td>{{ monster.defence }}</td>
                 <td>{{ monster.monster_level }}</td>
                 <td>{{ monster.monster_type }}</td>
                 <td>{{ monster.monsters_gold }}</td>
+                <td><a href="{% url 'AGONy_update_monster' monster.id %}">Update</a></td>
+                <td><a href="{% url 'AGONy_create_monsters_image_AI' monster.id %}">Create AI Image</a></td>
+                <td><a href="{% url 'AGONy_create_monsters_description' monster.id %}">Create AI Description</a></td>
+
+            <!--  <a class="bg-secondary" href="{% url 'AGONy_event_list' %}">Events in AGONy</a> -->
 
             </tr>
         {% endfor %}
