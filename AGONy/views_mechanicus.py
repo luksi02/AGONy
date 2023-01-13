@@ -175,14 +175,14 @@ class JourneyDetailView(LoginRequiredMixin, View):
 
         event = CurrentEvent.objects.latest('id')
 
-        print(event.event_name)
+        print(event.event_description)
 
-        input_text = f"What a beautiful day! Something happens, let's see what: brave hero {journey.hero.name} journeys into unknown. Then the magic happens. {event.event_name}"""
-        input_text2 = f"write absurd, fantasy story as journal entry given this description: My dearest diary! It is {journey.day}th day of my quest to earn fame and glory! New day comes. New challenges. Hope I, the {journey.hero.name}, am ready for what comes next and I'm ready for these adventures! Maybe one day I will be remembered as a legend? Let's find out!. Meanwhile, today's adventure: {event.event_name}"""
+        input_text = f"What a beautiful day! Something happens, let's see what: brave hero {journey.hero.name} journeys into unknown. Then the magic happens. {event.event_description}"""
+        input_text2 = f"write absurd, fantasy story as journal entry given this description: My dearest diary! It is {journey.day}th day of my quest to earn fame and glory! New day comes. New challenges. Hope I, the {journey.hero.name}, am ready for what comes next and I'm ready for these adventures! Maybe one day I will be remembered as a legend? Let's find out!. Meanwhile, today's adventure: {event.event_description}"""
 
         #context = agony3(request, input_text2) # + journey.event.event_name)
 
-        context = event.event_name
+        context = event.event_description
 
         """JourneyEntry.objects.create(hero=journey.hero.name, day=journey.day,
                                     event_type=event_type.event.event_type, day_description_original=input_text2,
@@ -266,7 +266,7 @@ class NewEntryInJournal(View):
     def get(self, request, pk):
         journey = Journey.objects.get(pk=pk)
         hero = journey.hero   # check this!
-        day_event_description = f'My dearest diary, on {journey.day} day I, the mighty {journey.hero.name} got into {journey.event_name}. It was a great day!' # maybe later add what was the effect. Or not.
+        day_event_description = f'My dearest diary, on {journey.day} day I, the mighty {journey.hero.name} got into {journey.event_description}. It was a great day!' # maybe later add what was the effect. Or not.
         #maybe put it in every event, as function? It's probalby the best idea.
         
 

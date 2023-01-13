@@ -70,7 +70,7 @@ class Monster(models.Model):
     monsters_gold = models.IntegerField(default=randint(5, 10))
     
     #monster_image = models.ForeignKey(MonsterImage, on_delete=models.CASCADE, blank=True, null=True)
-    # for now I use ManyToMany field
+    # for now I use ManyToMany field - it works like a charm!
 
     monster_monster_image = models.ManyToManyField(MonsterImage, through='MonsterMonsterImage', blank=True, null=True)
 
@@ -122,20 +122,29 @@ class Event(models.Model):
         (6, 'Healing Encounter') #ust like a trap encounter - but beneficial        
     ]
 
-    event_name = models.CharField(max_length=200)
+    name = models.CharField(max_length=100)
+    event_description = models.CharField(max_length=200)
     event_type = models.IntegerField(choices=EVENT_TYPE, default=0)
 
-    event_event_image = models.ManyToManyField(EventImage, through='EventImage', blank=True, null=True)
+    event_event_image = models.ManyToManyField(EventImage, through='EventEventImage', blank=True, null=True)
 
     event_AI_description = models.ForeignKey(EventAIDescription, on_delete=models.CASCADE, blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.name}"
 
 
 class CurrentEvent(models.Model):
     current_event = models.ForeignKey(Event, on_delete=models.CASCADE)
 
+
     @property
     def event_name(self):
         return self.current_event.event_name
+
+    @property
+    def event_description(self):
+        return self.current_event.event_description
 
     @property
     def event_type(self):
