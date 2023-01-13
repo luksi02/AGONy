@@ -10,10 +10,10 @@
 
     <br>
 
-    {% for image in object.monster_monster_image.all %}
+    {% for image in object.event_event_image.all %}
         {{ image }} Object number  - mambo_no1 <hr>
-    {{ image.monster_image.url }} Url to image - mambo_no3 <hr>
-        <img src="{{ image.monster_image.url }}" alt="Error!, but mambo_no6"> <hr>
+    {{ image.event_image.url }} Url to image - mambo_no3 <hr>
+        <img src="{{ image.event_image.url }}" alt="Error!, but mambo_no6"> <hr>
 
     <br>
     {% endfor %}
