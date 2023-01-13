@@ -361,6 +361,11 @@ class CreateDefaultsInAgony(View):
         Monster.objects.create(name='Rob the Greedy Bandit', hp=40, attack=3, defence=1, monster_level=1, monster_type=0, 
                                description="""ever heard saying: dont talk to strangers? Well, one od them just approached you, and seems like he 
                                wants to befriend you - why elese would he shout "Your money or your life!"?""")
+        
+        Monster.objects.create(name='Jack the Yellow-Magnetic-Star', hp=444, attack=5, defence=1, monster_level=1, monster_type=0, 
+                               description="""in the beginning there was not much, but Jack was already theere. Immortal, just like alkohol. 
+                               Cuts swiftly through air like a leszczyna, seems like you are his next target. Remember, you the motyka, Jack - the sun.""")
+
 
         # wild-wild-life monsters
         Monster.objects.create(name='Fluffball the Hungry Wolf', hp=25, attack=3, defence=0, monster_level=0, monster_type=1,
@@ -368,18 +373,38 @@ class CreateDefaultsInAgony(View):
                                 should not walk into the woods? You guessed it - here comes 
                                 the wolf and it counts you'll be a fancy snack!""")
         
+        Monster.objects.create(name='Trinity the demon-pig', hp=25, attack=3, defence=0, monster_level=0, monster_type=1,
+                               description="""You know pigs, dont you? Funny animals full of delicious bacon. Not this one. 
+                               This one is full of hate and considers you its delicious bacon. Run or prepare to be eaten alive!""")
+        
         Monster.objects.create(name='Spidey the Giant Venomous Spider', hp=50, attack=3, defence=0, monster_level=1,
                                monster_type=1, description="""Itsy bitsy giant venomous spider - Oh, I'm so cute:
                                 I have eight long furry legs, eight terryfing eyes set on you, and you 
                                 guessed it! I want some cuddels and cover you in webs and then eat! Come to papa!""")
+        
+        Monster.objects.create(name='Andrew the One-eyed war-experienced Octopus', hp=50, attack=3, defence=0, monster_level=1,
+                               monster_type=1, description="""an octopi war veteran, tired of life, combatant and commander in 
+                               Sixth Deep Sea war, now retired, and what now? You just came to spoil his rest, get to arms! 
+                               Prepare for squishy hugs and chokes!""")
         
         Monster.objects.create(name='Huggy the Angry Bird-Bear', hp=80, attack=5, defence=1, monster_level=2, monster_type=1,
                                description="""Have you ever heard of angry bird? Probably. 
                                Heard of angry bear? Probably. Heard of Bird-Bear? Never? Well, some kind of 
                                psycho-druid created this abonomination, and now it's up to you to face IT. 
                                And get rid of IT. For everyone!""")
+
+        Monster.objects.create(name='Bitsy the Courageous - Volcanic Ladybug', hp=80, attack=5, defence=1, monster_level=2, monster_type=1,
+                               description="""ahh, ladybugs, such a peaceful, adorable creatures! Well, not this one - this one spits fiare 
+                               and lava, and wants you to be it's next takeaway food! Yikes!""")
+
+        Monster.objects.create(name='Ulrich the All-Seeing Beholder', hp=100, attack=5, defence=2, monster_level=3, monster_type=1, 
+                               description="""I spy with my little eye, actually with my every eye, and my spying tells me you are quite 
+                               a snack, come closer so I can take a little bite, you look like a tasty tasty snack! So tasty!""")
         
-        #Monster.objects.create(name='Fancy Unicorn', hp=100, attack=5, defence=2, monster_level=3, monster_type=1)
+        Monster.objects.create(name='Killian the Fancy Rainbow-Colored Unicorn', hp=100, attack=5, defence=2, monster_level=3, monster_type=1, 
+                               description="""A unicorn! What a wonderful walking real wonder! Wait, why does it chew a human body? Wait, why 
+                               does it suddenly look interested in me? Wait, what? Why it runs towards me licking its tounge? Somebody please 
+                               help me from this wonder! HELP! HELP!""")
         
         Monster.objects.create(name='Stanley the III - Proud Dragon', hp=150, attack=10, defence=3, monster_level=4, monster_type=1, 
                                description="""Mystic and poud creature, but (there's always a but!) has a 
