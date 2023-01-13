@@ -244,9 +244,94 @@ class CommentList(LoginRequiredMixin, ListView):
     """
 
     model = Comment
-    template_name = 'agony_event_list.html'    
-    
+    template_name = 'agony_event_list.html'       
 
+
+class CreateUserView(View):
+
+    def get(self, request):
+
+        message = """
+            Create User - then you can play, maybe even leave a comment what to improve in my game? Be sure to subscribe!
+            """
+
+        form = CreateUserForm()
+        return render(request, 'agony_form.html', {'form': form, 'message' : message})
+
+    def post(self, request):
+
+        form = CreateUserForm(request.POST)
+
+        if form.is_valid():
+            user = form.save(
+                commit=False)
+
+            password = form.cleaned_data['password1']
+            user.set_password(password)
+            user.save()
+
+            message = """
+                        User created, now go and have some fun!
+                        """
+
+            return redirect('AGONy_index')
+        return render(request, 'agony_form.html', {'form': form})
+
+
+class LoginView(View):
+    message = """
+    Login your user, play & comment. Have a nice day! 
+    """
+
+    def get(self, request):
+        form = LoginForm()
+        return render(request, 'agony_form.html', {'form': form})
+
+    def post(self, request):
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            us = form.cleaned_data['username']
+            pd = form.cleaned_data['password']
+            user = authenticate(username=us, password=pd)
+            if user is None:
+                return render(request, 'agony_form.html', {'form': form, 'message': "Invalid data!"})
+            else:
+                login(request, user)
+                url = request.GET.get('next', 'AGONy_index')
+                return redirect(url)
+        return render(request, 'agony_form.html', {'form': form, 'message': "Invalid data!"})
+
+
+class LogoutView(View):
+    message = """
+    See you later, alligator!
+    (prompt: you should answer: after while crocodile!)
+    """
+
+    def get(self, request):
+        logout(request)
+        return redirect('AGONy_index')
+
+
+class CreateMonstersImage(LoginRequiredMixin, CreateView):
+    message = """
+    """
+
+    model = MonsterImage
+    fields = "__all__"
+    template_name = 'agony_form.html'
+    success_url = reverse_lazy('AGONy_index')
+
+
+class MonsterImageList(LoginRequiredMixin, ListView):
+    message = """
+    List of bold, ambitious Heroes awaiting for your command to march into oblivion! Yyy. yes, yes, glory and power, yes.
+    """
+
+    model = MonsterImage
+    template_name = 'agony_monster_images.html'
+    
+    
 class CreateDefaultsInAgony(View):
 
     def get(self, request):
@@ -343,121 +428,39 @@ class CreateDefaultsInAgony(View):
         #User.objects.create(username='xyz', password1='12345678', password2='12345678')
 
         #0 - escape-able monster encounter
-        Event.objects.create(event_type=0, event_name="""Your Hero encountered Monster, now stand and fight it! 
+        Event.objects.create(name='Avoidable_fight', event_type=0, event_description="""Your Hero encountered Monster, now stand and fight it! 
                              Or try to run, just to live another day! No judgement here, world is hard enough even without fighting monsters!""")
         
         #1 - loot encounter
-        Event.objects.create(event_type=1, event_name="""Ooh, shiney! You found something! Seems like after all it was worth to walk 
+        Event.objects.create(name='Loot_encounter', event_type=1, event_description="""Ooh, shiney! You found something! Seems like after all it was worth to walk 
                             and put yourself in all this danger. Now let's see what you found!""")
         
         #2 - trap
-        Event.objects.create(event_type=2, event_name="""Oh crap, it's a trap! Of course when did you find it out? Just when you stepped
+        Event.objects.create(name='Spikey_trap', event_type=2, event_description="""Oh crap, it's a trap! A spikey trap! A very, very spikey trap full of spikes! Of course when did you find it out? Just when you stepped
                             into that trap and sprung it! Damn, it must have hurt! How are you holding up? Still have all limbs?""")
         
         #3 - empty encounter
-        Event.objects.create(event_type=3, event_name="""Wonderful views, aren't they? So beautiful landscape! 
+        Event.objects.create(name='Enjoying_views', event_type=3, event_description="""Wonderful views, aren't they? So beautiful landscape! 
                             You take a while to just enjoy this peaceful moment, after all saving the world (or conquering it, or 
                             anything else you doing, can wait a little moment)""")
         
         #2 - Trap
-        Event.objects.create(event_type=2, event_name="""watch your step! While watching beautiful bird you fell into a cave, a dark, dark cave. 
+        Event.objects.create(name='Falling_into_cave', event_type=2, event_description="""watch your step! While watching beautiful bird you fell into a cave, a dark, dark cave. 
         Youre lucky you didnt break your legs. Anyway, escaping cave took a lot od time.""")
         
         #4 - Ambush-fight
-        Event.objects.create(event_type=4, event_name="""While  wandering through plains you felt watched - 
+        Event.objects.create(name='Ambush_fight', event_type=4, event_description="""While  wandering through plains you felt watched - 
         but it's too late to do anything else but fight! Draw your weapon!""")
         
         #5 - Visitable crypt - undead monsters
-        Event.objects.create(event_type=5, event_name="""wandering through Forest you notice more and more dead trees. Then, you 
+        Event.objects.create(name='Visitable_crypt', event_type=5, event_description="""wandering through Forest you notice more and more dead trees. Then, you 
         notice why - you stumble upon an old and grim crypt - do you dare to enter IT?""")        
        
         #6 - Healing encounter
-        Event.objects.create(event_type=6, event_name="""Amidst nowhere, you found a beautiful, blossoming oasis. You 
+        Event.objects.create(name='Rest_at_oasis', event_type=6, event_description="""Amidst nowhere, you found a beautiful, blossoming oasis. You 
         take a well-deserved sip of crystal-clear water and at instant feel refreshed and more vigorous.""")
 
         return redirect('AGONy_index')  #, {'message': message})
 
-
-class CreateUserView(View):
-
-    def get(self, request):
-
-        message = """
-            Create User - then you can play, maybe even leave a comment what to improve in my game? Be sure to subscribe!
-            """
-
-        form = CreateUserForm()
-        return render(request, 'agony_form.html', {'form': form, 'message' : message})
-
-    def post(self, request):
-
-        form = CreateUserForm(request.POST)
-
-        if form.is_valid():
-            user = form.save(
-                commit=False)
-
-            password = form.cleaned_data['password1']
-            user.set_password(password)
-            user.save()
-
-            message = """
-                        User created, now go and have some fun!
-                        """
-
-            return redirect('AGONy_index')
-        return render(request, 'agony_form.html', {'form': form})
-
-
-class LoginView(View):
-    message = """
-    Login your user, play & comment. Have a nice day! 
-    """
-
-    def get(self, request):
-        form = LoginForm()
-        return render(request, 'agony_form.html', {'form': form})
-
-    def post(self, request):
-        form = LoginForm(request.POST)
-        if form.is_valid():
-            us = form.cleaned_data['username']
-            pd = form.cleaned_data['password']
-            user = authenticate(username=us, password=pd)
-            if user is None:
-                return render(request, 'agony_form.html', {'form': form, 'message': "Invalid data!"})
-            else:
-                login(request, user)
-                url = request.GET.get('next', 'AGONy_index')
-                return redirect(url)
-        return render(request, 'agony_form.html', {'form': form, 'message': "Invalid data!"})
-
-
-class LogoutView(View):
-    message = """
-    See you later, alligator!
-    (prompt: you should answer: after while crocodile!)
-    """
-
-    def get(self, request):
-        logout(request)
-        return redirect('AGONy_index')
-
-
-class CreateMonstersImage(LoginRequiredMixin, CreateView):
-    message = """
-    """
-
-    model = MonsterImage
-    fields = "__all__"
-    template_name = 'agony_form.html'
-    success_url = reverse_lazy('AGONy_index')
-
-
-class MonsterImageList(LoginRequiredMixin, ListView):
-    message = """
-    List of bold, ambitious Heroes awaiting for your command to march into oblivion! Yyy. yes, yes, glory and power, yes.
-    """
-
-    model = MonsterImage
-    template_name = 'agony_monster_images.html'
+    
+    
