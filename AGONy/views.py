@@ -346,10 +346,10 @@ class CreateDefaultsInAgony(View):
         Hero.objects.create(name='Shorty MacBeard', race=2)
 
         # human-like monsters, but not exactly - orcs and stuff
-        Monster.objects.create(name='Goblin', hp=20, attack=2, defence=0, monster_level=0, monster_type=0, 
+        Monster.objects.create(name='Zoglak the Nasty Goblin', hp=20, attack=2, defence=0, monster_level=0, monster_type=0, 
                                description="""Little, nasty green creature, filled with hate and hunger - looks like it wants to be its next meal!""")
         
-        Monster.objects.create(name='Orc', hp=40, attack=3, defence=1, monster_level=1, monster_type=0, 
+        Monster.objects.create(name='Morbuk the Angry Orc', hp=40, attack=3, defence=1, monster_level=1, monster_type=0, 
                                description="""Big, angry green creature that finds you very attractive... as a food, 
                                and you guessed it - it means you should be afraid!""")        
              
@@ -358,22 +358,22 @@ class CreateDefaultsInAgony(View):
         #Monster.objects.create(name='Giant', hp=200, attack=15, defence=5, monster_level=4, monster_type=0)
         
         #humans - but nasty ones        
-        Monster.objects.create(name='Bandit', hp=40, attack=3, defence=1, monster_level=1, monster_type=0, 
+        Monster.objects.create(name='Rob the Greedy Bandit', hp=40, attack=3, defence=1, monster_level=1, monster_type=0, 
                                description="""ever heard saying: dont talk to strangers? Well, one od them just approached you, and seems like he 
                                wants to befriend you - why elese would he shout "Your money or your life!"?""")
 
         # wild-wild-life monsters
-        Monster.objects.create(name='Wolf', hp=25, attack=3, defence=0, monster_level=0, monster_type=1,
+        Monster.objects.create(name='Fluffball the Hungry Wolf', hp=25, attack=3, defence=0, monster_level=0, monster_type=1,
                                description="""Ever heard tales and stories why you 
                                 should not walk into the woods? You guessed it - here comes 
                                 the wolf and it counts you'll be a fancy snack!""")
         
-        Monster.objects.create(name='Giant Venomous Spider', hp=50, attack=3, defence=0, monster_level=1,
+        Monster.objects.create(name='Spidey the Giant Venomous Spider', hp=50, attack=3, defence=0, monster_level=1,
                                monster_type=1, description="""Itsy bitsy giant venomous spider - Oh, I'm so cute:
                                 I have eight long furry legs, eight terryfing eyes set on you, and you 
                                 guessed it! I want some cuddels and cover you in webs and then eat! Come to papa!""")
         
-        Monster.objects.create(name='Angry Bird-Bear', hp=80, attack=5, defence=1, monster_level=2, monster_type=1,
+        Monster.objects.create(name='Huggy the Angry Bird-Bear', hp=80, attack=5, defence=1, monster_level=2, monster_type=1,
                                description="""Have you ever heard of angry bird? Probably. 
                                Heard of angry bear? Probably. Heard of Bird-Bear? Never? Well, some kind of 
                                psycho-druid created this abonomination, and now it's up to you to face IT. 
@@ -381,13 +381,13 @@ class CreateDefaultsInAgony(View):
         
         #Monster.objects.create(name='Fancy Unicorn', hp=100, attack=5, defence=2, monster_level=3, monster_type=1)
         
-        Monster.objects.create(name='Dragon', hp=150, attack=10, defence=3, monster_level=4, monster_type=1, 
+        Monster.objects.create(name='Stanley the III - Proud Dragon', hp=150, attack=10, defence=3, monster_level=4, monster_type=1, 
                                description="""Mystic and poud creature, but (there's always a but!) has a 
                                nasty habit - it hoards anything gold-like and shiny! (it wants a new addition 
                                to it's collection, and you guessed it - it wants you and your shines!""")
 
         # undead monsters
-        Monster.objects.create(name='Zombie', hp=40, attack=2, defence=0, monster_level=0, monster_type=2, 
+        Monster.objects.create(name=' Zombie', hp=40, attack=2, defence=0, monster_level=0, monster_type=2, 
                                description="""Clumsy, stinking, brainless... those damn zombies! Ugh, one 
                                just dropped its liver. DISGUSTANG! Well, brainless for now - it wants your 
                                brainzzz! Now protect it or 
@@ -399,33 +399,15 @@ class CreateDefaultsInAgony(View):
                                Hey, why those skull turned into my direction? Oh hell no, why it moves 
                                towards me? Shouldn't it behave nicely and just stay dead?""")
         
-        Monster.objects.create(name='Vegenful Spirit', hp=60, attack=6, defence=6, monster_level=2, monster_type=2,
+        Monster.objects.create(name='Marky Mark the Vegenful Spirit', hp=60, attack=6, defence=6, monster_level=2, monster_type=2,
                                description="""some spirits stay on earth even after death - mostly 
                                because their life was ended by murder or other foul action. 
                                Now you encountered one. Not a pleasant spirit this one is, oh no.""")
         
         #Monster.objects.create(name='Lich', hp=80, attack=15, defence=3, monster_level=3, monster_type=2)
         
-        #Monster.objects.create(name='Vampire', hp=125, attack=6, defence=5, monster_level=4, monster_type=2)
+        #Monster.objects.create(name='Vlad the Bloodthirsty Vampire', hp=125, attack=6, defence=5, monster_level=4, monster_type=2)
 
-        # origins - general
-        #Origin.objects.create(origin_type=0, origin_description="Tired of mundane life, felt call for adventure")
-        #Origin.objects.create(origin_type=0, origin_description="Want to get rich fast, or die trying")
-        #Origin.objects.create(origin_type=0, origin_description="Got lured to adventure by songs of riches and glory")
-        #Origin.objects.create(origin_type=0, origin_description="Broke the law, it's desperate try to clear name")
-
-        # origins - tragic
-        Origin.objects.create(origin_type=0,
-                              origin_description="Got his family murdered, now on a quest to avenge them!")
-        
-        Origin.objects.create(origin_type=0,
-                              origin_description="Murdered a lot of people, now running away from law enforcement!")
-        
-        Origin.objects.create(origin_type=0, origin_description="Got set up in criminal activity, it's a way to repent")
-
-        # default user creation
-        #User.objects.create(username='abc', password1='12345678', password2='12345678')
-        #User.objects.create(username='xyz', password1='12345678', password2='12345678')
 
         #0 - escape-able monster encounter
         Event.objects.create(name='Avoidable_fight', event_type=0, event_description="""Your Hero encountered Monster, now stand and fight it! 
@@ -463,4 +445,21 @@ class CreateDefaultsInAgony(View):
         return redirect('AGONy_index')  #, {'message': message})
 
     
+
+        # origins - general
+        #Origin.objects.create(origin_type=0, origin_description="Tired of mundane life, felt call for adventure")
+        #Origin.objects.create(origin_type=0, origin_description="Want to get rich fast, or die trying")
+        #Origin.objects.create(origin_type=0, origin_description="Got lured to adventure by songs of riches and glory")
+        #Origin.objects.create(origin_type=0, origin_description="Broke the law, it's desperate try to clear name")
+
+        # origins - tragic 
+        """
+        Origin.objects.create(origin_type=0,
+                              origin_description="Got his family murdered, now on a quest to avenge them!")
+        
+        Origin.objects.create(origin_type=0,
+                              origin_description="Murdered a lot of people, now running away from law enforcement!")
+        
+        Origin.objects.create(origin_type=0, origin_description="Got set up in criminal activity, it's a way to repent")
+        """
     
