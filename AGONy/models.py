@@ -122,8 +122,8 @@ class Event(models.Model):
         (6, 'Healing Encounter') #ust like a trap encounter - but beneficial        
     ]
 
-    name = models.CharField(max_length=100)
-    event_description = models.CharField(max_length=200)
+    name = models.CharField(max_length=100, default='Event')
+    event_description = models.CharField(max_length=200, null=True, blank=True)
     event_type = models.IntegerField(choices=EVENT_TYPE, default=0)
 
     event_event_image = models.ManyToManyField(EventImage, through='EventEventImage', blank=True, null=True)
@@ -132,6 +132,11 @@ class Event(models.Model):
 
     def __str__(self):
         return f"{self.name}"
+
+
+class EventEventImage(models.Model):
+    monster = models.ForeignKey(Event, on_delete=models.CASCADE)
+    monster_image = models.ForeignKey(EventImage, on_delete=models.CASCADE)
 
 
 class CurrentEvent(models.Model):

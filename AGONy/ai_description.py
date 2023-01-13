@@ -1,0 +1,9 @@
+"""
+Goblin:
+
+1 "[""\n\n- Little, nasty green creature, filled with hate and hunger - looks like it wants to be its next meal! Gremlin: Nasty, little green creature with a long tail that lives in the dark - has the power to transform itself into a bird and cause all sorts of trouble\n\nNasty, little green creature with a long tail that lives in the dark - has the power to transform itself into a bird and cause all sorts of trouble Troll: Unless you're stronger and bigger, you won't be safe from the hungry troll"", ""\n\nAngry\n\nangry (adj): feeling or showing anger\n\nExamples:\n\nEnraged: That drunk driver made me so angry!\n\nThat drunk driver made me so angry! Scared: I was so scared of getting in trouble that I didn't say anything even though I knew I should"", ""\n\nI was so scared of getting in trouble that I didn't say anything even though I knew I should"", '']"
+2 "['\n\nSo, you get the picture', '\n\nHere is a little more about the game:\n\nBattles use dice to determine chance of success, but each battle is ""dueling"" style where each player takes their turn', '\n\nPlayers are able to make friendships with other players and their armies, which can give their army certain benefits', '\n\nPlayers can also climb up ranks', '\n\nTiered spells', '\n\nNumerous types of units, but only two active units are in play at a given time', '\n\nI hope this helps', '']"
+3 "['\n\nThe Goblin looks like it wants to be his next meal', ' The Goblin is a small, nasty creature, filled with hate and hunger', ' It is green, and looks like it wants to be its next meal', ' The Goblin carries a large, deadly axe', ' It is fast, and will kill the hero with his weapon', "" The Goblin's next meal will be the hero"", '']"
+4 "[' Hiding in the woods, waiting to attack!\n\nA tall, disgusting creature, with yellow, sharp teeth and pointed nails, looking like it wants to be its next meal! It hides in the woods, waiting to attack!']"
+
+"""
