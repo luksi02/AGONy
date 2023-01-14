@@ -9,3 +9,13 @@ clickedButtons.forEach(function (button) {
     })
 })
 
+const mouseoveredButtons = document.querySelectorAll(".btn")
+
+mouseoveredButtons.forEach(function (button) {
+    button.addEventListener('mouseover', function (event) {
+        console.log('button was mouseovered!')
+    //     rest of the magic should happen here!
+    })
+})
+
+
