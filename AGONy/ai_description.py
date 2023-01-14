@@ -6,4 +6,12 @@ Goblin:
 3 "['\n\nThe Goblin looks like it wants to be his next meal', ' The Goblin is a small, nasty creature, filled with hate and hunger', ' It is green, and looks like it wants to be its next meal', ' The Goblin carries a large, deadly axe', ' It is fast, and will kill the hero with his weapon', "" The Goblin's next meal will be the hero"", '']"
 4 "[' Hiding in the woods, waiting to attack!\n\nA tall, disgusting creature, with yellow, sharp teeth and pointed nails, looking like it wants to be its next meal! It hides in the woods, waiting to attack!']"
 
+
+Event - avoidable_fight
+0
+['\n\nThe warrior with black armor, a red cape and a golden sword ran through the wet forest, dodging trees and jumping over roots', ' A roar sounded in the distance, and the warrior stopped', ' He spun around to see a green dragon, with horns and scales as big as a house, and a tail as long as a football field', " The beast's wings began to flap and it flew towards the warrior", '\n\nThe warrior ran, but the dragon had caught up to him', " The dragon's claws dug into the warrior's back and he let out a grimace", " The dragon's mouth opened wider and it's teeth were bared", '']
+1
+['\n\nYour Hero encountered Monster and now stand and fight it!\nThe battlefield was covered in the blood of your fallen comrades', ' But you are not the type of hero to back down', ' The most powerful opponent you have ever faced is before you', ' You know it is going to be tough', ' But you know you can do it', ' You step forward, and the Monster charges with a dagger in hand', ' You grab your sword and shield, and ready yourself', ' As you clash, you notice that this fight may not be as hard as you thought', ' You are quick, you are strong, and that Monster is nothing more than a bothersome pest', " You slash at the Monster's arm with your sword, and on the second strike, you bring down your shield on the Monster's shoulder", ' You see the Monster pause momentarily, and then in one swift motion, you pull back your blade and stab the Monster in the chest', ' The Monster falls to the ground, defeated', ' You are victorious', ' You are']
+
+
 """

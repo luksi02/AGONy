@@ -4,6 +4,7 @@
     <table class="table">
         <tr>
             <th>#</th>
+            <th>Event name</th>
             <th>Event description</th>
             <th>Type</th>
 
@@ -13,8 +14,14 @@
             <tr class="{% cycle 'table-light' 'table-secondary'%}">
 
                 <td>{{ forloop.counter }}</td>
-                <td><a href="{% url 'AGONy_update_event' event.id %}">{{ event.event_name }}</a></td>
+                <td><a href="{% url 'AGONy_detail_event' event.id %}">{{ event.name }}</a></td>
+                <td>{{ event.event_description }}</td>
                 <td>{{ event.event_type }}</td>
+
+                <td><a href="{% url 'AGONy_update_event' event.id %}">Update</a></td>
+                <td><a href="{% url 'AGONy_create_event_image_AI' event.id %}">Create AI Image</a></td>
+                <td><a href="{% url 'AGONy_create_event_description' event.id %}">Create AI Description</a></td>
+
 
             </tr>
         {% endfor %}

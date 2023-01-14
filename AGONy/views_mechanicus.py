@@ -20,7 +20,7 @@ from gra.settings import MEDIA_ROOT
 from .openai_apikey import OPENAI_API_KEY
 
 from AGONy.models import Hero, Monster, Stage, Event, Origin, AliveMonster, Journey, CurrentEvent, \
-    MonsterAIDescription, MonsterImage  # , JourneyEntry, FightEntry #Game,
+    MonsterAIDescription, MonsterImage, EventAIDescription  # , JourneyEntry, FightEntry #Game,
 from AGONy.forms import HeroCreateForm, MonsterCreateForm, CreateUserForm, LoginForm, OriginCreateForm, EventCreateForm
 
 
@@ -280,7 +280,7 @@ class CreateMonsterDescriptionByAI(View):
             text_of_description=f"write an absurd, fantasy and heroic description of horrible monster, named {monster.name} that our brave hero encountered and have to defeat! The monter can be described as: {monster.description}"
             input_text = text_of_description
             description_by_AI = agony3(request, text_of_description)
-            MonsterAIDescription.objects.create(name=monster.name, monster_AI_description=description_by_AI)
+            MonsterAIDescription.objects.create(name=f'{monster.name}{i}', monster_AI_description=description_by_AI)
         url = reverse('AGONy_index')
         return redirect(url)
 
@@ -301,7 +301,46 @@ class CreateMonsterImageByAI(View):
             print(image_url)
             now = datetime.now()
             date_string = now.strftime("%Y_%m_%d_%H_%M_%S")
-            dalle_output_dir = f"/home/luksi02/DALL_E/{monster.name}" + date_string + ".png"
+            dalle_output_dir = f"/home/luksi02/DALL_E/monsters/{monster.name}/{monster.name}{i}" + date_string + ".png"
+            #dalle_output_dir = MEDIA_ROOT + f"/monster_images/uploaded/{monster.name}" + date_string + ".png"
+            urllib.request.urlretrieve(image_url, dalle_output_dir)
+            #MonsterImage.objects.create(name=monster.name, monster_image=dalle_output_dir) - this won't work, not yet anyway at least
+        url = reverse('AGONy_index')
+        return redirect(url)
+
+
+class CreateEventDescriptionByAI(View):
+
+    def get(self, request, pk):
+        event = Event.objects.get(pk=pk)
+        for i in range (0,2):
+            print(i)
+
+            text_of_description=f"write an absurd, fantasy and heroic description event happening to a brave hero on his quest for fame and glory. The event can be described as: {event.event_description}"
+            input_text = text_of_description
+            description_by_AI = agony3(request, text_of_description)
+            EventAIDescription.objects.create(name=f'{event.name}{i}', event_AI_description=description_by_AI)
+        url = reverse('AGONy_index')
+        return redirect(url)
+
+
+class CreateEventImageByAI(View):
+
+    def get(self, request, pk):
+        event = Event.objects.get(pk=pk)
+        prompt_text = f"an absurd, fantasy and heroic image of event happening to a brave hero on his quest for fame and glory. The event can be described as: {event.event_description}"
+        for i in range(0, 1):
+            openai.api_key = OPENAI_API_KEY
+            response = openai.Image.create(
+                prompt=prompt_text,
+                n=1,
+                size="1024x1024"
+            )
+            image_url = response['data'][0]['url']
+            print(image_url)
+            now = datetime.now()
+            date_string = now.strftime("%Y_%m_%d_%H_%M_%S")
+            dalle_output_dir = f"/home/luksi02/DALL_E/events/{event.name}/{event.name}{i}" + date_string + ".png"
             #dalle_output_dir = MEDIA_ROOT + f"/monster_images/uploaded/{monster.name}" + date_string + ".png"
             urllib.request.urlretrieve(image_url, dalle_output_dir)
             #MonsterImage.objects.create(name=monster.name, monster_image=dalle_output_dir) - this won't work, not yet anyway at least
