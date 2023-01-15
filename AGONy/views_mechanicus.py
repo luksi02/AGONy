@@ -301,7 +301,7 @@ class CreateMonsterImageByAI(View):
             print(image_url)
             now = datetime.now()
             date_string = now.strftime("%Y_%m_%d_%H_%M_%S")
-            dalle_output_dir = f"/home/luksi02/DALL_E/monsters/{monster.name}/{monster.name}{i}" + date_string + ".png"
+            dalle_output_dir = f"/home/luksi02/DALL_E/monsters/{monster.name}{i}" + date_string + ".png"
             #dalle_output_dir = MEDIA_ROOT + f"/monster_images/uploaded/{monster.name}" + date_string + ".png"
             urllib.request.urlretrieve(image_url, dalle_output_dir)
             #MonsterImage.objects.create(name=monster.name, monster_image=dalle_output_dir) - this won't work, not yet anyway at least
