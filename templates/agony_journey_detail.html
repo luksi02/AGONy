@@ -34,8 +34,10 @@
                 <td>{{ currentEvent.event_name }}</td>
 
                 {% if currentEvent.event_type is 0 %} <!-- avoidable fight -->
-                    <td><a class='btn btn-danger' id='Fight' href="{% url 'AGONy_create_game_for_hero' journey.hero.id %}">Fight with Monster!</a></td>
-                    <td><a class='btn btn-warning' id='Run_away' href="{% url 'AGONy_run_away' journey.next_day.id %}">Oh shit, run away!</a></td>
+                    <td><a class='btn btn-danger' id='Fight' title="Send your hero to fight the monster!"
+                           href="{% url 'AGONy_create_game_for_hero' journey.hero.id %}">Fight with Monster!</a></td>
+                    <td><a class='btn btn-warning' id='Run_away' title="Try to run, you have 50% chance to escape the monster!"
+                           href="{% url 'AGONy_run_away' journey.next_day.id %}">Oh shit, run away!</a></td>
                 {% endif %}
 
                 {% if currentEvent.event_type is 1 %} <!-- loot encounter -->

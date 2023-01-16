@@ -145,7 +145,7 @@ class CurrentEvent(models.Model):
 
     @property
     def event_name(self):
-        return self.current_event.event_name
+        return self.current_event.name
 
     @property
     def event_description(self):

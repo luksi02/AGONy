@@ -23,9 +23,10 @@
                 <td>{{ hero.defence }}</td>
                 <td>{{ hero.gold }}</td>
                 {% if hero.hp > 0 %}
-                    <td><a class="btn btn-outline-primary" href="{% url 'AGONy_create_journey_for_hero' hero.id %}">To Journey!</a></td>
+                    <td><a class="btn btn-outline-primary" title="Send your hero on a quest for prode and glory!"
+                           href="{% url 'AGONy_create_journey_for_hero' hero.id %}">To Journey!</a></td>
                 {% else %}
-                    <td><button class="btn btn-outline-danger">DEAD!</button></td>
+                    <td><button class="btn btn-outline-danger" title="The hero is dead, that's end for his journey!">DEAD!</button></td>
                 {% endif %}
             </tr>
         {% endfor %}
