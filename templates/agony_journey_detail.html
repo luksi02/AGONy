@@ -41,28 +41,35 @@
                 {% endif %}
 
                 {% if currentEvent.event_type is 1 %} <!-- loot encounter -->
-                    <td><a class='btn btn-danger' id='Take_loot' href="{% url 'AGONy_found_something' journey.next_day.id %}">Take it!</a></td>
+                    <td><a class='btn btn-danger' id='Take_loot' title="Great! You found something valauble! Now grab it!"
+                           href="{% url 'AGONy_found_something' journey.next_day.id %}">Take it!</a></td>
                 {% endif %}
 
                 {% if currentEvent.event_type is 2 %} <!-- unavoidable trap encounter -->
-                    <td><a class='btn btn-danger' id='Trap' href="{% url 'AGONy_trap' journey.next_day.id %}">Get free and move along</a></td>
+                    <td><a class='btn btn-danger' id='Trap' title="That's gonna hurt!"
+                           href="{% url 'AGONy_trap' journey.next_day.id %}">Get free and move along</a></td>
                 {% endif %}
 
                 {% if currentEvent.event_type is 3 %} <!-- empty encounter -->
-                    <td><a class='btn btn-danger' id='Empty' href="{% url 'AGONy_journey_detail' journey.next_day.id %}">Venture forth!</a></td>
+                    <td><a class='btn btn-danger' id='Empty' title="Rest for a while and then move on!"
+                           href="{% url 'AGONy_journey_detail' journey.next_day.id %}">Venture forth!</a></td>
                 {% endif %}
                 
                 {% if currentEvent.event_type is 4 %} <!-- unavoidable fight -->
-                    <td><a class='btn btn-danger' id='Fight' href="{% url 'AGONy_create_game_for_hero' journey.hero.id %}">Fight with Monster!</a></td>
+                    <td><a class='btn btn-danger' id='Fight' title="Send your hero to fight the monster!"
+                           href="{% url 'AGONy_create_game_for_hero' journey.hero.id %}">Fight with Monster!</a></td>
                 {% endif %}
                 
                 {% if currentEvent.event_type is 5 %} <!-- visitable-fight-encounter, or avoidable --> 
-                    <td><a class='btn btn-danger' id='Fight' href="{% url 'AGONy_create_game_for_hero' journey.hero.id %}">Explore!</a></td>
-                    <td><a class='btn btn-warning' id='Move_on' href="{% url 'AGONy_journey_detail' journey.next_day.id %}">Venture forth!</a></td>
+                    <td><a class='btn btn-danger' id='Explore_crypt' title="Search the crypt!"
+                           href="{% url 'AGONy_create_game_for_hero' journey.hero.id %}">Explore!</a></td>
+                    <td><a class='btn btn-warning' id='Move_on' title="Leave the crypt alone and move on!"
+                           href="{% url 'AGONy_journey_detail' journey.next_day.id %}">Venture forth!</a></td>
                 {% endif %}
                 
                 {% if currentEvent.event_type is 6 %} <!-- healing encounter -->
-                    <td><a class='btn btn-danger' id='Heal' href="{% url 'AGONy_heal' journey.next_day.id %}">Rest for a while</a></td>
+                    <td><a class='btn btn-danger' id='Heal' title="Enjoy the perfect spot and gather your strength before moving on!"
+                           href="{% url 'AGONy_heal' journey.next_day.id %}">Rest for a while</a></td>
                 {% endif %}
 
             </tr>
