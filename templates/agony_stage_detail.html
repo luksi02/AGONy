@@ -39,10 +39,10 @@
                     <td>YOUR HERO DIED!</td>
                 {% else %}
                     {% if aliveMonster.current_hp > 0 %}
-                    <td><a class='btn btn-danger' href="{% url 'AGONy_attack_monster' aliveMonster.id stage.hero.id %}">Attack!</a></td>
+                    <td><a class='btn btn-danger' title='Hit that ugly monster!' href="{% url 'AGONy_attack_monster' aliveMonster.id stage.hero.id %}">Attack!</a></td>
                     {% endif %}
                     {% if aliveMonster.current_hp < 1 %}
-                    <td><a class='btn btn-danger' href="{% url 'AGONy_return_to_journey' stage.hero.id %}">Return to journey!</a></td>
+                    <td><a class='btn btn-danger' title='Get back to your quest for fame and glory!' href="{% url 'AGONy_return_to_journey' stage.hero.id %}">Return to journey!</a></td>
                     {% endif %}
                 {% endif %}
             </tr>
