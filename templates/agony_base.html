@@ -10,7 +10,7 @@
     <link href="{% static 'bootstrap-5.2.2-dist/css/bootstrap.css' %}" rel="stylesheet">
     <link href="{% static 'my_nav_bar.css' %}" rel="stylesheet">
 </head>
-<body>
+<body style="background-image: url('{% static "dungeon_entrance_2.jpg" %}'); background-position: center ; background-repeat: no-repeat; background-size: 1200px 900px">
 
 <div class="topnav">
 
@@ -45,7 +45,6 @@
 
     {% endif %}
 
-
 </div>
 <div class="container" style="color: darkred" align="center">
 
@@ -58,12 +57,14 @@
     <!-- <div>Truth will set you free!</div> -->
     <div class="btn btn-outline-primary" id="Reveal_button" title="Truth will set you free!">Reveal the Truth!</div>
 
-    {% block content %}
-        <style>
+    <style>
         body {
         background-image: url('{% static "dungeon_entrance_2.jpg" %}'); background-position: center ; background-repeat: no-repeat; background-size: 1200px 900px
         }
-        </style>
+    </style>
+
+    {% block content %}
+
 
         <h1 id="text-input">AGONy</h1>
 
