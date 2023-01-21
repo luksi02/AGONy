@@ -7,17 +7,39 @@
 
     <hr>
     <div>
-
-    <br>
-
     {% for image in object.monster_monster_image.all %}
         {{ image }} Object number  - mambo_no1 <hr>
     {{ image.monster_image.url }} Url to image - mambo_no3 <hr>
         <img src="{{ image.monster_image.url }}" alt="Error!, but mambo_no6"> <hr>
-
-    <br>
+    <hr>
     {% endfor %}
-
     </div>
-    
+
+    <!-- SLIDER -->
+    <section class="padding-large bg-light">
+        <div id="carouselExampleControls" class="carousel slide main-slider" data-ride="carousel">
+            <div class="carousel-inner container">
+                {% for image in object.monster_monster_image.all %}
+                    <div class="carousel-item {% if forloop.first %} active {% endif %}">
+                        <div class="container w-75 d-flex">
+                            <div class="carousel-caption d-block">
+                                <h1>{{ image.name }}</h1>
+                                <h2>{{ image.monster_image.url }}</h2>
+                                <img src="{{ image.monster_image.url }}" alt="Error!, but mambo_no6">
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </section>
+    <!-- SLIDER -->
 {% endblock %}

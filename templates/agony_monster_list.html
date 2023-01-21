@@ -1,6 +1,50 @@
 {% extends 'agony_base.html' %}
 {% block content %}
 
+              <!-- SLIDER -->
+    <section class="padding-large bg-light" id="monsterSlider">
+        <div id="carouselExampleControls" class="carousel slide main-slider" data-ride="carousel">
+            <div class="carousel-inner container">
+                {% for monster in object_list %}
+                    <div class="carousel-item {% if forloop.first %} active {% endif %}">
+                        <div class="container w-75 d-flex">
+                            <div class="carousel-caption d-block">
+
+                                <h6>{{ forloop.counter }}</h6>
+                                <h1><a href="{% url 'AGONy_detail_monster' monster.id %}">{{ monster.name }}</a></h1>
+                                <h3>{{ monster.description }}</h3>
+                                <h5><img src="{{ image.monster_image.url }}" alt="Error!, but mambo_no6 - this should be an image!"></h5>
+
+                                <h5>Monster's HP: {{ monster.hp }}</h5>
+                                <h5>Monster's attack: {{ monster.attack }}</h5>
+                                <h5>Monster's defence: {{ monster.defence }}</h5>
+                                <!-- <h5>Monster's level: {{ monster.monster_level }}</h5> needs fixing the display! -->
+                                <!-- <h5>Monster's type: {{ monster.monster_type }}</h5> -->
+                                <h5>Monster's carried gold: {{ monster.monsters_gold }}</h5>
+
+                                {% if user.is_authenticated %} <!-- user.is_superuser -->
+                                    <h6><a href="{% url 'AGONy_update_monster' monster.id %}">Update</a></h6>
+                                    <h6><a href="{% url 'AGONy_create_monsters_image_AI' monster.id %}">Create AI Image</a></h6>
+                                    <h6><a href="{% url 'AGONy_create_monsters_description' monster.id %}">Create AI Description</a></h6>
+                                {% endif %} <!-- user.is_superuser -->
+
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </section>
+    <!-- SLIDER -->
+
     <table class="table">
         <tr>
             <th>#</th>

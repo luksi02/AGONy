@@ -20,10 +20,12 @@ from django.conf import settings
 from django.views.static import serve
 from django.conf.urls.static import static
 
+from AGONy.views_defaults import CreateDefaultsInAgony
+
 from AGONy.views import (AGONyIndexView, AGONyWorkInProgress, CreateHeroInAgony,
                          CreateMonsterInAgony, Leaderboard, UpdateHeroInAgony, MonstersInAgonyList,
-                         UpdateMonsterInAgony, CreateDefaultsInAgony,
-                         CreateUserView, LoginView, LogoutView, MyHeroesInAgonyList, CreateEventInAgony,
+                         UpdateMonsterInAgony, CreateUserView, LoginView, LogoutView, MyHeroesInAgonyList,
+                         CreateEventInAgony,
                          EventsInAgonyList, UpdateEventInAgony, ContactView, CreateCommentView, CommentListView,
                          CreateOriginOfAgony, OriginsOfAgonyList, CreateMonstersImage, MonsterImageList,
                          DetailMonsterInAgony, DetailEventInAgony
@@ -120,11 +122,14 @@ urlpatterns = [
     path('AGONy_login/', LoginView.as_view(), name='AGONy_login'),
     path('AGONy_logout/', LogoutView.as_view(), name='AGONy_logout'),
 
-] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
+] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT) #manages/serves images in ImageFields
 
-"""if settings.DEBUG:
+"""NO LONGER VALID:
+
+if settings.DEBUG:
     urlpatterns += [
         path(r'^media/(?P<path>.*)$', serve, {
             'document_root': settings.MEDIA_ROOT,
         }),
-    ]"""
+    ]
+"""
