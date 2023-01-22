@@ -170,3 +170,12 @@ class CreateDefaultsInAgony(View):
         Origin.objects.create(origin_type=0, origin_description="Got set up in criminal activity, it's a way to repent")
         """
     
+"""['\n\nHonestly, I knew that I would have to do some work someday to earn my fame, but I never
+ imagined how hard it would be', ' Today I met my first Monster', ' But not just any monster: 
+ it was an evil pig', " I don't know how it got here but I had the perfect plan, I would outsmart it by
+  using my cat, the purrfect weapon to take out a pig", ' I reached into my inventory, whipped out my 
+  cat, and it knocked the pig into the nearest tree', ' Success!\n\nThe pig just barely got 
+  up and looked at me', ' "Must be nice to have a cat for a weapon, eh? You\'ll see who\'s better 
+  in a fight with a mustache like mine', '"\n\nThe pig charged at me and I opened the inventory 
+  again and got out the boomerang to attack', ' The boomerang hit the pig in the face and 
+  knocked it over', ' I was so excited that I screamed and ran up to grab'] """
