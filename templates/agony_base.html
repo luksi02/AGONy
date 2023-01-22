@@ -36,7 +36,7 @@
     <a class="bg-secondary" href="{% url 'AGONy_create_event' %}">Create Event</a>
     <a class="bg-secondary" href="{% url 'AGONy_event_list' %}">Events in AGONy</a>
 
-    <!--<a class="bg-secondary" href="{% url 'AGONy_create_origin' %}">Create Origin</a>
+    <!--<a class="bg-secondary" href="{% url 'AGONy_create_origin' %}">Create Origin</a>  Not gonna use that for a while...
     <a class="bg-secondary" href="{% url 'AGONy_origin_list' %}">Origins of AGONy</a>-->
 
     {% endif %}
@@ -65,7 +65,8 @@
     <p> {{ message }} </p>
 
     <!-- <div>Truth will set you free!</div> -->
-    <div class="btn btn-outline-primary" id="Reveal_button" title="Truth will set you free!">Reveal the Truth!</div>
+    <div class="btn btn-outline-primary" id="Reveal_button"
+         title="Truth will set you free!" onclick="changeBackground()">Reveal the Truth!</div>
 
     <style>
         body {
@@ -75,11 +76,9 @@
 
     {% block content %}
 
-
         <h1 id="text-input">AGONy</h1>
 
         <h2>(Absurd Generator Of Nonsense Journey)</h2>
-
 
 <!--
         <div id="text-input" contenteditable="true" onblur="this.focus()" autofocus>AGONy, but editable?</div>
@@ -89,7 +88,7 @@
 </div>
 
 <script src="{% static 'bootstrap-5.2.2-dist/js/bootstrap.js' %}"></script>
-<script type="module" src="{% static 'js/04_eyes.js' %}"></script>
+{#<script type="module" src="{% static 'js/04_eyes.js' %}"></script>#}
 <script src="{% static 'js/js_main.js' %}"></script>
 
 <!-- Z "jedzonko.app" -->

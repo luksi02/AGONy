@@ -19,5 +19,20 @@ mouseoveredButtons.forEach(function (button) {
     })
 })
 
+const revealButton = document.getElementById("Reveal_button")
+
+// ponizsze nie zadziala bo poniewaz wczesniejsza funkcja to obsluguje
+
+revealButton.addEventListener('onclick', function(){
+    console.log("Reveal_button clicked!")
+})
+
+function changeBackground() {
+        console.log("Reveal_button clicked!")
+        document.body.style.backgroundImage = "url('/static/dungeon_entrance.jpg')";
+        // dziala! great work!
+    }
+
+
 
 

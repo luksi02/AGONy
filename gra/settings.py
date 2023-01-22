@@ -18,6 +18,7 @@ from django.urls import reverse_lazy
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 MEDIA_ROOT = Path(BASE_DIR)/'media'
+STATIC_ROOT = Path(BASE_DIR)/'static'
 
 STATIC_URL = "/static/"
 MEDIA_URL = "/media/"
