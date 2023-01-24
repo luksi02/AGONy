@@ -13,7 +13,7 @@
                             <div class="carousel-caption d-block">
 
                                 <h6>{{ forloop.counter }}</h6>
-                                <h1><a href="{% url 'AGONy_detail_hero' hero.id %}">{{ hero.name }}</a></h1>
+                                <h1><a href="{% url 'AGONy_update_hero' hero.id %}">{{ hero.name }}</a></h1>
                                 <h3>{{ hero.description }}</h3>
                                 <h5><img src="{{ hero.hero_image.url }}" alt="Error!, but mambo_no6 - this should be an image!"></h5>
 
@@ -26,8 +26,8 @@
 
                                 {% if user.is_authenticated %} <!-- user.is_superuser -->
                                     <h6><a href="{% url 'AGONy_update_hero' hero.id %}">Update</a></h6>
-                                    <h6><a href="{% url 'AGONy_create_heros_image_AI' hero.id %}">Create AI Image</a></h6>
-                                    <h6><a href="{% url 'AGONy_create_heros_description' hero.id %}">Create AI Description</a></h6>
+{#                                    <h6><a href="{% url 'AGONy_create_heros_image_AI' hero.id %}">Create AI Image</a></h6>#}
+{#                                    <h6><a href="{% url 'AGONy_create_heros_description' hero.id %}">Create AI Description</a></h6>#}
                                 {% endif %} <!-- user.is_superuser -->
 
                             </div>
