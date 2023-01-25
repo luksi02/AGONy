@@ -4,6 +4,21 @@ from PIL import Image
 from django.db import models
 from django.contrib.auth.models import User
 
+class HeroImage(models.Model):
+    hero_image = models.ImageField(upload_to='hero_images', null=True, blank=True)
+    name = models.CharField(max_length=100, blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.name}"
+
+
+class HeroAIDescription(models.Model):
+    hero_AI_description = models.TextField(max_length=500, blank=True)
+    name = models.CharField(max_length=100, blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.name}"
+
 
 class Hero(models.Model):
     RACE = [
@@ -20,6 +35,12 @@ class Hero(models.Model):
     backstory = models.TextField(blank=True, default='')
     gold = models.IntegerField(default=0)
     owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+
+    description = models.TextField(max_length=500, blank=True, null=True)
+
+    hero_hero_image = models.ManyToManyField(HeroImage, through='HeroHeroImage', blank=True, null=True)
+
+    hero_AI_description = models.ForeignKey(HeroAIDescription, on_delete=models.CASCADE, blank=True, null=True)
 
     # weapon = models.ForeignKey(Weapon, on_delete=models.CASCADE, null=True)
     # armor = models.ForeignKey(Armor, on_delete=models.CASCADE, null=True)
